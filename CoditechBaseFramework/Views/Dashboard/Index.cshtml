@@ -1,0 +1,14 @@
+﻿@using Coditech.Utilities.Helper;
+@using Coditech.Utilities.Constant;
+@using Coditech.Model;
+@{
+    ViewBag.Title = "Dashboard";
+    UserModel userData = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
+    string actionName = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+    string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+}
+<section id="minimal-statistics-bg">
+    <div class="row">
+       
+    </div>
+</section>

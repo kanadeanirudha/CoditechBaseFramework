@@ -1,0 +1,31 @@
+﻿@using Coditech.ViewModel
+@using Coditech.Utilities.Helper;
+@model UserLoginViewModel
+@{
+    //Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewBag.Title = "Unauthorized";
+    string title = System.Convert.ToString(CoditechSetting.ProjectTitle);
+}
+<section class="row flexbox-container">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="col-lg-4 col-md-8 col-10 box-shadow-2 p-0">
+            <div class="card border-grey border-lighten-3 m-0">
+                <div class="card-header border-0">
+                    <div class="card-title text-center">
+                        <div class="p-1">
+                            @title @*<img src="../Images/logo-dark.png" alt="branding logo">*@
+                        </div>
+                    </div>
+                    <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
+                        <span>Unauthorized Access</span>
+                    </h6>
+                </div>
+                @*<div class="card-content">
+                    <div class="card-body">
+                        Unauthorized Access
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</section>
