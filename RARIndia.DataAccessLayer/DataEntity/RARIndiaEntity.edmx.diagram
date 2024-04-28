@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="96360959c0ac4125b05e631ccb690d9e" Name="Diagram1" ZoomLevel="51">
+        <EntityTypeShape EntityType="Coditech.EntityModel.AdminRoleApplicableDetail" Width="1.5" PointX="10.75" PointY="12.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.AdminRoleCentreRight" Width="1.5" PointX="10.5" PointY="8.375" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.AdminRoleMaster" Width="1.5" PointX="8.25" PointY="5.5" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.AdminRoleMenuDetail" Width="1.5" PointX="10.5" PointY="4.125" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.AdminSanctionPost" Width="1.5" PointX="6" PointY="5.5" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.EmployeeDesignationMaster" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GeneralCityMaster" Width="1.5" PointX="0.75" PointY="19.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GeneralCountryMaster" Width="1.5" PointX="0.75" PointY="1.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GeneralDepartmentMaster" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GeneralLocationMaster" Width="1.5" PointX="12.75" PointY="1.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GeneralNationalityMaster" Width="1.5" PointX="5.75" PointY="1.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GeneralRegionMaster" Width="1.5" PointX="12.75" PointY="6.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GeneralTaxGroupMaster" Width="1.5" PointX="5.75" PointY="13" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GeneralTaxGroupMasterDetail" Width="1.5" PointX="8" PointY="12.875" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GeneralTaxMaster" Width="1.5" PointX="5.75" PointY="16.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GeneralTitleMaster" Width="1.5" PointX="7.75" PointY="1.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.OrganisationCentreMaster" Width="1.5" PointX="3" PointY="11.125" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.OrganisationCentrePrintingFormat" Width="1.5" PointX="12.75" PointY="10.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.OrganisationCentrewiseDepartment" Width="1.5" PointX="3" PointY="6.125" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.OrganisationMaster" Width="1.5" PointX="0.75" PointY="12.25" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.UserMainMenuMaster" Width="1.5" PointX="14.75" PointY="1.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.UserMaster" Width="1.5" PointX="14.75" PointY="8.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.UserModuleMaster" Width="1.5" PointX="14.75" PointY="14.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.UserType" Width="1.5" PointX="7.75" PointY="16.625" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.UserNotificationCount" Width="1.5" PointX="9.75" PointY="1.625" />
+        <AssociationConnector Association="Coditech.EntityModel.FK_AdminRoleApplicableDetails_AdminRoleApplicableDetails" />
+        <AssociationConnector Association="Coditech.EntityModel.FKAdminRoleCentreRightsAdminRoleMasterId" />
+        <AssociationConnector Association="Coditech.EntityModel.FKAdminRoleMasterAdminSanctionPostId" />
+        <AssociationConnector Association="Coditech.EntityModel.FkAdminRoleMenuDetailsAdminRoleMasterId" />
+        <AssociationConnector Association="Coditech.EntityModel.FKAdminSanctionPostDepartmentId" />
+        <AssociationConnector Association="Coditech.EntityModel.FKAdminSanctionPostDesignationId" />
+        <AssociationConnector Association="Coditech.EntityModel.FKOrganisationCentreMasterCityId" />
+        <AssociationConnector Association="Coditech.EntityModel.FKOrganisationCentrewiseDepartmentDepartmentId" />
+        <AssociationConnector Association="Coditech.EntityModel.FKGeneralTaxGroupMasterDetailsGeneralTaxGroupMasterId" />
+        <AssociationConnector Association="Coditech.EntityModel.FKGeneralTaxGroupMasterDetailsGeneralTaxMasterId" />
+        <AssociationConnector Association="Coditech.EntityModel.FKOrganisationCentreMasterOrganisationId" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GymMembershipPlanDurationDetail" Width="1.5" PointX="17.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GymMembershipPlanMaster" Width="1.5" PointX="17.375" PointY="4.75" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GymPaymentTypeMaster" Width="1.5" PointX="17.375" PointY="8.75" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GymPlanDurationMaster" Width="1.5" PointX="10.375" PointY="17.75" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GymUserRegistration" Width="1.5" PointX="17.375" PointY="11.75" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.GymUserTransactionDetail" Width="1.5" PointX="17.375" PointY="17.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

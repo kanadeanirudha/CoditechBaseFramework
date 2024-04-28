@@ -1,0 +1,44 @@
+﻿@using Coditech.ViewModel
+@model GeneralDepartmentListViewModel
+@{
+    Layout = null;
+    string actionName = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+    string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+}
+<div class="row">
+    <div class="col-sm-12 col-md-6">
+        @Html.Partial("~/Views/Shared/Datatable/_DatatableShowResult.cshtml", Model.PageListViewModel.RecordPerPage)
+    </div>
+    <div class="col-sm-12 col-md-6">
+        @Html.Partial("~/Views/Shared/Datatable/_DatatableSearchData.cshtml", Model.PageListViewModel.SearchBy)
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-striped table-bordered column-rendering dataTable" id="DataTables_Table_1" role="grid" aria-describedby="DataTables_Table_1_info" style="width: 1223px;">
+            <thead>
+                <tr role="row">
+                    <th class="sorting" data-columnname="DepartmentName">Department Name</th>
+                    <th class="sorting" data-columnname="DeptShortCode">Department Code</th>
+                    <th class="sorting" data-columnname="PrintShortDesc">Print Short Desc</th>
+                    <th style="width:10%;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model?.GeneralDepartmentList)
+                {
+                <tr>
+                    <td>@item.DepartmentName</td>
+                    <td>@item.DepartmentShortCode</td>
+                    <td>@item.PrintShortDesc</td>
+                    <td style="text-align:center">
+                        <a href="../@controllerName/Edit?departmentId=@item.GeneralDepartmentMasterId" title="Update"><i class="ft-edit-1"></i></a>  |
+                        <a href="../@controllerName/Delete?departmentIds=@item.GeneralDepartmentMasterId" title="Delete"><i class="ft-delete"></i></a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@Html.Partial("~/Views/Shared/Datatable/_DatatablePagination.cshtml", Model.PageListViewModel)

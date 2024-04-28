@@ -1,0 +1,29 @@
+﻿@model int?
+@{
+    string actionName = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+    string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+    Layout = null;
+    List<int> showList = new List<int>();
+    showList.Add(10);
+    showList.Add(25);
+    showList.Add(50);
+    showList.Add(100);
+}
+<div class="dataTables_length" id="DataTables_Table_1_length">
+    <label>
+        Show
+        <select id="DataTables_PageSizeId" onchange="DataTable.LoadList('@controllerName','@actionName')" aria-controls="DataTables_Table_1" class="custom-select custom-select-sm form-control form-control-sm">
+            @foreach (var i in showList)
+            {
+                if (Model == i)
+                {
+                    <option value="@i" selected>@i</option>
+                }
+                else
+                {
+                    <option value="@i">@i</option>
+                }
+            }
+        </select> entries
+    </label>
+</div>

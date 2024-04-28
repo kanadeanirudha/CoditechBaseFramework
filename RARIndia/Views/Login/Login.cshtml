@@ -1,0 +1,73 @@
+﻿@using Coditech.ViewModel
+@using Coditech.Utilities.Helper;
+@model UserLoginViewModel
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewBag.Title = "Login";
+    string title = System.Convert.ToString(RARIndiaSetting.ProjectTitle);
+}
+<section class="row flexbox-container">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="col-lg-4 col-md-8 col-10 box-shadow-2 p-0">
+            <div class="card border-grey border-lighten-3 m-0">
+                <div class="card-header border-0">
+                    <div class="card-title text-center">
+                        <div class="p-1">
+                            @title @*<img src="../Images/logo-dark.png" alt="branding logo">*@
+                        </div>
+                    </div>
+                    <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
+                        <span>Login</span>
+                    </h6>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        @using (Html.BeginForm("Login", "User", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, Model.ErrorMessage, new { @class = "red" })
+                            <fieldset class="form-group position-relative has-icon-left mb-0">
+                                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "User name" })
+                                @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "red" })
+                                <div class="form-control-position" style="margin-top: 12px;">
+                                    <i class="la la-user"></i>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group position-relative has-icon-left">
+                                @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Enter Password" })
+                                @Html.ValidationMessageFor(m => m.Password, null, new { @class = "red" })
+                                <div class="form-control-position" style="margin-top: 12px;">
+                                    <i class="la la-key"></i>
+                                </div>
+                            </fieldset>
+                            @*<div class="form-group row">
+                                    <div class="col-sm-6 col-12 text-center text-sm-left">
+                                        <fieldset>
+                                            <div class="icheckbox_square-blue" style="position: relative;"><input type="checkbox" id="remember-me" class="chk-remember" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                            <label for="remember-me" class=""> Remember Me</label>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm-6 col-12 text-center text-sm-right">
+                                        <a href="https://pixinvent.com/modern-admin-clean-bootstrap-4-dashboard-html-template/html/ltr/horizontal-menu-template-nav/recover-password.html" class="card-link">Forgot Password?</a>
+                                    </div>
+                                </div>*@
+                            <input type="hidden" name="ReturnUrl" value="@Request.QueryString["ReturnUrl"]" />
+                            <button type="submit" class="btn btn-info btn-block"><i class="ft-unlock"></i>Login</button>
+                        }
+                    </div>
+                </div>
+                @*<div class="card-footer">
+                        <div class="">
+                            <p class="float-xl-left text-center m-0">
+                                <a href="https://pixinvent.com/modern-admin-clean-bootstrap-4-dashboard-html-template/html/ltr/horizontal-menu-template-nav/recover-password.html" class="card-link">
+                                    Recover
+                                    password
+                                </a>
+                            </p>
+                            <p class="float-xl-right text-center m-0">New to Moden Admin? <a href="https://pixinvent.com/modern-admin-clean-bootstrap-4-dashboard-html-template/html/ltr/horizontal-menu-template-nav/register-simple.html" class="card-link">Sign Up</a></p>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</section>

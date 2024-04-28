@@ -1,0 +1,31 @@
+﻿@using Coditech.Utilities.Helper;
+@using Coditech.Utilities.Constant;
+@using Coditech.Model;
+@{
+    ViewBag.Title = "Dashboard";
+    UserModel userData = RARIndiaSessionHelper.GetDataFromSession<UserModel>(RARIndiaConstant.UserDataSession);
+    string actionName = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+    string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+}
+<section id="minimal-statistics-bg">
+    <div class="row">
+        @foreach (UserModuleModel item in userData?.ModuleList)
+        {
+            <div class="col-xl-3 col-md-6 col-12">
+                <a  href="/user/GetMenuListByModuleCode?moduleCode=@item.ModuleCode&controllerName=@controllerName&method=@actionName">
+                    <div class="card bg-info">
+                        <div class="card-content">
+                            <div class="card-body" style="padding-top: 33px; padding-bottom: 33px">
+                                <div class="media d-flex">
+                                    <div class="media-body text-white text-center">
+                                        <span>@item.ModuleName</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</section>

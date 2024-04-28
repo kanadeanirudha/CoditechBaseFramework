@@ -1,0 +1,43 @@
+﻿@using Coditech.Model;
+@model string
+@{
+    Layout = null;
+    string notificationStyle = "";
+    MessageBoxModel msgObj = new MessageBoxModel();
+    if (!string.IsNullOrEmpty(Model))
+    {
+        msgObj = string.IsNullOrEmpty(Model) ? null : Newtonsoft.Json.JsonConvert.DeserializeObject<MessageBoxModel>(Model);
+        if (!string.IsNullOrEmpty(msgObj.Message))
+        {
+            switch (msgObj.Type)
+            {
+                case "success":
+                    notificationStyle = "bg-success";
+                    break;
+                case "error":
+                    notificationStyle = "bg-danger";
+                    break;
+                case "info":
+                    notificationStyle = "bg-info";
+                    break;
+                case "warning":
+                    notificationStyle = "bg-warning";
+                    break;
+            }
+
+        }
+    }
+
+    string displayMessage = string.IsNullOrEmpty(@msgObj.Message) ? "display:none" : "";
+}
+<style>
+    .nofitication {
+        text-align: center
+    }
+</style>
+<div class="alert nofitication @notificationStyle" id="notificationDivId" style="@displayMessage">
+    <button type="button" class="close" aria-label="Close" id="notificationCloseId">
+        <span>×</span>
+    </button>
+    <span id="notificationMessageId">@msgObj.Message</span>
+</div>

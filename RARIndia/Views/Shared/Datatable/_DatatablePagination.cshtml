@@ -1,0 +1,46 @@
+﻿@using Coditech.ViewModel
+@model PageListViewModel
+@{
+    Layout = null;
+    string actionName = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+    string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+    int a = Model.Page == 1 ? Model.Page : ((Model.RecordPerPage * (Model.Page - 1)) + 1);
+    int b = Model.Page == 1 ? Model.TotalRecordCount : ((Model.RecordPerPage * (Model.Page - 1)) + Model.TotalRecordCount);
+    string pointerEventFirstPrevious = Model.Page == 1 ? "pointer-events: none" : "";
+    string pointerEventNextLast = Model.TotalPages == Model.Page ? "pointer-events: none" : "";
+}
+<div class="row">
+    @if (Model.TotalResults > 0)
+    {
+        <div class="col-sm-12 col-md-5">
+            <div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing @a to @b of @Model.TotalResults entries</div>
+        </div>
+        <div class="col-sm-12 col-md-7">
+            <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_1_paginate">
+                <ul class="pagination">
+                    <li>
+                        <a onclick="DataTable.LoadListFirst('@controllerName','@actionName')" style="@pointerEventFirstPrevious" class="page-link"><<</a>
+                    </li>
+                    <li>
+                        <a onclick="DataTable.LoadListPrevious('@controllerName','@actionName')" style="@pointerEventFirstPrevious" class="page-link"><</a>
+                    </li>
+                    <li>
+                        <input id="DataTables_PageIndexId" onchange="DataTable.LoadList('@controllerName','@actionName')" type="number" class="form-control form-control-sm" value="@Model.Page" style="height: 33px; width: 60px; padding: 0px; text-align: center; border-left: 0; border-radius: 0px;" max="@Model.TotalPages" min="1">
+                    </li>
+                    <li>
+                        <a onclick="DataTable.LoadListNext('@controllerName','@actionName')" style="@pointerEventNextLast" class="page-link">></a>
+                    </li>
+                    <li>
+                        <a onclick="DataTable.LoadListLast('@controllerName', '@actionName', '@Model.TotalPages')" style="@pointerEventNextLast" class="page-link">>></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-sm-12 col-md-5">
+            <span>No Result found</span>
+        </div>
+    }
+</div>
