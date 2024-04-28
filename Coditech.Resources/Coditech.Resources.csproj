@@ -7,8 +7,8 @@
     <ProjectGuid>{C12B04CC-B8CB-4071-B0BD-914F6818B7DD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CoditechBaseFramework.Resources</RootNamespace>
-    <AssemblyName>CoditechBaseFramework.Resources</AssemblyName>
+    <RootNamespace>Coditech.Resources</RootNamespace>
+    <AssemblyName>Coditech.Resources</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

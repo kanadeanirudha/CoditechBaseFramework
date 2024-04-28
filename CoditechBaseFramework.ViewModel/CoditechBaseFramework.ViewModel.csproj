@@ -61,10 +61,6 @@
       <Project>{7915cb32-11cb-4fb8-a99b-ba8559e1407c}</Project>
       <Name>CoditechBaseFramework.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CoditechBaseFramework.Resources\CoditechBaseFramework.Resources.csproj">
-      <Project>{C12B04CC-B8CB-4071-B0BD-914F6818B7DD}</Project>
-      <Name>CoditechBaseFramework.Resources</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

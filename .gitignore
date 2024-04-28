@@ -26,3 +26,5 @@
 /CoditechBaseFramework.ViewModel/CoditechBaseFramework.ViewModel.csproj.user
 /CoditechBaseFramework.BusinessLogicLayer/CoditechBaseFramework.BusinessLogicLayer.csproj.user
 /CoditechBaseFramework/.vs
+/Coditech.Resources/bin/Debug
+/Coditech.Resources/obj

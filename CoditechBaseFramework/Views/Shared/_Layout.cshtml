@@ -2,9 +2,9 @@
 @using Coditech.Utilities.Constant;
 @using Coditech.Model;
 @{
-    string title = System.Convert.ToString(RARIndiaSetting.ProjectTitle);
+    string title = System.Convert.ToString(CoditechSetting.ProjectTitle);
     string messageData = Convert.ToString(TempData["Notifications"]);
-    UserModel userData = RARIndiaSessionHelper.GetDataFromSession<UserModel>(RARIndiaConstant.UserDataSession);
+    UserModel userData = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
     TempData.Remove("Notifications");
 }
 <!DOCTYPE html>

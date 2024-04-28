@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 
+using Coditech.Model;
 using Coditech.Utilities.Filters;
+using Coditech.ViewModel;
 
 namespace Coditech
 {
@@ -9,6 +11,7 @@ namespace Coditech
         public static void Execute()
         {
             Mapper.CreateMap<FilterTuple, FilterDataTuple>();
+            Mapper.CreateMap<UserModel, UserLoginViewModel>().ReverseMap();
         }
     }
 }

@@ -100,6 +100,10 @@
     <Compile Include="Repository\CoditechViewRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Coditech.Resources\Coditech.Resources.csproj">
+      <Project>{c12b04cc-b8cb-4071-b0bd-914f6818b7dd}</Project>
+      <Name>Coditech.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CoditechBaseFramework.ExceptionManager\CoditechBaseFramework.ExceptionManager.csproj">
       <Project>{1C75BBB9-8DCB-43CA-A17C-D2543E3AA367}</Project>
       <Name>CoditechBaseFramework.ExceptionManager</Name>
@@ -107,10 +111,6 @@
     <ProjectReference Include="..\CoditechBaseFramework.Model\CoditechBaseFramework.Model.csproj">
       <Project>{7915cb32-11cb-4fb8-a99b-ba8559e1407c}</Project>
       <Name>CoditechBaseFramework.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CoditechBaseFramework.Resources\CoditechBaseFramework.Resources.csproj">
-      <Project>{C12B04CC-B8CB-4071-B0BD-914F6818B7DD}</Project>
-      <Name>CoditechBaseFramework.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\CoditechBaseFramework.Utilities\CoditechBaseFramework.Utilities.csproj">
       <Project>{A8672FD6-1531-4A8D-A295-833E8E1C7D35}</Project>
