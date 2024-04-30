@@ -164,9 +164,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\biorad-logo.svg" />
+    <Content Include="Content\Images\main-bg-v3.jpg" />
     <Content Include="Content\Images\main-bg.png" />
     <Content Include="Content\Images\med-main-bg.jpg" />
     <Content Include="Content\Images\no-image.jpg" />
+    <Content Include="Content\Images\qr-code-dummy.png" />
     <Content Include="Content\style.css" />
     <Content Include="fonts\poppins\poppins-v5-latin-regular.svg" />
     <Content Include="fonts\poppins\roboto-condensed-v16-latin-regular.svg" />

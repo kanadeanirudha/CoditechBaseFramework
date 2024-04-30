@@ -1,24 +1,18 @@
 @font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  src: url("./fonts/poppins/poppins-v5-latin-regular.eot");
-  /* IE9 Compat Modes */
-  src: local("Poppins Regular"), 
-  local("Poppins-Regular"), 
-  url("./fonts/poppins/poppins-v5-latin-regular.eot?#iefix") 
-  format("embedded-opentype"), url("./fonts/poppins/poppins-v5-latin-regular.woff2") format("woff2"), url("./fonts/poppins/poppins-v5-latin-regular.woff") format("woff"), url("./fonts/poppins/poppins-v5-latin-regular.ttf") format("truetype"), url("./fonts/poppins/poppins-v5-latin-regular.svg#Poppins") format("svg");
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/poppins/poppins-v5-latin-regular.eot");
+    /* IE9 Compat Modes */
+    src: local("Poppins Regular"), local("Poppins-Regular"), url("../fonts/poppins/poppins-v5-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-regular.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-regular.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-regular.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-regular.svg#Poppins") format("svg");
 }
 @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: url("./fonts/poppins/roboto-condensed-v16-latin-regular.eot");
-  /* IE9 Compat Modes */
-  src: local("Roboto Regular"), 
-  local("Roboto-Regular"), 
-  url("./fonts/poppins/roboto-condensed-v16-latin-regular.eot?#iefix") 
-  format("embedded-opentype"), url("./fonts/poppins/roboto-condensed-v16-latin-regular.woff2") format("woff2"), url("./fonts/poppins/roboto-condensed-v16-latin-regular.woff") format("woff"), url("./fonts/poppins/roboto-condensed-v16-latin-regular.ttf") format("truetype"), url("./fonts/poppins/roboto-condensed-v16-latin-regular.svg#Roboto") format("svg");
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/poppins/roboto-condensed-v16-latin-regular.eot");
+    /* IE9 Compat Modes */
+    src: local("Roboto Regular"), local("Roboto-Regular"), url("../fonts/poppins/roboto-condensed-v16-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/roboto-condensed-v16-latin-regular.woff2") format("woff2"), url("../fonts/poppins/roboto-condensed-v16-latin-regular.woff") format("woff"), url("../fonts/poppins/roboto-condensed-v16-latin-regular.ttf") format("truetype"), url("../fonts/poppins/roboto-condensed-v16-latin-regular.svg#Roboto") format("svg");
 }
 
 header.main-header-wrapper {
@@ -39,10 +33,6 @@ footer.footer-wrapper {
 body{
     margin: 0;
     padding: 0;
-    background: url('../Content/Images/main-bg.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     height: 100vh;
     font-family: 'Poppins', sans-serif;
 	overflow: hidden;
@@ -146,6 +136,19 @@ button.login-btn{
 	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
+.signIn-wrapper {
+    width: 100%;
+}
+
+.login-wrapper {
+    height: 100%;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+/*ListPage CSS*/
 .list-wrapper{
 	background: rgba(255, 255, 255, 0.9);
     padding: 50px;
@@ -186,6 +189,8 @@ button.login-btn{
   height: 100%;
   width: 100%;
 }
+
+/*Add New Product CSS*/
 
 .file-upload {
   position: relative;
@@ -229,4 +234,16 @@ footer.footer-wrapper p{
 }
 .profile-navigation a i{
 	color:#ffd83d !important;
+}
+.gap-10{
+    gap:10px;
+}
+.download-qr i{
+    font-size:30px;
+}
+.theme-color {
+    color: #ffd83d !important;
+}
+.required{
+    color:#f70202;
 }

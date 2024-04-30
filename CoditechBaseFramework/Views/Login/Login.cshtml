@@ -6,9 +6,9 @@
     ViewBag.Title = "Login";
     string title = System.Convert.ToString(CoditechSetting.ProjectTitle);
 }
-<div class="row">
-    <div class="col-lg-3"></div>
-    <div class="col-lg-6 d-flex align-items-center justify-content-center right-side">
+<div class="row mt-3 signIn-wrapper">
+    <div class="col-lg-3 col-xs-12 col-sm-12"></div>
+    <div class="col-lg-6 col-xs-12 col-sm-12 d-lg-flex align-items-center justify-content-center right-side">
         <div class="form-2-wrapper">
             <h1 class="text-center mb-4 font-poppins">Sign In</h1>
             @using (Html.BeginForm("Login", "User", FormMethod.Post))
@@ -49,5 +49,5 @@
             @*<p class="text-center register-test mt-3  base-font-size">Don't have an account? <a href="#" class="text-decoration-none  base-font-size">Register here</a></p>*@
         </div>
     </div>
-    <div class="col-lg-2"></div>
+    <div class="col-lg-3 col-xs-12 col-sm-12"></div>
 </div>
