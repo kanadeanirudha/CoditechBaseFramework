@@ -47,29 +47,29 @@
     <Compile Include="UserMasterBA.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Coditech.Resources\Coditech.Resources.csproj">
+    <ProjectReference Include="..\BioradMedisys.Resources\BioradMedisys.Resources.csproj">
       <Project>{c12b04cc-b8cb-4071-b0bd-914f6818b7dd}</Project>
-      <Name>Coditech.Resources</Name>
+      <Name>BioradMedisys.Resources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CoditechBaseFramework.DataAccessLayer\CoditechBaseFramework.DataAccessLayer.csproj">
+    <ProjectReference Include="..\BioradMedisys.DataAccessLayer\BioradMedisys.DataAccessLayer.csproj">
       <Project>{fd54c9f3-3cb4-4a4c-aae1-df37aa367dd2}</Project>
-      <Name>CoditechBaseFramework.DataAccessLayer</Name>
+      <Name>BioradMedisys.DataAccessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CoditechBaseFramework.ExceptionManager\CoditechBaseFramework.ExceptionManager.csproj">
+    <ProjectReference Include="..\BioradMedisys.ExceptionManager\BioradMedisys.ExceptionManager.csproj">
       <Project>{1C75BBB9-8DCB-43CA-A17C-D2543E3AA367}</Project>
-      <Name>CoditechBaseFramework.ExceptionManager</Name>
+      <Name>BioradMedisys.ExceptionManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CoditechBaseFramework.Model\CoditechBaseFramework.Model.csproj">
+    <ProjectReference Include="..\BioradMedisys.Model\BioradMedisys.Model.csproj">
       <Project>{7915cb32-11cb-4fb8-a99b-ba8559e1407c}</Project>
-      <Name>CoditechBaseFramework.Model</Name>
+      <Name>BioradMedisys.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CoditechBaseFramework.Utilities\CoditechBaseFramework.Utilities.csproj">
+    <ProjectReference Include="..\BioradMedisys.Utilities\BioradMedisys.Utilities.csproj">
       <Project>{a8672fd6-1531-4a8d-a295-833e8e1c7d35}</Project>
-      <Name>CoditechBaseFramework.Utilities</Name>
+      <Name>BioradMedisys.Utilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CoditechBaseFramework.ViewModel\CoditechBaseFramework.ViewModel.csproj">
+    <ProjectReference Include="..\BioradMedisys.ViewModel\BioradMedisys.ViewModel.csproj">
       <Project>{175f4d1e-0f80-439a-bed5-723951b0b477}</Project>
-      <Name>CoditechBaseFramework.ViewModel</Name>
+      <Name>BioradMedisys.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

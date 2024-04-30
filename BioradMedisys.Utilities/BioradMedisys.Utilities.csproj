@@ -69,17 +69,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CoditechBaseFramework.ExceptionManager\CoditechBaseFramework.ExceptionManager.csproj">
+    <ProjectReference Include="..\BioradMedisys.ExceptionManager\BioradMedisys.ExceptionManager.csproj">
       <Project>{1C75BBB9-8DCB-43CA-A17C-D2543E3AA367}</Project>
-      <Name>CoditechBaseFramework.ExceptionManager</Name>
+      <Name>BioradMedisys.ExceptionManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CoditechBaseFramework.Model\CoditechBaseFramework.Model.csproj">
+    <ProjectReference Include="..\BioradMedisys.Model\BioradMedisys.Model.csproj">
       <Project>{7915cb32-11cb-4fb8-a99b-ba8559e1407c}</Project>
-      <Name>CoditechBaseFramework.Model</Name>
+      <Name>BioradMedisys.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CoditechBaseFramework.ViewModel\CoditechBaseFramework.ViewModel.csproj">
+    <ProjectReference Include="..\BioradMedisys.ViewModel\BioradMedisys.ViewModel.csproj">
       <Project>{175F4D1E-0F80-439A-BED5-723951B0B477}</Project>
-      <Name>CoditechBaseFramework.ViewModel</Name>
+      <Name>BioradMedisys.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

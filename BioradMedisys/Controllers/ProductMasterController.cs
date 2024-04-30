@@ -4,6 +4,9 @@ using Coditech.Resources;
 using Coditech.Utilities.Constant;
 using Coditech.ViewModel;
 
+using System.Drawing.Imaging;
+using System.Drawing;
+using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;

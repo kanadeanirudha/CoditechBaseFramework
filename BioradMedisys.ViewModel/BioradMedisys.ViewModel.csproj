@@ -57,9 +57,9 @@
     <Compile Include="ViewModel\Login\UserLoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CoditechBaseFramework.Model\CoditechBaseFramework.Model.csproj">
+    <ProjectReference Include="..\BioradMedisys.Model\BioradMedisys.Model.csproj">
       <Project>{7915cb32-11cb-4fb8-a99b-ba8559e1407c}</Project>
-      <Name>CoditechBaseFramework.Model</Name>
+      <Name>BioradMedisys.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
