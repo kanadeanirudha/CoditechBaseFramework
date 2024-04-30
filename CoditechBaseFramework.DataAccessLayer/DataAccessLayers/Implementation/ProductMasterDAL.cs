@@ -27,16 +27,17 @@ namespace Coditech.DataAccessLayer
             //Bind the Filter, sorts & Paging details.
             PageListModel pageListModel = new PageListModel(filters, sorts, pagingStart, pagingLength);
             ProductMasterListModel listModel = new ProductMasterListModel();
-            List<ProductMaster> productList =   _productMasterRepository.GetEntityList(pageListModel.SPWhereClause)?.ToList();
+            List<ProductMaster> productList = _productMasterRepository.GetEntityList(pageListModel.SPWhereClause)?.ToList();
             listModel.ProductMasterList = new List<ProductMasterModel>();
-            foreach(ProductMaster productMaster in productList)
+            foreach (ProductMaster productMaster in productList)
             {
                 listModel.ProductMasterList.Add(new ProductMasterModel()
                 {
                     ProductMasterId = productMaster.ProductMasterId,
                     ProductName = productMaster.ProductName,
-                    ProductUniqueCode= productMaster.ProductUniqueCode,
-                    IsActive= productMaster.IsActive
+                    ProductUniqueCode = productMaster.ProductUniqueCode,
+                    FileName = productMaster.FileName,
+                    IsActive = productMaster.IsActive
                 });
             }
             listModel.BindPageListModel(pageListModel);
@@ -89,8 +90,16 @@ namespace Coditech.DataAccessLayer
             if (productMasterModel.ProductMasterId < 1)
                 throw new CoditechException(ErrorCodes.IdLessThanOne, string.Format(GeneralResources.ErrorIdLessThanOne, "ProductMasterID"));
 
+            if (IsProductNameAlreadyExist(productMasterModel.ProductName, productMasterModel.ProductMasterId))
+                throw new CoditechException(ErrorCodes.AlreadyExist, string.Format(GeneralResources.ErrorCodeExists, "Country Code"));
+
+            ProductMaster productMasterData = _productMasterRepository.Table.FirstOrDefault(x => x.ProductMasterId == productMasterModel.ProductMasterId);
+            productMasterData.ProductName = productMasterModel.ProductName;
+            productMasterData.IsActive = productMasterModel.IsActive;
+            productMasterData.FileName = string.IsNullOrEmpty(productMasterModel.ProductName) ? productMasterData.FileName : productMasterModel.ProductName;
+
             //Update ProductMaster
-            bool isProductMasterUpdated = _productMasterRepository.Update(productMasterModel.FromModelToEntity<ProductMaster>());
+            bool isProductMasterUpdated = _productMasterRepository.Update(productMasterData);
             if (!isProductMasterUpdated)
             {
                 productMasterModel.HasError = true;
@@ -116,9 +125,10 @@ namespace Coditech.DataAccessLayer
 
         #region Private Method
 
-        //Check if ProductMaster code is already present or not.
-        private bool IsProductNameAlreadyExist(string productName)
-         => _productMasterRepository.Table.Any(x => x.ProductName == productName);
+        //Check if Product Master code is already present or not.
+        private bool IsProductNameAlreadyExist(string productName, int productMasterId = 0)
+             => _productMasterRepository.Table.Any(x => x.ProductName == productName && (x.ProductMasterId != productMasterId || productMasterId == 0));
+
         #endregion
     }
 }

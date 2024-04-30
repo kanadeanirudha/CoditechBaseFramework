@@ -10,6 +10,7 @@ namespace Coditech.ViewModel
         [Display(Name = "Department Name")]
         public string ProductName { get; set; }
         public string ProductUniqueCode { get; set; }
+        public string FileName { get; set; }
         public bool IsActive { get; set; }
     }
 }

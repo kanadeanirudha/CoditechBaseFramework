@@ -21,6 +21,7 @@
                             <tr>
                                 <th>Product Name</th>
                                 <th>Product Unique Code</th>
+                                <th>File Name</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -32,6 +33,7 @@
                                     <tr>
                                         <td>@item.ProductName</td>
                                         <td>@item.ProductUniqueCode</td>
+                                        <td>@item.FileName</td>
                                         <td>
                                             <div class="align-items-center d-flex justify-content-around action-container">
                                                 <a href="../@controllerName/Edit?productMasterId=@item.ProductMasterId" class="action-icon edit-product" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
@@ -50,8 +52,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(function () {
-        $('#ProductTableId').DataTable();
-    });
-</script>

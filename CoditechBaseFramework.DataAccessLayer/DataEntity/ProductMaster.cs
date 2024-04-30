@@ -16,6 +16,7 @@ namespace Coditech.DataAccessLayer.DataEntity
         public int ProductMasterId { get; set; }
         public string ProductName { get; set; }
         public string ProductUniqueCode { get; set; }
+        public string FileName { get; set; }
         public bool IsActive { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

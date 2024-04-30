@@ -17,15 +17,16 @@
                     </a>
                 </div>
                 <div class="form-wrapper">
-                    @using (Html.BeginForm(actionName, controllerName, FormMethod.Post, new { @class = "form form-horizontal" }))
+                    @using (Html.BeginForm(actionName, controllerName, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form form-horizontal" }))
                     {
+                        @Html.HiddenFor(x => x.ProductMasterId)
                         <div class="row mb-lg-4">
                             <div class="col-lg-7 mb-4 mb-lg-0">
                                 <div class="form-3-wrapper">
                                     <div class="form-item-wrapper mb-5">
                                         <label for="product-name" class="form-label">Product Name<span class="required">*</span> :</label>
                                         <div class="form-box mb-4">
-                                            @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control"})
+                                            @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control" })
                                             @Html.ValidationMessageFor(x => x.ProductName, null, new { @class = "red" })
                                         </div>
                                     </div>
@@ -33,12 +34,12 @@
                                         <div class="form-item-wrapper">
                                             <label for="upload-manual" class="form-label">Upload Manual<span class="required">*</span> :</label>
                                             <button class="file-upload btn-set-default btn">
-                                                <input type="file" class="file-input"><i class="fa fa-upload" aria-hidden="true"></i> Upload File
+                                                <input type="file" class="file-input" name="UploadManual" id="UploadManual"><i class="fa fa-upload" aria-hidden="true"></i> Upload File
                                             </button>
                                         </div>
                                         <div class="align-items-center d-flex">
                                             <div class="form-check isActiveCheck">
-                                                <input type="checkbox" class="form-check-input" id="isActive">
+                                                    @Html.CheckBoxFor(x => x.IsActive, new { @class = "form-check-input" })
                                                 <label class="form-check-label base-font-size" for="isActive">Is Active</label>
                                             </div>
                                         </div>

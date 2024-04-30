@@ -4,6 +4,8 @@ using Coditech.Resources;
 using Coditech.Utilities.Constant;
 using Coditech.ViewModel;
 
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Coditech.Controllers
@@ -34,16 +36,33 @@ namespace Coditech.Controllers
         [HttpPost]
         public virtual ActionResult Create(ProductMasterViewModel productMasterViewModel)
         {
+            string errorMessage = string.Empty;
             if (ModelState.IsValid)
             {
-                productMasterViewModel = _productMasterBA.CreateProductMaster(productMasterViewModel);
-                if (!productMasterViewModel.HasError)
+                HttpPostedFileBase postedFile = Request.Files["UploadManual"];
+                if (postedFile.ContentLength > 0 && postedFile.ContentType == "application/pdf")
                 {
-                    SetNotificationMessage(GetSuccessNotificationMessage(GeneralResources.RecordCreationSuccessMessage));
-                    return RedirectToAction<ProductMasterController>(x => x.List(null));
+                    productMasterViewModel.FileName = postedFile.FileName;
+                    productMasterViewModel = _productMasterBA.CreateProductMaster(productMasterViewModel);
+                    if (!productMasterViewModel.HasError)
+                    {
+                        string path = Server.MapPath("~/Uploads/");
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                        SetNotificationMessage(GetSuccessNotificationMessage(GeneralResources.RecordCreationSuccessMessage));
+                        return RedirectToAction<ProductMasterController>(x => x.List(null));
+                    }
+                    errorMessage = productMasterViewModel.ErrorMessage;
+                }
+                else
+                {
+                    errorMessage = "Please upload prouct manual in PDF Format.";
                 }
             }
-            SetNotificationMessage(GetErrorNotificationMessage(productMasterViewModel.ErrorMessage));
+            SetNotificationMessage(GetErrorNotificationMessage(errorMessage));
             return View(createEdit, productMasterViewModel);
         }
 
@@ -58,9 +77,31 @@ namespace Coditech.Controllers
         [HttpPost]
         public virtual ActionResult Edit(ProductMasterViewModel productMasterViewModel)
         {
+            string errorMessage = string.Empty;
             if (ModelState.IsValid)
             {
+                HttpPostedFileBase postedFile = Request.Files["UploadManual"];
+                if (postedFile?.ContentLength > 0)
+                {
+                    if (postedFile.ContentType != "application/pdf")
+                    {
+                        errorMessage = "Please upload prouct manual in PDF Format.";
+                        SetNotificationMessage(GetErrorNotificationMessage(errorMessage));
+                        return View(createEdit, productMasterViewModel);
+                    }
+                    productMasterViewModel.FileName = postedFile.FileName;
+                }
+
                 bool status = _productMasterBA.UpdateProductMaster(productMasterViewModel).HasError;
+                if (postedFile?.ContentLength > 0 && status)
+                {
+                    string path = Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                }
                 SetNotificationMessage(status
                 ? GetErrorNotificationMessage(GeneralResources.UpdateErrorMessage)
                 : GetSuccessNotificationMessage(GeneralResources.UpdateMessage));
