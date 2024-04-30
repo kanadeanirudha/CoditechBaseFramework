@@ -6,6 +6,7 @@
     /* IE9 Compat Modes */
     src: local("Poppins Regular"), local("Poppins-Regular"), url("../fonts/poppins/poppins-v5-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-regular.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-regular.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-regular.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-regular.svg#Poppins") format("svg");
 }
+
 @font-face {
     font-family: 'Roboto';
     font-style: normal;
@@ -19,6 +20,7 @@ header.main-header-wrapper {
     background-color: rgb(6 27 38 / 70%) !important;
     padding: .5rem 1rem;
 }
+
 footer.footer-wrapper {
     background-color: #000 !important;
     padding: .5rem;
@@ -26,54 +28,59 @@ footer.footer-wrapper {
     align-items: center;
     justify-content: center;
 }
+
 .main-content-wrapper {
     height: calc((100vh) - 115px);
     overflow-y: auto;
 }
-body{
+
+body {
     margin: 0;
     padding: 0;
     height: 100vh;
     font-family: 'Poppins', sans-serif;
-	overflow: hidden;
+    overflow: hidden;
 }
 
-.font-poppins{
-	 font-family: 'Poppins';
-}
-.font-roboto{
-	font-family: 'Roboto';
-}
-.base-font-size{
-	font-size:14px;
-}
-*{
-	letter-spacing:0.5px;
-}
-*::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
+.font-poppins {
+    font-family: 'Poppins';
 }
 
-*::-webkit-scrollbar
-{
-	width: 6px;
-	background-color: #F5F5F5;
+.font-roboto {
+    font-family: 'Roboto';
 }
 
-*::-webkit-scrollbar-thumb
-{
-	background-color: #000000;
+.base-font-size {
+    font-size: 14px;
 }
+
+* {
+    letter-spacing: 0.5px;
+}
+
+    *::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+    }
+
+    *::-webkit-scrollbar {
+        width: 6px;
+        background-color: #F5F5F5;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: #000000;
+    }
+
 .form-2-wrapper {
     background: rgba(255, 255, 255, 0.9);
     padding: 50px;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-	flex: 0 0 65%;
+    flex: 0 0 65%;
 }
-input.form-control{
+
+input.form-control {
     width: 100%;
     display: block;
     border: none;
@@ -81,25 +88,29 @@ input.form-control{
     padding: 6px 30px;
     font-family: Poppins;
     box-sizing: border-box;
-	border-radius:0;
+    border-radius: 0;
     background-color: transparent;
 }
-input.form-control:focus{
-    box-shadow: none !important;
-    outline: 0px !important;
-    background-color: transparent;
-}
-button.login-btn{
+
+    input.form-control:focus {
+        box-shadow: none !important;
+        outline: 0px !important;
+        background-color: transparent;
+    }
+
+button.login-btn {
     background: #b400ff;
     color: #fff;
     border: none;
     padding: 10px;
     border-radius: 30px;
 }
-.register-test a{
+
+.register-test a {
     color: #000;
 }
-.social-login button{
+
+.social-login button {
     border-radius: 30px;
 }
 
@@ -107,7 +118,8 @@ button.login-btn{
     top: 10px;
     left: 2px;
 }
-.login-wrapper .btn-set-default, .login-wrapper .btn-set-default:hover, .btn-set-default, .btn-set-default:hover, .listing-wrapper .btn-set-default,  .listing-wrapper .btn-set-default:hover, .add-product-wrapper .btn-set-default,  .add-product-wrapper .btn-set-default:hover{
+
+.login-wrapper .btn-set-default, .login-wrapper .btn-set-default:hover, .btn-set-default, .btn-set-default:hover, .listing-wrapper .btn-set-default, .listing-wrapper .btn-set-default:hover, .add-product-wrapper .btn-set-default, .add-product-wrapper .btn-set-default:hover {
     color: #333333;
     background-color: #ffd83d;
     border-color: #ffd83d;
@@ -125,16 +137,16 @@ button.login-btn{
     margin: 0 5px;
     height: 40px;
     width: 40px;
-	text-decoration:none;
-	color:#333333;
+    text-decoration: none;
+    color: #333333;
 }
 
-.social-container a:hover {
-	color:#333333;
-	text-decoration:none;
-	cursor:pointer;
-	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-}
+    .social-container a:hover {
+        color: #333333;
+        text-decoration: none;
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    }
 
 .signIn-wrapper {
     width: 100%;
@@ -149,101 +161,128 @@ button.login-btn{
 }
 
 /*ListPage CSS*/
-.list-wrapper{
-	background: rgba(255, 255, 255, 0.9);
-    padding: 50px;
+.list-wrapper {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-	flex: 1;
+    flex: 1;
 }
-.list-wrapper .wrapper-header h1 {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 0 !important;
-}
+
+    .list-wrapper .wrapper-header h1 {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 0 !important;
+    }
+
 .table-wrapper table thead {
     background: #333333;
 }
-.table-wrapper table thead tr th {
-    color: #ffd83d;
-    font-size: 14px;
-    letter-spacing: 0.8px;
+
+    .table-wrapper table thead tr th {
+        color: #ffd83d;
+        font-size: 14px;
+        letter-spacing: 0.8px;
+    }
+
+.table-wrapper {
+    max-height: 400px;
+    overflow-y: auto;
 }
-.table-wrapper{
-	max-height:350px;
-	overflow-y: auto;
+
+.table-wrapper .table td, .table-wrapper .table th {
+    padding: 6px 0.75rem;
 }
 
 .form-3-wrapper {
-	flex: 1;
+    flex: 1;
 }
-.form-3-wrapper i.fa {
-    top: 10px;
-    left: 2px;
-}
+
+    .form-3-wrapper i.fa {
+        top: 10px;
+        left: 2px;
+    }
+
 .imageWrapper {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
 }
-.imageWrapper img {
-  height: 100%;
-  width: 100%;
-}
+
+    .imageWrapper img {
+        height: 100%;
+        width: 100%;
+    }
 
 /*Add New Product CSS*/
 
 .file-upload {
-  position: relative;
-  overflow: hidden;
-  -ms-transition: all 0.2s ease;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
-}
-.file-upload:hover {
-  -webkit-box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.75);
-  -moz-box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.75);
-  box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.75);
+    position: relative;
+    overflow: hidden;
+    -ms-transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-.file-upload input.file-input {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  padding: 0;
-  font-size: 20px;
-  cursor: pointer;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  height: 100%;
+    .file-upload:hover {
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.75);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.75);
+        box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.75);
+    }
+
+    .file-upload input.file-input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        height: 100%;
+    }
+
+.add-product-wrapper .form-action .btn-set-default {
+    width: 30%;
 }
-.add-product-wrapper .form-action .btn-set-default{
-	width: 30%;
+
+footer.footer-wrapper a {
+    color: #ffd83d !important;
 }
-footer.footer-wrapper a{
-	color:#ffd83d !important;
+
+footer.footer-wrapper p {
+    color: #ffffff;
+    margin-bottom: 0px !important;
+    font-size: 14px;
 }
-footer.footer-wrapper p{
-	color:#ffffff;
-	margin-bottom:0px !important;
-	font-size:14px;
-}
+
 .profile-navigation a {
     color: #ffffff;
     text-decoration: none;
 }
-.profile-navigation a i{
-	color:#ffd83d !important;
+
+    .profile-navigation a i {
+        color: #ffd83d !important;
+    }
+
+.gap-10 {
+    gap: 10px;
 }
-.gap-10{
-    gap:10px;
+
+.download-qr i {
+    font-size: 30px;
 }
-.download-qr i{
-    font-size:30px;
-}
+
 .theme-color {
     color: #ffd83d !important;
 }
-.required{
-    color:#f70202;
+
+.required {
+    color: #f70202;
+}
+.add-product-wrapper .form-item-wrapper input[type="text"] {
+    padding: 6px 8px;
+}
+.add-product-wrapper .custom-control-label::before, .add-product-wrapper .custom-control-label::after {
+    top: 2px;
 }

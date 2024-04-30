@@ -32,10 +32,15 @@
             <img src="~/Content/Images/biorad-logo.svg" alt="Logo" />
         </div>
         <div class="user-login-wrapper">
-            <nav class="profile-navigation">
+            <nav class="profile-navigation d-flex gap-10">
                 <div class="sign-in-log-off">
                     <a href="#" class="base-font-size">
                         <i class="fa fa-solid fa-user"></i> @userData.FirstName @userData.LastName
+                    </a>
+                </div>
+                <div class="sign-in-log-off">
+                    <a href="#" class="base-font-size">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i> Log Off
                     </a>
                 </div>
             </nav>

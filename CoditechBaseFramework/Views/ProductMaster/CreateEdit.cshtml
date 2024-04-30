@@ -10,7 +10,7 @@
         <div class="col-lg-1"></div>
         <div class="col-lg-10 d-flex align-items-center justify-content-center right-side">
             <div class="list-wrapper">
-                <div class="align-items-center d-flex justify-content-between wrapper-header mb-5">
+                <div class="align-items-center d-flex justify-content-between wrapper-header mb-3">
                     <h1 class="text-center font-poppins">Add New Product</h1>
                     <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/List">
                         <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
@@ -38,9 +38,13 @@
                                             </button>
                                         </div>
                                         <div class="align-items-center d-flex">
-                                            <div class="form-check isActiveCheck">
-                                                    @Html.CheckBoxFor(x => x.IsActive, new { @class = "form-check-input" })
+                                            @*<div class="form-check isActiveCheck">
+                                                @Html.CheckBoxFor(x => x.IsActive, new { @class = "form-check-input", @id = "isActive" })
                                                 <label class="form-check-label base-font-size" for="isActive">Is Active</label>
+                                            </div>*@
+                                            <div class="custom-control custom-checkbox">
+                                                @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive" })
+                                                <label class="custom-control-label base-font-size" for="isActive">Is Active</label>
                                             </div>
                                         </div>
                                     </div>
