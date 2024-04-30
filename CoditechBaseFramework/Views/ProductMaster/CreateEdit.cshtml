@@ -32,16 +32,19 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <div class="form-item-wrapper">
-                                            <label for="upload-manual" class="form-label">Upload Manual<span class="required">*</span> :</label>
+                                            @if (Model.ProductMasterId > 0)
+                                            {
+                                                <label for="upload-manual" class="form-label">Upload Manual :</label>
+                                            }
+                                            else
+                                            {
+                                                <label for="upload-manual" class="form-label">Upload Manual<span class="required">*</span> :</label>
+                                            }
                                             <button class="file-upload btn-set-default btn">
                                                 <input type="file" class="file-input" name="UploadManual" id="UploadManual"><i class="fa fa-upload" aria-hidden="true"></i> Upload File
                                             </button>
                                         </div>
                                         <div class="align-items-center d-flex">
-                                            @*<div class="form-check isActiveCheck">
-                                                @Html.CheckBoxFor(x => x.IsActive, new { @class = "form-check-input", @id = "isActive" })
-                                                <label class="form-check-label base-font-size" for="isActive">Is Active</label>
-                                            </div>*@
                                             <div class="custom-control custom-checkbox">
                                                 @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive" })
                                                 <label class="custom-control-label base-font-size" for="isActive">Is Active</label>
@@ -50,19 +53,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5 mb-4 mb-lg-0">
-                                <div class="align-items-center d-flex justify-content-center flex-column gap-4">
-                                    <div class="imageWrapper mb-3">
-                                        <img src="~/Content/Images/qr-code-dummy.png" />
-                                    </div>
-                                    <div class="unique-code mb-3">
-                                        <p class="code-value base-font-size">3dd75958-d883-4c07-8c72-c1b5f74d06c4</p>
-                                    </div>
-                                    <div class="download-qr">
-                                        <i class="fa fa-download theme-color" aria-hidden="true"></i>
+                            @if (Model.ProductMasterId > 0)
+                            {
+                                <div class="col-lg-5 mb-4 mb-lg-0">
+                                    <div class="align-items-center d-flex justify-content-center flex-column gap-4">
+                                        <div class="imageWrapper mb-3">
+                                            <img src="~/Content/Images/qr-code-dummy.png" />
+                                        </div>
+                                        <div class="unique-code mb-3">
+                                            <p class="code-value base-font-size">@Model.ProductUniqueCode</p>
+                                        </div>
+                                        <div class="download-qr">
+                                            <i class="fa fa-download theme-color" aria-hidden="true"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         </div>
                         <div class="align-items-center d-flex form-action justify-content-center">
                             <button type="submit" class="btn login-btn btn-set-default">Save</button>

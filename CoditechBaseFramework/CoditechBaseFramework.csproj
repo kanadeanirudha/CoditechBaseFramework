@@ -186,6 +186,7 @@
     <Content Include="Images\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\GeneralScript\script.js" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
