@@ -5,9 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="96360959c0ac4125b05e631ccb690d9e" Name="Diagram1" ZoomLevel="51">
-        <EntityTypeShape EntityType="Coditech.EntityModel.GeneralDepartmentMaster" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Coditech.EntityModel.ProductMaster" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="Coditech.EntityModel.UserMaster" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Coditech.EntityModel.UserType" Width="1.5" PointX="4.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

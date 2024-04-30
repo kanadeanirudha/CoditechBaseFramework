@@ -36,14 +36,7 @@ namespace Coditech.Controllers
                     if (!userLoginViewModel.HasError)
                     {
                         FormsAuthentication.SetAuthCookie(userLoginViewModel.UserName, false);
-                        if (!string.IsNullOrEmpty(Request.Form["ReturnUrl"]))
-                        {
-                            return RedirectToAction(Request.Form["ReturnUrl"].Split('/')[2]);
-                        }
-                        else
-                        {
-                            return RedirectToAction<DashboardController>(x => x.Index());
-                        }
+                        return RedirectToAction<ProductMasterController>(x => x.List(null));
                     }
                     ModelState.AddModelError("ErrorMessage", userLoginViewModel.ErrorMessage);
                 }

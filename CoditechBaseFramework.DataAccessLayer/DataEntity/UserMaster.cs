@@ -11,11 +11,10 @@ namespace Coditech.DataAccessLayer.DataEntity
 {
     using System;
 
-    public partial class UserMaster : CoditechEntityBaseModel
+    public partial class UserMaster: CoditechEntityBaseModel
     {
-        public long UserMasterId { get; set; }
+        public int UserMasterId { get; set; }
         public string UserType { get; set; }
-        public long EntityId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string EmailId { get; set; }
@@ -23,8 +22,6 @@ namespace Coditech.DataAccessLayer.DataEntity
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public bool IsActive { get; set; }
-        public string DeviceToken { get; set; }
-        public string LastModuleCode { get; set; }
         public Nullable<long> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<long> ModifiedBy { get; set; }

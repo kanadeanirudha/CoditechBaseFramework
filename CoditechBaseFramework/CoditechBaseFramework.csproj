@@ -153,8 +153,8 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\GeneralCommanDataController.cs" />
-    <Compile Include="Controllers\GeneralMaster\GeneralDepartmentMasterController.cs" />
-    <Compile Include="Controllers\Login\UserController.cs" />
+    <Compile Include="Controllers\ProductMasterController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\SessionTimeoutAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -163,6 +163,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\biorad-logo.svg" />
     <Content Include="Content\Images\main-bg.png" />
     <Content Include="Content\Images\med-main-bg.jpg" />
     <Content Include="Content\Images\no-image.jpg" />
@@ -201,9 +202,6 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Shared\_NotificationMessage.cshtml" />
-    <Content Include="Views\GeneralMaster\GeneralDepartmentMaster\_List.cshtml" />
-    <Content Include="Views\GeneralMaster\GeneralDepartmentMaster\CreateEdit.cshtml" />
-    <Content Include="Views\GeneralMaster\GeneralDepartmentMaster\List.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Shared\Control\_DropdownList.cshtml" />
   </ItemGroup>
@@ -222,6 +220,8 @@
     <Content Include="fonts\poppins\roboto-condensed-v16-latin-regular.woff" />
     <Content Include="fonts\poppins\roboto-condensed-v16-latin-regular.woff2" />
     <None Include="packages.config" />
+    <Content Include="Views\ProductMaster\CreateEdit.cshtml" />
+    <Content Include="Views\ProductMaster\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Coditech.Resources\Coditech.Resources.csproj">

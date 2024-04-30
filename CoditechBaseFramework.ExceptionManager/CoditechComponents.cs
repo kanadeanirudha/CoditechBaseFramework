@@ -5,7 +5,7 @@
         public enum Components
         {
             User = 1,
-            Department = 2,
+            ProductMaster = 2,
         }
     }
 }

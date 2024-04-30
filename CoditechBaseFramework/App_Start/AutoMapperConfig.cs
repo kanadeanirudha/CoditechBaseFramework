@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 
+using Coditech.DataAccessLayer.DataEntity;
 using Coditech.Model;
 using Coditech.Utilities.Filters;
 using Coditech.ViewModel;
@@ -12,6 +13,10 @@ namespace Coditech
         {
             Mapper.CreateMap<FilterTuple, FilterDataTuple>();
             Mapper.CreateMap<UserModel, UserLoginViewModel>().ReverseMap();
+            Mapper.CreateMap<UserModel, UserMaster>().ReverseMap();
+
+            Mapper.CreateMap<ProductMasterModel, ProductMasterViewModel>().ReverseMap();
+            Mapper.CreateMap<ProductMasterModel, ProductMaster>().ReverseMap();
         }
     }
 }

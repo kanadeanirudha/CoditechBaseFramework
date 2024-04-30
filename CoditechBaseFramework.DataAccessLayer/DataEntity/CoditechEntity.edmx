@@ -5,27 +5,25 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Coditech.EntityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="GeneralDepartmentMaster">
+        <EntityType Name="ProductMaster">
           <Key>
-            <PropertyRef Name="GeneralDepartmentMasterId" />
+            <PropertyRef Name="ProductMasterId" />
           </Key>
-          <Property Name="GeneralDepartmentMasterId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DepartmentName" Type="nvarchar" MaxLength="60" Nullable="false" />
-          <Property Name="DepartmentShortCode" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PrintShortDesc" Type="nvarchar" MaxLength="50" />
-          <Property Name="WorkActivity" Type="bit" />
-          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="ProductMasterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ProductUniqueCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="UserMaster">
           <Key>
             <PropertyRef Name="UserMasterId" />
           </Key>
-          <Property Name="UserMasterId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserMasterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserType" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="EntityId" Type="bigint" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="EmailId" Type="nvarchar" MaxLength="100" />
@@ -33,63 +31,42 @@
           <Property Name="MiddleName" Type="nvarchar" MaxLength="100" />
           <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="DeviceToken" Type="nvarchar" MaxLength="250" />
-          <Property Name="LastModuleCode" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedBy" Type="bigint" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
-        <EntityType Name="UserType">
-          <Key>
-            <PropertyRef Name="UserTypeId" />
-          </Key>
-          <Property Name="UserTypeId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserTypeCode" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="UserDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RelatedWith" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsCommon" Type="bit" Nullable="false" />
-          <Property Name="IsLoginRequired" Type="bit" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="ModifiedDate" Type="datetime" />
-        </EntityType>
         <EntityContainer Name="CoditechEntityModelStoreContainer">
-          <EntitySet Name="GeneralDepartmentMaster" EntityType="Self.GeneralDepartmentMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductMaster" EntityType="Self.ProductMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Coditech.EntityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RARIndiaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="GeneralDepartmentMasters" EntityType="Coditech.EntityModel.GeneralDepartmentMaster" />
+          <EntitySet Name="ProductMasters" EntityType="Coditech.EntityModel.ProductMaster" />
           <EntitySet Name="UserMasters" EntityType="Coditech.EntityModel.UserMaster" />
-          <EntitySet Name="UserTypes" EntityType="Coditech.EntityModel.UserType" />
         </EntityContainer>
-        <EntityType Name="GeneralDepartmentMaster">
+        <EntityType Name="ProductMaster">
           <Key>
-            <PropertyRef Name="GeneralDepartmentMasterId" />
+            <PropertyRef Name="ProductMasterId" />
           </Key>
-          <Property Name="GeneralDepartmentMasterId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
-          <Property Name="DepartmentShortCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PrintShortDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="WorkActivity" Type="Boolean" />
-          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="ProductMasterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ProductUniqueCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="UserMaster">
           <Key>
             <PropertyRef Name="UserMasterId" />
           </Key>
-          <Property Name="UserMasterId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserMasterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserType" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="EntityId" Type="Int64" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -97,25 +74,8 @@
           <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="DeviceToken" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="LastModuleCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="Int64" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int64" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="UserType">
-          <Key>
-            <PropertyRef Name="UserTypeId" />
-          </Key>
-          <Property Name="UserTypeId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserTypeCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="UserDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RelatedWith" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsCommon" Type="Boolean" Nullable="false" />
-          <Property Name="IsLoginRequired" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int64" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
@@ -125,18 +85,17 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CoditechEntityModelStoreContainer" CdmEntityContainer="RARIndiaEntities">
-          <EntitySetMapping Name="GeneralDepartmentMasters">
-            <EntityTypeMapping TypeName="Coditech.EntityModel.GeneralDepartmentMaster">
-              <MappingFragment StoreEntitySet="GeneralDepartmentMaster">
+          <EntitySetMapping Name="ProductMasters">
+            <EntityTypeMapping TypeName="Coditech.EntityModel.ProductMaster">
+              <MappingFragment StoreEntitySet="ProductMaster">
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="WorkActivity" ColumnName="WorkActivity" />
-                <ScalarProperty Name="PrintShortDesc" ColumnName="PrintShortDesc" />
-                <ScalarProperty Name="DepartmentShortCode" ColumnName="DepartmentShortCode" />
-                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
-                <ScalarProperty Name="GeneralDepartmentMasterId" ColumnName="GeneralDepartmentMasterId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ProductUniqueCode" ColumnName="ProductUniqueCode" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductMasterId" ColumnName="ProductMasterId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -147,8 +106,6 @@
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="LastModuleCode" ColumnName="LastModuleCode" />
-                <ScalarProperty Name="DeviceToken" ColumnName="DeviceToken" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
@@ -156,25 +113,8 @@
                 <ScalarProperty Name="EmailId" ColumnName="EmailId" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
                 <ScalarProperty Name="UserType" ColumnName="UserType" />
                 <ScalarProperty Name="UserMasterId" ColumnName="UserMasterId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserTypes">
-            <EntityTypeMapping TypeName="Coditech.EntityModel.UserType">
-              <MappingFragment StoreEntitySet="UserType">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsLoginRequired" ColumnName="IsLoginRequired" />
-                <ScalarProperty Name="IsCommon" ColumnName="IsCommon" />
-                <ScalarProperty Name="RelatedWith" ColumnName="RelatedWith" />
-                <ScalarProperty Name="UserDescription" ColumnName="UserDescription" />
-                <ScalarProperty Name="UserTypeCode" ColumnName="UserTypeCode" />
-                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

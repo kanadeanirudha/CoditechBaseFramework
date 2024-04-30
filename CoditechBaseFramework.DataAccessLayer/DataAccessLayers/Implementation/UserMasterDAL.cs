@@ -28,7 +28,7 @@ namespace Coditech.DataAccessLayer
 
             if (IsNull(userMasterData))
                 throw new CoditechException(ErrorCodes.NotFound, null);
-            else if (userMasterData.IsActive == false)
+            else if (!userMasterData.IsActive)
                 throw new CoditechException(ErrorCodes.ContactAdministrator, null);
 
             userModel = userMasterData?.FromEntityToModel<UserModel>();

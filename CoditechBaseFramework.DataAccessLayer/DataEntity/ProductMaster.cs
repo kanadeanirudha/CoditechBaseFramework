@@ -11,17 +11,15 @@ namespace Coditech.DataAccessLayer.DataEntity
 {
     using System;
 
-    public partial class UserType: CoditechEntityBaseModel
+    public partial class ProductMaster : CoditechEntityBaseModel
     {
-        public short UserTypeId { get; set; }
-        public string UserTypeCode { get; set; }
-        public string UserDescription { get; set; }
-        public string RelatedWith { get; set; }
-        public bool IsCommon { get; set; }
-        public bool IsLoginRequired { get; set; }
-        public Nullable<long> CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public Nullable<long> ModifiedBy { get; set; }
+        public int ProductMasterId { get; set; }
+        public string ProductName { get; set; }
+        public string ProductUniqueCode { get; set; }
+        public bool IsActive { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     }
 }

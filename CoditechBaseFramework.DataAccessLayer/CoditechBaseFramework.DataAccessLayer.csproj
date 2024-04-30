@@ -56,9 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDataAccessLogic.cs" />
-    <Compile Include="DataAccessLayers\Implementation\GeneralMaster\GeneralDepartmentMasterDAL.cs" />
+    <Compile Include="DataAccessLayers\Implementation\ProductMasterDAL.cs" />
     <Compile Include="Constants\StoredProcedureKeys.cs" />
-    <Compile Include="DataAccessLayers\Implementation\User\UserMasterDAL.cs" />
+    <Compile Include="DataAccessLayers\Implementation\UserMasterDAL.cs" />
     <Compile Include="DataEntity\CoditechEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -69,9 +69,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CoditechEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataEntity\GeneralDepartmentMaster.cs">
-      <DependentUpon>CoditechEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataEntity\IDBContext.cs" />
     <Compile Include="DataEntity\CoditechEntity.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -79,10 +76,10 @@
       <DependentUpon>CoditechEntity.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataEntity\CoditechEntities.cs" />
-    <Compile Include="DataEntity\UserMaster.cs">
+    <Compile Include="DataEntity\ProductMaster.cs">
       <DependentUpon>CoditechEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataEntity\UserType.cs">
+    <Compile Include="DataEntity\UserMaster.cs">
       <DependentUpon>CoditechEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Extensions\EntityExtension.cs" />
@@ -117,9 +114,7 @@
       <Name>CoditechBaseFramework.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataAccessLayers\Interface\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EntityDeploy Include="DataEntity\CoditechEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

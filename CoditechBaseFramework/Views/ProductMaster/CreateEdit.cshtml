@@ -1,0 +1,65 @@
+﻿@using Coditech.ViewModel
+@model ProductMasterViewModel
+@{
+    ViewBag.Title = "Add Product";
+    string actionName = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+    string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+}
+<div class="container-fluid add-product-wrapper main-content-wrapper mt-4">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10 d-flex align-items-center justify-content-center right-side">
+            <div class="list-wrapper">
+                <div class="align-items-center d-flex justify-content-between wrapper-header mb-5">
+                    <h1 class="text-center font-poppins">Add New Product</h1>
+                    <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/List">
+                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+                    </a>
+                </div>
+                <div class="form-wrapper">
+                    @using (Html.BeginForm(actionName, controllerName, FormMethod.Post, new { @class = "form form-horizontal" }))
+                    {
+                        <div class="row mb-lg-4">
+                            <div class="col-lg-7 mb-4 mb-lg-0">
+                                <div class="form-3-wrapper">
+                                    <div class="form-item-wrapper mb-5">
+                                        <label for="product-name" class="form-label">Product Name:</label>
+                                        <div class="form-box mb-4">
+                                            @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control"})
+                                            @Html.ValidationMessageFor(x => x.ProductName, null, new { @class = "red" })
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <div class="form-item-wrapper">
+                                            <label for="upload-manual" class="form-label">Upload Manual:</label>
+                                            <button class="file-upload btn-set-default btn">
+                                                <input type="file" class="file-input"><i class="fa fa-upload" aria-hidden="true"></i> Upload File
+                                            </button>
+                                        </div>
+                                        <div class="align-items-center d-flex">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="isActive">
+                                                <label class="form-check-label base-font-size" for="isActive">Is Active?</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 mb-4 mb-lg-0">
+                                <div class="align-items-center d-flex justify-content-center">
+                                    <div class="imageWrapper">
+                                        <img class="image" src="./no-image.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="align-items-center d-flex form-action justify-content-center">
+                            <button type="submit" class="btn login-btn btn-set-default">Save</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>

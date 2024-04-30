@@ -12,21 +12,21 @@ namespace Coditech.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            string[] excludeFromName = new string[] { "generalcommandata", "dashboard" };
+            //string[] excludeFromName = new string[] { "generalcommandata", "dashboard" };
 
-            HttpContext ctx = HttpContext.Current;
-            UserModel userModel = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
-            if (userModel == null)
-            {
-                filterContext.Result = new RedirectResult("~/User/Login");
-                return;
-            }
-            string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName?.ToLower();
-            //if (!excludeFromName.Any(x => x == controllerName) && !userModel.MenuList.Any(x => x.ControllerName == controllerName))
+            //HttpContext ctx = HttpContext.Current;
+            //UserModel userModel = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
+            //if (userModel == null)
             //{
-            //    filterContext.Result = new RedirectResult("~/User/Unauthorized");
+            //    filterContext.Result = new RedirectResult("~/User/Login");
             //    return;
             //}
+            //string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName?.ToLower();
+            ////if (!excludeFromName.Any(x => x == controllerName) && !userModel.MenuList.Any(x => x.ControllerName == controllerName))
+            ////{
+            ////    filterContext.Result = new RedirectResult("~/User/Unauthorized");
+            ////    return;
+            ////}
             base.OnActionExecuting(filterContext);
         }
     }

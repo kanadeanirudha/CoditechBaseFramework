@@ -44,8 +44,8 @@
   <ItemGroup>
     <Compile Include="DataModel\CoditechEntityBaseModel.cs" />
     <Compile Include="DataModel\View_ReturnBoolean.cs" />
-    <Compile Include="Model\GeneralMaster\GeneralDepartmentMaster\GeneralDepartmentListModel.cs" />
-    <Compile Include="Model\GeneralMaster\GeneralDepartmentMaster\GeneralDepartmentModel.cs" />
+    <Compile Include="Model\ProductMaster\ProductMasterListModel.cs" />
+    <Compile Include="Model\ProductMaster\ProductMasterModel.cs" />
     <Compile Include="Model\User\UserModel.cs" />
     <Compile Include="Model\BaseListModel.cs" />
     <Compile Include="Model\BaseModel.cs" />

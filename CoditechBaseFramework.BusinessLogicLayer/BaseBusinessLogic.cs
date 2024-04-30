@@ -113,12 +113,6 @@ namespace Coditech.BusinessLogicLayer
             return viewModel;
         }
 
-        protected string SpiltCentreCode(string centreCode)
-        {
-            centreCode = !string.IsNullOrEmpty(centreCode) && centreCode.Contains(":") ? centreCode.Split(':')[0] : centreCode;
-            return centreCode;
-        }
-
         protected int LoginUserId() => CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession).UserMasterId;
     }
 }
