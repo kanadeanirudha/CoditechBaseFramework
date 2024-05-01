@@ -123,6 +123,17 @@ namespace Coditech.DataAccessLayer
             return status == 1 ? true : false;
         }
 
+        //Get FileName By ProductUniqueCode
+        public string GetFileNameByProductUniqueCode(string productUniqueCode)
+        {
+            if (string.IsNullOrEmpty(productUniqueCode))
+                throw new CoditechException(ErrorCodes.NotFound, string.Format(GeneralResources.ErrorIdLessThanOne, "productUniqueCode"));
+
+            //Get the ProductMaster Details based on id.
+            string fileName = _productMasterRepository.Table.Where(x => x.ProductUniqueCode == productUniqueCode)?.FirstOrDefault()?.FileName;
+            return fileName;
+        }
+
         #region Private Method
 
         //Check if Product Master code is already present or not.

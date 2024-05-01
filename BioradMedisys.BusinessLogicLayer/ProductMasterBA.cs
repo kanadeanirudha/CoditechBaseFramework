@@ -1,4 +1,5 @@
 ﻿using Coditech.DataAccessLayer;
+using Coditech.DataAccessLayer.DataEntity;
 using Coditech.ExceptionManager;
 using Coditech.Model;
 using Coditech.Model.Model;
@@ -47,7 +48,6 @@ namespace Coditech.BusinessLogicLayer
             try
             {
                 productMasterViewModel.CreatedBy = LoginUserId();
-                productMasterViewModel.ProductUniqueCode = Guid.NewGuid().ToString(); 
                 ProductMasterModel productMasterModel = _productMasterDAL.CreateProductMaster(productMasterViewModel.ToModel<ProductMasterModel>());
                 return IsNotNull(productMasterModel) ? productMasterModel.ToViewModel<ProductMasterViewModel>() : new ProductMasterViewModel();
             }
@@ -72,6 +72,8 @@ namespace Coditech.BusinessLogicLayer
         public ProductMasterViewModel GetProductMaster(int ProductMasterId)
             => _productMasterDAL.GetProductMaster(ProductMasterId).ToViewModel<ProductMasterViewModel>();
 
+        public string GetFileNameByProductUniqueCode(string productUniqueCode)
+             => _productMasterDAL.GetFileNameByProductUniqueCode(productUniqueCode);
         //Update ProductMaster.
         public ProductMasterViewModel UpdateProductMaster(ProductMasterViewModel productMasterViewModel)
         {

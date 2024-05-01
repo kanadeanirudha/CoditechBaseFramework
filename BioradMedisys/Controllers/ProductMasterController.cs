@@ -4,8 +4,6 @@ using Coditech.Resources;
 using Coditech.Utilities.Constant;
 using Coditech.ViewModel;
 
-using System.Drawing.Imaging;
-using System.Drawing;
 using System;
 using System.IO;
 using System.Web;
@@ -46,15 +44,20 @@ namespace Coditech.Controllers
                 if (postedFile.ContentLength > 0 && postedFile.ContentType == "application/pdf")
                 {
                     productMasterViewModel.FileName = postedFile.FileName;
+                    productMasterViewModel.ProductUniqueCode = Guid.NewGuid().ToString();
                     productMasterViewModel = _productMasterBA.CreateProductMaster(productMasterViewModel);
                     if (!productMasterViewModel.HasError)
                     {
-                        string path = Server.MapPath("~/Uploads/");
-                        if (!Directory.Exists(path))
+                        string userManualFolderPath = Server.MapPath("~/Uploads/UserManual/");
+                        if (!Directory.Exists(userManualFolderPath))
                         {
-                            Directory.CreateDirectory(path);
+                            Directory.CreateDirectory(userManualFolderPath);
                         }
-                        postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                        postedFile.SaveAs(userManualFolderPath + Path.GetFileName(postedFile.FileName));
+                        //-------------QR-----------
+                        string qrFolderPath = Server.MapPath("~/Uploads/QRImages/");
+                        string qrUrl = $"http://coditechsoftware.com/productmaster/downloadusermanual?productuniquecode={productMasterViewModel.ProductUniqueCode}";
+                        //-------------QR-----------
                         SetNotificationMessage(GetSuccessNotificationMessage(GeneralResources.RecordCreationSuccessMessage));
                         return RedirectToAction<ProductMasterController>(x => x.List(null));
                     }
@@ -74,6 +77,14 @@ namespace Coditech.Controllers
         {
             ProductMasterViewModel productMasterViewModel = _productMasterBA.GetProductMaster(productMasterId);
             return ActionView(createEdit, productMasterViewModel);
+        }
+
+
+        [HttpGet]
+        public virtual ActionResult DownloadUserManual(string productuniquecode)
+        {
+            string fileName = _productMasterBA.GetFileNameByProductUniqueCode(productuniquecode);
+            return null;
         }
 
         //Post:Edit Product Master.
