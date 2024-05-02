@@ -70,5 +70,12 @@ namespace Coditech.Utilities.Helper
                 return Convert.ToString(settings["NotificationMessagesIsFadeOut"]);
             }
         }
+        public static string ApplicationUrl
+        {
+            get
+            {
+                return Convert.ToString(settings["ApplicationUrl"]);
+            }
+        }
     }
 }

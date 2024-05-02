@@ -94,9 +94,15 @@ namespace Coditech.DataAccessLayer
                 throw new CoditechException(ErrorCodes.AlreadyExist, string.Format(GeneralResources.ErrorCodeExists, "Country Code"));
 
             ProductMaster productMasterData = _productMasterRepository.Table.FirstOrDefault(x => x.ProductMasterId == productMasterModel.ProductMasterId);
+
+            if (productMasterData.ProductName == productMasterModel.ProductName && productMasterData.IsActive == productMasterModel.IsActive && string.IsNullOrEmpty(productMasterModel.FileName))
+            {
+                return productMasterModel;
+            }
+
             productMasterData.ProductName = productMasterModel.ProductName;
             productMasterData.IsActive = productMasterModel.IsActive;
-            productMasterData.FileName = string.IsNullOrEmpty(productMasterModel.ProductName) ? productMasterData.FileName : productMasterModel.ProductName;
+            productMasterData.FileName = string.IsNullOrEmpty(productMasterModel.FileName) ? productMasterData.FileName : productMasterModel.FileName;
 
             //Update ProductMaster
             bool isProductMasterUpdated = _productMasterRepository.Update(productMasterData);
@@ -118,7 +124,7 @@ namespace Coditech.DataAccessLayer
             objStoredProc.SetParameter("ProductMasterId", parameterModel.Ids, ParameterDirection.Input, DbType.String);
             objStoredProc.SetParameter("Status", null, ParameterDirection.Output, DbType.Int32);
             int status = 0;
-            objStoredProc.ExecuteStoredProcedureList("RARIndia_DeleteProductMaster @ProductMasterId,  @Status OUT", 1, out status);
+            objStoredProc.ExecuteStoredProcedureList("Coditech_DeleteProductMaster @ProductMasterId,  @Status OUT", 1, out status);
 
             return status == 1 ? true : false;
         }

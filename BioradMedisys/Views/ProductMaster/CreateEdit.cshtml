@@ -13,7 +13,14 @@
         <div class="col-lg-10 d-flex align-items-center justify-content-center right-side">
             <div class="list-wrapper">
                 <div class="align-items-center d-flex justify-content-between wrapper-header mb-3">
-                    <h1 class="text-center font-poppins">Add New Product</h1>
+                    @if (Model.ProductMasterId > 0)
+                    {
+                        <h1 class="text-center font-poppins">Update Product</h1>
+                    }
+                    else
+                    {
+                        <h1 class="text-center font-poppins">Add New Product</h1>
+                    }
                     <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/List">
                         <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
                     </a>
@@ -43,8 +50,9 @@
                                                 <label for="upload-manual" class="form-label">Upload Manual<span class="required">*</span> :</label>
                                             }
                                             <button class="file-upload btn-set-default btn">
-                                                <input type="file" class="file-input" name="UploadManual" id="UploadManual"><i class="fa fa-upload" aria-hidden="true"></i> Upload File
+                                                <input type="file" class="file-input" name="UploadManual" id="UploadManual" /><i class="fa fa-upload" aria-hidden="true"></i> Upload File
                                             </button>
+                                            <label for="upload-manual" class="form-label">@Model.FileName</label>
                                         </div>
                                         <div class="align-items-center d-flex">
                                             <div class="custom-control custom-checkbox">
@@ -66,7 +74,9 @@
                                             <p class="code-value base-font-size">@Model.ProductUniqueCode</p>
                                         </div>
                                         <div class="download-qr">
-                                            <i class="fa fa-download theme-color" aria-hidden="true"></i>
+                                            <a href="../@controllerName/DownloadQRImage?productuniquecode=@Model.ProductUniqueCode">
+                                                <i class="fa fa-download theme-color" aria-hidden="true"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

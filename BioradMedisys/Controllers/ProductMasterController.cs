@@ -2,15 +2,15 @@
 using Coditech.Model.Model;
 using Coditech.Resources;
 using Coditech.Utilities.Constant;
+using Coditech.Utilities.Helper;
 using Coditech.ViewModel;
+
 using QRCoder;
+
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Net.Http;
-using System.Net;
-using System.Reflection.Emit;
 using System.Web;
 using System.Web.Mvc;
 
@@ -21,6 +21,7 @@ namespace Coditech.Controllers
     {
         readonly ProductMasterBA _productMasterBA = null;
         private const string createEdit = "~/Views/ProductMaster/CreateEdit.cshtml";
+        private static string uploadFolderName = "Uploads";
         public ProductMasterController()
         {
             _productMasterBA = new ProductMasterBA();
@@ -53,16 +54,16 @@ namespace Coditech.Controllers
                     productMasterViewModel = _productMasterBA.CreateProductMaster(productMasterViewModel);
                     if (!productMasterViewModel.HasError)
                     {
-                        string userManualFolderPath = Server.MapPath("~/Uploads/UserManual/");
+                        string userManualFolderPath = Server.MapPath($"~/{uploadFolderName}/UserManual/");
                         if (!Directory.Exists(userManualFolderPath))
                         {
                             Directory.CreateDirectory(userManualFolderPath);
                         }
                         postedFile.SaveAs(userManualFolderPath + Path.GetFileName(postedFile.FileName));
-                        //-------------QR-----------
-                        string url = $"https://localhost:44390/ProductMaster/DownloadUserManual?productuniquecode={productMasterViewModel.ProductUniqueCode}";
+                        //-------------Save QR-----------
+                        string url = $"{CoditechSetting.ApplicationUrl}/ProductMaster/DownloadUserManual?productuniquecode={productMasterViewModel.ProductUniqueCode}";
                         CreateQRCode(url, productMasterViewModel.ProductUniqueCode);
-                        //-------------QR-----------
+                        //-------------Save QR-----------
                         SetNotificationMessage(GetSuccessNotificationMessage(GeneralResources.RecordCreationSuccessMessage));
                         return RedirectToAction<ProductMasterController>(x => x.List(null));
                     }
@@ -77,7 +78,7 @@ namespace Coditech.Controllers
             return View(createEdit, productMasterViewModel);
         }
 
-        private string CreateQRCode(string uniqueCode,string qrFileName)
+        private string CreateQRCode(string uniqueCode, string qrFileName)
         {
             //Generate the QR code
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
@@ -85,15 +86,15 @@ namespace Coditech.Controllers
             QRCode qrCode = new QRCode(qrCodeData);
             Bitmap qrCodeImage = qrCode.GetGraphic(20);
 
-
-            // Specify the folder path to save the QR code image
-            string folderPath = @"~/Uploads/QRImages";
+            string userQRFolderPath = Server.MapPath($"~/{uploadFolderName}/QRImages/");
 
             // Create the folder if it doesn't exist
-            if (!Directory.Exists(folderPath))
+            if (!Directory.Exists(userQRFolderPath))
             {
-                Directory.CreateDirectory(folderPath);
+                Directory.CreateDirectory(userQRFolderPath);
             }
+            // Specify the folder path to save the QR code image
+            string folderPath = @"~/" + uploadFolderName + "/QRImages";
 
             // Save the QR code as a PNG image file inside the specified folder
             string fileName = Server.MapPath(Path.Combine(folderPath, qrFileName + ".png"));
@@ -111,12 +112,19 @@ namespace Coditech.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        
+
         public FileResult DownloadUserManual(string productuniquecode)
         {
             string fileName = _productMasterBA.GetFileNameByProductUniqueCode(productuniquecode);
-            var FileVirtualPath = $"~/Uploads/UserManual/{fileName}";
-            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
+            string fileVirtualPath = $"~/{uploadFolderName}/UserManual/{fileName}";
+            return File(fileVirtualPath, "application/force-download", Path.GetFileName(fileVirtualPath));
+        }
+
+        [HttpGet]
+        public FileResult DownloadQRImage(string productuniquecode)
+        {
+            string fileVirtualPath = $"~/{uploadFolderName}/QRImages/{productuniquecode}.png";
+            return File(fileVirtualPath, "application/force-download", Path.GetFileName(fileVirtualPath));
         }
 
         //Post:Edit Product Master.
@@ -141,7 +149,7 @@ namespace Coditech.Controllers
                 bool status = _productMasterBA.UpdateProductMaster(productMasterViewModel).HasError;
                 if (postedFile?.ContentLength > 0 && status)
                 {
-                    string path = Server.MapPath("~/Uploads/");
+                    string path = Server.MapPath($"~/{uploadFolderName}/UserManual/");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);

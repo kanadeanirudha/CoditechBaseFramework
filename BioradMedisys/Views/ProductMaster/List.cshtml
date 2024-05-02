@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-lg-12 d-flex align-items-center justify-content-center right-side">
             <div class="list-wrapper">
-                <div class="align-items-center d-flex justify-content-between wrapper-header mb-4">
+                <div class="align-items-center d-flex justify-content-between wrapper-header mb-3">
                     <h1 class="text-center font-poppins">Product List</h1>
                     <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/Create">
                         <i class="fa fa-plus-circle"></i> Add New Product
@@ -37,8 +37,8 @@
                                         <td>
                                             <div class="align-items-center d-flex justify-content-around action-container">
                                                 <a href="../@controllerName/Edit?productMasterId=@item.ProductMasterId" class="action-icon edit-product" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                <a href="#" class="action-icon upload-product" title="download"><i class="fa fa-download" aria-hidden="true"></i></a>
-                                                <a href="../@controllerName/Delete" class="action-icon delete-product" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                <a href="../@controllerName/DownloadUserManual?productuniquecode=@item.ProductUniqueCode" class="action-icon upload-product" title="download user manual"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                                <a href="../@controllerName/Delete?productMasterIds=@item.ProductMasterId" class="action-icon delete-product" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                             </div>
                                         </td>
                                     </tr>
