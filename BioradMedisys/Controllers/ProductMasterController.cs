@@ -3,9 +3,14 @@ using Coditech.Model.Model;
 using Coditech.Resources;
 using Coditech.Utilities.Constant;
 using Coditech.ViewModel;
-
+using QRCoder;
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Net.Http;
+using System.Net;
+using System.Reflection.Emit;
 using System.Web;
 using System.Web.Mvc;
 
@@ -55,8 +60,8 @@ namespace Coditech.Controllers
                         }
                         postedFile.SaveAs(userManualFolderPath + Path.GetFileName(postedFile.FileName));
                         //-------------QR-----------
-                        string qrFolderPath = Server.MapPath("~/Uploads/QRImages/");
-                        string qrUrl = $"http://coditechsoftware.com/productmaster/downloadusermanual?productuniquecode={productMasterViewModel.ProductUniqueCode}";
+                        string url = $"https://localhost:44390/ProductMaster/DownloadUserManual?productuniquecode={productMasterViewModel.ProductUniqueCode}";
+                        CreateQRCode(url, productMasterViewModel.ProductUniqueCode);
                         //-------------QR-----------
                         SetNotificationMessage(GetSuccessNotificationMessage(GeneralResources.RecordCreationSuccessMessage));
                         return RedirectToAction<ProductMasterController>(x => x.List(null));
@@ -72,6 +77,31 @@ namespace Coditech.Controllers
             return View(createEdit, productMasterViewModel);
         }
 
+        private string CreateQRCode(string uniqueCode,string qrFileName)
+        {
+            //Generate the QR code
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(uniqueCode, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(20);
+
+
+            // Specify the folder path to save the QR code image
+            string folderPath = @"~/Uploads/QRImages";
+
+            // Create the folder if it doesn't exist
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            // Save the QR code as a PNG image file inside the specified folder
+            string fileName = Server.MapPath(Path.Combine(folderPath, qrFileName + ".png"));
+            qrCodeImage.Save(fileName, ImageFormat.Png);
+            return fileName;
+
+        }
+
         [HttpGet]
         public virtual ActionResult Edit(int productMasterId)
         {
@@ -79,12 +109,14 @@ namespace Coditech.Controllers
             return ActionView(createEdit, productMasterViewModel);
         }
 
-
         [HttpGet]
-        public virtual ActionResult DownloadUserManual(string productuniquecode)
+        [AllowAnonymous]
+        
+        public FileResult DownloadUserManual(string productuniquecode)
         {
             string fileName = _productMasterBA.GetFileNameByProductUniqueCode(productuniquecode);
-            return null;
+            var FileVirtualPath = $"~/Uploads/UserManual/{fileName}";
+            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
         }
 
         //Post:Edit Product Master.
