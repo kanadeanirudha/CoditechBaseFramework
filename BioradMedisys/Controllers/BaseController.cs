@@ -1,14 +1,16 @@
-﻿using Microsoft.Web.Mvc;
-
-using Newtonsoft.Json;
-
-using Coditech.Model;
+﻿using Coditech.Model;
 using Coditech.Model.Model;
 using Coditech.Utilities.Constant;
 using Coditech.Utilities.Helper;
 
+using Microsoft.Web.Mvc;
+
+using Newtonsoft.Json;
+
 using System;
 using System.Linq.Expressions;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Mvc;
 
 namespace Coditech.Controllers
@@ -197,6 +199,29 @@ namespace Coditech.Controllers
                 SelectedCentreCode = centreCode,
                 SelectedDepartmentID = selectedDepartmentID
             };
+        }
+
+        protected ActiveApplicationLicenseModel IsApplicationLicenseActive()
+        {
+            ActiveApplicationLicenseModel activeApplicationLicenseModel = null;
+            string baseurl = CoditechSetting.ApplicationLicenseUrl;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //HTTP GET
+                var responseTask = client.GetAsync($"/api/activelicenseapi/IsApplicationLicenseActive?apiKeyWithDomainName={CoditechSetting.ApplicationLicenseApiKey}");
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var response = result.Content.ReadAsStringAsync().Result;
+                    activeApplicationLicenseModel = JsonConvert.DeserializeObject<ActiveApplicationLicenseModel>(response);
+                }
+            }
+            return activeApplicationLicenseModel;
         }
     }
 }

@@ -14,17 +14,17 @@
             @using (Html.BeginForm("Login", "User", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, Model.ErrorMessage, new { @class = "red" })
+                @Html.ValidationSummary(true, Model.ErrorMessage, new { @class = "required" })
 
                 <div class="form-box mb-4 position-relative">
                     <i class="fa fa-solid fa-user position-absolute"></i>
                     @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "User name" })
-                    @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "red" })
+                    @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "required" })
                 </div>
                 <div class="mb-4 position-relative">
                     <i class="fa fa-lock position-absolute"></i>
                     @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Enter Password" })
-                    @Html.ValidationMessageFor(m => m.Password, null, new { @class = "red" })
+                    @Html.ValidationMessageFor(m => m.Password, null, new { @class = "required" })
                 </div>
                 @*<div class="align-items-center d-flex justify-content-between mb-4">
                 <div class="form-check">

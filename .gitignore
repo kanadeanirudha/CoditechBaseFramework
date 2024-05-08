@@ -29,3 +29,7 @@
 /BioradMedisys.Resources/bin/Debug
 /BioradMedisys.Resources/obj
 /BioradMedisys/Uploads
+/BioradMedisys.BusinessLogicLayer/.vs
+/BioradMedisys.DataAccessLayer/.vs
+/BioradMedisys.Utilities/.vs
+/BioradMedisys.ViewModel/.vs

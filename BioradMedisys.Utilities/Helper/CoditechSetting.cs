@@ -77,5 +77,19 @@ namespace Coditech.Utilities.Helper
                 return Convert.ToString(settings["ApplicationUrl"]);
             }
         }
+        public static string ApplicationLicenseUrl
+        {
+            get
+            {
+                return Convert.ToString(settings["ApplicationLicenseUrl"]);
+            }
+        }
+        public static string ApplicationLicenseApiKey
+        {
+            get
+            {
+                return Convert.ToString(settings["ApplicationLicenseApiKey"]);
+            }
+        }
     }
 }
