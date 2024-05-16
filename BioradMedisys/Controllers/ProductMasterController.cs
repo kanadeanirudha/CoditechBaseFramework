@@ -100,7 +100,6 @@ namespace Coditech.Controllers
             string fileName = Server.MapPath(Path.Combine(folderPath, qrFileName + ".png"));
             qrCodeImage.Save(fileName, ImageFormat.Png);
             return fileName;
-
         }
 
         [HttpGet]

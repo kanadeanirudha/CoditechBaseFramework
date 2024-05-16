@@ -11,6 +11,9 @@
           </Key>
           <Property Name="ProductMasterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Version" Type="varchar" MaxLength="100" />
+          <Property Name="Date" Type="date" />
+          <Property Name="DownloadCount" Type="int" Nullable="false" />
           <Property Name="ProductUniqueCode" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="FileName" Type="varchar" MaxLength="500" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -62,6 +65,9 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="Version" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="DownloadCount" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="UserMaster">
           <Key>
@@ -90,6 +96,9 @@
           <EntitySetMapping Name="ProductMasters">
             <EntityTypeMapping TypeName="Coditech.EntityModel.ProductMaster">
               <MappingFragment StoreEntitySet="ProductMaster">
+                <ScalarProperty Name="DownloadCount" ColumnName="DownloadCount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />

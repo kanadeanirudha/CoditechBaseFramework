@@ -1,4 +1,6 @@
-﻿namespace Coditech.Model
+﻿using System;
+
+namespace Coditech.Model
 {
     public class ProductMasterModel : BaseModel
     {
@@ -7,5 +9,8 @@
         public string ProductUniqueCode { get; set; }
         public string FileName { get; set; }
         public bool IsActive { get; set; }
+        public string Version { get; set; }
+        public DateTime? Date { get; set; }
+        public int DownloadCount { get; set; }
     }
 }

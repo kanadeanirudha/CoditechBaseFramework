@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Coditech.ViewModel
@@ -12,5 +13,8 @@ namespace Coditech.ViewModel
         public string ProductUniqueCode { get; set; }
         public string FileName { get; set; }
         public bool IsActive { get; set; }
+        public string Version { get; set; }
+        public DateTime? Date { get; set; }
+        public int DownloadCount { get; set; }
     }
 }

@@ -37,7 +37,10 @@ namespace Coditech.DataAccessLayer
                     ProductName = productMaster.ProductName,
                     ProductUniqueCode = productMaster.ProductUniqueCode,
                     FileName = productMaster.FileName,
-                    IsActive = productMaster.IsActive
+                    IsActive = productMaster.IsActive,
+                    Version = productMaster.Version,
+                    Date = productMaster.Date,
+                    DownloadCount = productMaster.DownloadCount
                 });
             }
             listModel.BindPageListModel(pageListModel);
@@ -95,12 +98,16 @@ namespace Coditech.DataAccessLayer
 
             ProductMaster productMasterData = _productMasterRepository.Table.FirstOrDefault(x => x.ProductMasterId == productMasterModel.ProductMasterId);
 
-            if (productMasterData.ProductName == productMasterModel.ProductName && productMasterData.IsActive == productMasterModel.IsActive && string.IsNullOrEmpty(productMasterModel.FileName))
-            {
-                return productMasterModel;
-            }
+            //if (productMasterData.ProductName == productMasterModel.ProductName 
+            //    && productMasterData.IsActive == productMasterModel.IsActive 
+            //    && string.IsNullOrEmpty(productMasterModel.FileName))
+            //{
+            //    return productMasterModel;
+            //}
 
             productMasterData.ProductName = productMasterModel.ProductName;
+            productMasterData.Version = productMasterModel.Version;
+            productMasterData.Date = productMasterModel.Date;
             productMasterData.IsActive = productMasterModel.IsActive;
             productMasterData.FileName = string.IsNullOrEmpty(productMasterModel.FileName) ? productMasterData.FileName : productMasterModel.FileName;
 
@@ -136,8 +143,13 @@ namespace Coditech.DataAccessLayer
                 throw new CoditechException(ErrorCodes.NotFound, string.Format(GeneralResources.ErrorIdLessThanOne, "productUniqueCode"));
 
             //Get the ProductMaster Details based on id.
-            string fileName = _productMasterRepository.Table.Where(x => x.ProductUniqueCode == productUniqueCode)?.FirstOrDefault()?.FileName;
-            return fileName;
+            ProductMaster productMaster = _productMasterRepository.Table.Where(x => x.ProductUniqueCode == productUniqueCode)?.FirstOrDefault();
+            if (productMaster != null)
+            {
+                productMaster.DownloadCount = productMaster.DownloadCount + 1;
+                _productMasterRepository.Update(productMaster);
+            }
+            return productMaster?.FileName;
         }
 
         #region Private Method

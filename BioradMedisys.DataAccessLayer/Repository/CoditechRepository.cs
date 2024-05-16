@@ -234,7 +234,7 @@ namespace Coditech.DataAccessLayer.DataEntity
                 //{
                 //    var _initializer = new Initializer<T>(entity, "Update");
                 //}
-                return _result;
+                return true;
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException e)
             {

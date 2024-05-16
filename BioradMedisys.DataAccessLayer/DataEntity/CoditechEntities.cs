@@ -48,7 +48,8 @@ namespace Coditech.DataAccessLayer.DataEntity
                 {
                     SetDataIntoEntity(ent, createdBy, modifiedBy);
                 }
-                return base.SaveChanges();
+                base.SaveChanges();
+                return 1;
             }
             catch (DbEntityValidationException ex)
             {
