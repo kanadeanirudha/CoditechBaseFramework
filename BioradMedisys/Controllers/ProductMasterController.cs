@@ -112,11 +112,15 @@ namespace Coditech.Controllers
         [HttpGet]
         [AllowAnonymous]
 
-        public FileResult DownloadUserManual(string productuniquecode)
+        public ActionResult DownloadUserManual(string productuniquecode)
         {
             string fileName = _productMasterBA.GetFileNameByProductUniqueCode(productuniquecode);
-            string fileVirtualPath = $"~/{uploadFolderName}/UserManual/{fileName}";
-            return File(fileVirtualPath, "application/force-download", Path.GetFileName(fileVirtualPath));
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                string fileVirtualPath = $"~/{uploadFolderName}/UserManual/{fileName}";
+                return File(fileVirtualPath, "application/force-download", Path.GetFileName(fileVirtualPath));
+            }
+            return Content("Invalid QR code.");
         }
 
         [HttpGet]
