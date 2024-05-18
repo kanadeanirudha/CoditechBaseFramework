@@ -24,6 +24,7 @@
                                 <th>File Name</th>
                                 <th>Version</th>
                                 <th>Downloaded Count</th>
+                                <th>IsActive</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -36,7 +37,17 @@
                                         <td>@item.ProductName</td>
                                         <td>@item.FileName</td>
                                         <td>@item.Version</td>
-                                        <td>@item.DownloadCount</td>
+                                        <td style="text-align:center">@item.DownloadCount</td>
+                                        <td style="text-align:center">
+                                            @if (@item.IsActive)
+                                            {
+                                                <i class="fa fa-check-circle"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-times-circle"></i>
+                                            }
+                                        </td>
                                         <td>
                                             <div class="align-items-center d-flex justify-content-around action-container">
                                                 <a href="../@controllerName/Edit?productMasterId=@item.ProductMasterId" class="action-icon edit-product" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
@@ -59,11 +70,11 @@
 <script src='https://cdn.datatables.net/2.0.5/js/dataTables.js'></script>
 <script>
     new DataTable('#ProductTableId', {
-    layout: {
-        bottomEnd: {
-            paging: {
-                boundaryNumbers: false
+        layout: {
+            bottomEnd: {
+                paging: {
+                    boundaryNumbers: false
+                }
             }
         }
-    }
-});</script>
+    });</script>
