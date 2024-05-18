@@ -29,6 +29,9 @@ namespace Coditech.Controllers
 
         public ActionResult List(DataTableModel dataTableModel)
         {
+            if (IsLoginSessionExpired())
+                return RedirectToAction<UserController>(x => x.Login());
+
             dataTableModel = dataTableModel ?? new DataTableModel();
             ProductMasterListViewModel list = _productMasterBA.GetProductList(dataTableModel);
             return View($"~/Views/ProductMaster/List.cshtml", list);
@@ -37,12 +40,18 @@ namespace Coditech.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            if (IsLoginSessionExpired())
+                return RedirectToAction<UserController>(x => x.Login());
+
             return View(createEdit, new ProductMasterViewModel());
         }
 
         [HttpPost]
         public virtual ActionResult Create(ProductMasterViewModel productMasterViewModel)
         {
+            if (IsLoginSessionExpired())
+                return RedirectToAction<UserController>(x => x.Login());
+
             string errorMessage = string.Empty;
             if (ModelState.IsValid)
             {
@@ -78,40 +87,18 @@ namespace Coditech.Controllers
             return View(createEdit, productMasterViewModel);
         }
 
-        private string CreateQRCode(string uniqueCode, string qrFileName)
-        {
-            //Generate the QR code
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(uniqueCode, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeImage = qrCode.GetGraphic(20);
-
-            string userQRFolderPath = Server.MapPath($"~/{uploadFolderName}/QRImages/");
-
-            // Create the folder if it doesn't exist
-            if (!Directory.Exists(userQRFolderPath))
-            {
-                Directory.CreateDirectory(userQRFolderPath);
-            }
-            // Specify the folder path to save the QR code image
-            string folderPath = @"~/" + uploadFolderName + "/QRImages";
-
-            // Save the QR code as a PNG image file inside the specified folder
-            string fileName = Server.MapPath(Path.Combine(folderPath, qrFileName + ".png"));
-            qrCodeImage.Save(fileName, ImageFormat.Png);
-            return fileName;
-        }
-
         [HttpGet]
         public virtual ActionResult Edit(int productMasterId)
         {
+            if (IsLoginSessionExpired())
+                return RedirectToAction<UserController>(x => x.Login());
+
             ProductMasterViewModel productMasterViewModel = _productMasterBA.GetProductMaster(productMasterId);
             return ActionView(createEdit, productMasterViewModel);
         }
 
         [HttpGet]
         [AllowAnonymous]
-
         public ActionResult DownloadUserManual(string productuniquecode)
         {
             string fileName = _productMasterBA.GetFileNameByProductUniqueCode(productuniquecode);
@@ -134,6 +121,9 @@ namespace Coditech.Controllers
         [HttpPost]
         public virtual ActionResult Edit(ProductMasterViewModel productMasterViewModel)
         {
+            if (IsLoginSessionExpired())
+                return RedirectToAction<UserController>(x => x.Login());
+
             string errorMessage = string.Empty;
             if (ModelState.IsValid)
             {
@@ -172,6 +162,9 @@ namespace Coditech.Controllers
         //Delete Product Master.
         public virtual ActionResult Delete(string productMasterIds)
         {
+            if (IsLoginSessionExpired())
+                return RedirectToAction<UserController>(x => x.Login());
+
             string message = string.Empty;
             bool status = false;
             if (!string.IsNullOrEmpty(productMasterIds))
@@ -186,5 +179,30 @@ namespace Coditech.Controllers
             SetNotificationMessage(GetErrorNotificationMessage(GeneralResources.DeleteErrorMessage));
             return RedirectToAction<ProductMasterController>(x => x.List(null));
         }
+
+        private string CreateQRCode(string uniqueCode, string qrFileName)
+        {
+            //Generate the QR code
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(uniqueCode, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(20);
+
+            string userQRFolderPath = Server.MapPath($"~/{uploadFolderName}/QRImages/");
+
+            // Create the folder if it doesn't exist
+            if (!Directory.Exists(userQRFolderPath))
+            {
+                Directory.CreateDirectory(userQRFolderPath);
+            }
+            // Specify the folder path to save the QR code image
+            string folderPath = @"~/" + uploadFolderName + "/QRImages";
+
+            // Save the QR code as a PNG image file inside the specified folder
+            string fileName = Server.MapPath(Path.Combine(folderPath, qrFileName + ".png"));
+            qrCodeImage.Save(fileName, ImageFormat.Png);
+            return fileName;
+        }
+
     }
 }

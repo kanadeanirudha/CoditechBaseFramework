@@ -223,5 +223,10 @@ namespace Coditech.Controllers
             }
             return activeApplicationLicenseModel;
         }
+        protected bool IsLoginSessionExpired()
+        {
+            UserModel userData = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
+            return userData == null ? true : false;
+        }
     }
 }
