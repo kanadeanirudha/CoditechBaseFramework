@@ -18,13 +18,13 @@ namespace Coditech.DataAccessLayer.DataEntity
             : base("name=CoditechEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ProductMaster> ProductMasters { get; set; }
         public virtual DbSet<UserMaster> UserMasters { get; set; }
+        public virtual DbSet<ProductMaster> ProductMasters { get; set; }
     }
 }

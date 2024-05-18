@@ -15,6 +15,9 @@ namespace Coditech.DataAccessLayer.DataEntity
     {
         public int ProductMasterId { get; set; }
         public string ProductName { get; set; }
+        public string Version { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public int DownloadCount { get; set; }
         public string ProductUniqueCode { get; set; }
         public string FileName { get; set; }
         public bool IsActive { get; set; }
@@ -22,8 +25,7 @@ namespace Coditech.DataAccessLayer.DataEntity
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public string Version { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public int DownloadCount { get; set; }
+        public bool IsDeleted { get; set; }
+        public Nullable<System.DateTime> DeletedDate { get; set; }
     }
 }

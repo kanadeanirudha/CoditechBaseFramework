@@ -25,16 +25,16 @@ namespace Coditech.BusinessLogicLayer
 
         public ProductMasterListViewModel GetProductList(DataTableModel dataTableModel)
         {
-            FilterCollection filters = null;
+            FilterCollection filters = new FilterCollection();
+            filters.Add("IsDeleted", ProcedureFilterOperators.Equals, "false");
             if (!string.IsNullOrEmpty(dataTableModel.SearchBy))
             {
-                filters = new FilterCollection();
                 filters.Add("ProductName", ProcedureFilterOperators.Like, dataTableModel.SearchBy);
                 filters.Add("IsActive", ProcedureFilterOperators.Like, dataTableModel.SearchBy);
             }
 
             NameValueCollection sortlist = SortingData(dataTableModel.SortByColumn, dataTableModel.SortBy);
-            ProductMasterListModel ProductMasterList = _productMasterDAL.GetProductList(filters, sortlist, dataTableModel.PageIndex, dataTableModel.PageSize);
+            ProductMasterListModel ProductMasterList = _productMasterDAL.GetProductList(filters, sortlist, dataTableModel.PageIndex, int.MaxValue);
             ProductMasterListViewModel listViewModel = new ProductMasterListViewModel { ProductMasterList = ProductMasterList?.ProductMasterList?.ToViewModel<ProductMasterViewModel>().ToList() };
 
             SetListPagingData(listViewModel.PageListViewModel, ProductMasterList, dataTableModel, listViewModel.ProductMasterList.Count);

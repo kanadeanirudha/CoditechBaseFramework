@@ -49,7 +49,7 @@
                                     <div class="form-item-wrapper mb-2">
                                         <label for="product-name" class="form-label">Date :</label>
                                         <div class="form-box mb-4">
-                                            @Html.TextBoxFor(x => x.Date, new { @class = "form-control" })
+                                            @Html.TextBoxFor(x => x.Date, new { @class = "form-control", @type = "date" })
                                             @Html.ValidationMessageFor(x => x.Date, null, new { @class = "" })
                                         </div>
                                     </div>

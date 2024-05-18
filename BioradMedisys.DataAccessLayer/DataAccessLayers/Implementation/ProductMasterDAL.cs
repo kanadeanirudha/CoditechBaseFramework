@@ -29,7 +29,7 @@ namespace Coditech.DataAccessLayer
             ProductMasterListModel listModel = new ProductMasterListModel();
             List<ProductMaster> productList = _productMasterRepository.GetEntityList(pageListModel.SPWhereClause)?.ToList();
             listModel.ProductMasterList = new List<ProductMasterModel>();
-            foreach (ProductMaster productMaster in productList)
+            foreach (ProductMaster productMaster in productList?.Where(x => !x.IsDeleted))
             {
                 listModel.ProductMasterList.Add(new ProductMasterModel()
                 {
@@ -79,7 +79,7 @@ namespace Coditech.DataAccessLayer
                 throw new CoditechException(ErrorCodes.IdLessThanOne, string.Format(GeneralResources.ErrorIdLessThanOne, "ProductMasterID"));
 
             //Get the ProductMaster Details based on id.
-            ProductMaster productMasterData = _productMasterRepository.Table.FirstOrDefault(x => x.ProductMasterId == productMasterId);
+            ProductMaster productMasterData = _productMasterRepository.Table.FirstOrDefault(x => x.ProductMasterId == productMasterId && !x.IsDeleted);
             ProductMasterModel productMasterModel = productMasterData.FromEntityToModel<ProductMasterModel>();
             return productMasterModel;
         }
@@ -96,18 +96,11 @@ namespace Coditech.DataAccessLayer
             if (IsProductNameAlreadyExist(productMasterModel.ProductName, productMasterModel.ProductMasterId))
                 throw new CoditechException(ErrorCodes.AlreadyExist, string.Format(GeneralResources.ErrorCodeExists, "Country Code"));
 
-            ProductMaster productMasterData = _productMasterRepository.Table.FirstOrDefault(x => x.ProductMasterId == productMasterModel.ProductMasterId);
-
-            //if (productMasterData.ProductName == productMasterModel.ProductName 
-            //    && productMasterData.IsActive == productMasterModel.IsActive 
-            //    && string.IsNullOrEmpty(productMasterModel.FileName))
-            //{
-            //    return productMasterModel;
-            //}
+            ProductMaster productMasterData = _productMasterRepository.Table.Where(x => x.ProductMasterId == productMasterModel.ProductMasterId)?.FirstOrDefault();
 
             productMasterData.ProductName = productMasterModel.ProductName;
             productMasterData.Version = productMasterModel.Version;
-            productMasterData.Date = productMasterModel.Date;
+            productMasterData.Date = productMasterModel.Date ?? productMasterModel.Date;
             productMasterData.IsActive = productMasterModel.IsActive;
             productMasterData.FileName = string.IsNullOrEmpty(productMasterModel.FileName) ? productMasterData.FileName : productMasterModel.FileName;
 
@@ -143,7 +136,7 @@ namespace Coditech.DataAccessLayer
                 throw new CoditechException(ErrorCodes.NotFound, string.Format(GeneralResources.ErrorIdLessThanOne, "productUniqueCode"));
 
             //Get the ProductMaster Details based on id.
-            ProductMaster productMaster = _productMasterRepository.Table.Where(x => x.ProductUniqueCode == productUniqueCode)?.FirstOrDefault();
+            ProductMaster productMaster = _productMasterRepository.Table.Where(x => x.ProductUniqueCode == productUniqueCode && x.IsActive && !x.IsDeleted)?.FirstOrDefault();
             if (productMaster != null)
             {
                 productMaster.DownloadCount = productMaster.DownloadCount + 1;
