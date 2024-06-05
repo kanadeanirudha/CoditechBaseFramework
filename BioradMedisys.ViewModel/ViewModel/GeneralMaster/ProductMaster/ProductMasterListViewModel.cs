@@ -11,5 +11,7 @@ namespace Coditech.ViewModel
         {
             ProductMasterList = new List<ProductMasterViewModel>();
         }
+
+        public string FilterBy { get; set; }
     }
 }

@@ -12,5 +12,6 @@ namespace Coditech.Model
         public string Version { get; set; }
         public DateTime? Date { get; set; }
         public int DownloadCount { get; set; }
+        public string UploadedBy { get; set; }
     }
 }

@@ -6,10 +6,13 @@ using Coditech.Model;
 using Coditech.Resources;
 using Coditech.Utilities.Helper;
 
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices.Expando;
 
 using static Coditech.Utilities.Helper.CoditechHelperUtility;
 namespace Coditech.DataAccessLayer
@@ -24,26 +27,22 @@ namespace Coditech.DataAccessLayer
 
         public ProductMasterListModel GetProductList(FilterCollection filters, NameValueCollection sorts, int pagingStart, int pagingLength)
         {
+
             //Bind the Filter, sorts & Paging details.
             PageListModel pageListModel = new PageListModel(filters, sorts, pagingStart, pagingLength);
+            CoditechViewRepository<ProductMasterModel> objStoredProc = new CoditechViewRepository<ProductMasterModel>();
+            //SP parameters
+            objStoredProc.SetParameter("@WhereClause", pageListModel.SPWhereClause?.Replace("true","1")?.Replace("false","0"), ParameterDirection.Input, DbType.String);
+            objStoredProc.SetParameter("@Rows", pageListModel.PagingLength, ParameterDirection.Input, DbType.Int32);
+            objStoredProc.SetParameter("@PageNo", pageListModel.PagingStart, ParameterDirection.Input, DbType.Int32);
+            objStoredProc.SetParameter("@Order_By", pageListModel.OrderBy, ParameterDirection.Input, DbType.String);
+            objStoredProc.SetParameter("@RowCount", pageListModel.TotalRowCount, ParameterDirection.Output, DbType.Int32);
+
+            IList<ProductMasterModel> productEntityList = objStoredProc.ExecuteStoredProcedureList("Coditech_GetProductList @WhereClause,@Rows,@PageNo,@Order_By,@RowCount OUT", 4, out pageListModel.TotalRowCount);
             ProductMasterListModel listModel = new ProductMasterListModel();
-            List<ProductMaster> productList = _productMasterRepository.GetEntityList(pageListModel.SPWhereClause)?.ToList();
-            listModel.ProductMasterList = new List<ProductMasterModel>();
-            foreach (ProductMaster productMaster in productList?.Where(x => !x.IsDeleted))
-            {
-                listModel.ProductMasterList.Add(new ProductMasterModel()
-                {
-                    ProductMasterId = productMaster.ProductMasterId,
-                    ProductName = productMaster.ProductName,
-                    ProductUniqueCode = productMaster.ProductUniqueCode,
-                    FileName = productMaster.FileName,
-                    IsActive = productMaster.IsActive,
-                    Version = productMaster.Version,
-                    Date = productMaster.Date,
-                    DownloadCount = productMaster.DownloadCount
-                });
-            }
+            listModel.ProductMasterList = productEntityList?.Count > 0 ? productEntityList?.ToList() : new List<ProductMasterModel>();
             listModel.BindPageListModel(pageListModel);
+
             return listModel;
         }
 
@@ -57,7 +56,7 @@ namespace Coditech.DataAccessLayer
             {
                 throw new CoditechException(ErrorCodes.AlreadyExist, string.Format(GeneralResources.ErrorCodeExists, "ProductMaster name"));
             }
-
+            productMasterModel.Date = DateTime.Now;
             //Create new ProductMaster and return it.
             ProductMaster productMaster = _productMasterRepository.Insert(productMasterModel.FromModelToEntity<ProductMaster>());
             if (productMaster?.ProductMasterId > 0)
@@ -96,6 +95,7 @@ namespace Coditech.DataAccessLayer
             if (IsProductNameAlreadyExist(productMasterModel.ProductName, productMasterModel.ProductMasterId))
                 throw new CoditechException(ErrorCodes.AlreadyExist, string.Format(GeneralResources.ErrorCodeExists, "Country Code"));
 
+            productMasterModel.Date = DateTime.Now;
             ProductMaster productMasterData = _productMasterRepository.Table.Where(x => x.ProductMasterId == productMasterModel.ProductMasterId)?.FirstOrDefault();
 
             productMasterData.ProductName = productMasterModel.ProductName;
@@ -149,7 +149,7 @@ namespace Coditech.DataAccessLayer
 
         //Check if Product Master code is already present or not.
         private bool IsProductNameAlreadyExist(string productName, int productMasterId = 0)
-             => _productMasterRepository.Table.Any(x => x.ProductName == productName && (x.ProductMasterId != productMasterId || productMasterId == 0));
+             => _productMasterRepository.Table.Any(x => !x.IsDeleted && x.ProductName == productName && (x.ProductMasterId != productMasterId || productMasterId == 0));
 
         #endregion
     }

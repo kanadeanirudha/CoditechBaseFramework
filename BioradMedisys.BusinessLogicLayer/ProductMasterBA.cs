@@ -23,17 +23,24 @@ namespace Coditech.BusinessLogicLayer
             _productMasterDAL = new ProductMasterDAL();
         }
 
-        public ProductMasterListViewModel GetProductList(DataTableModel dataTableModel)
+        public ProductMasterListViewModel GetProductList(string filterBy, DataTableModel dataTableModel)
         {
             FilterCollection filters = new FilterCollection();
-            filters.Add("IsDeleted", ProcedureFilterOperators.Equals, "false");
+            //filters.Add("IsDeleted", ProcedureFilterOperators.Equals, "false");
+            if (!string.IsNullOrEmpty(filterBy))
+            {
+                if (filterBy == "true")
+                    filters.Add("IsActive", ProcedureFilterOperators.Equals, "true");
+                else
+                    filters.Add("IsActive", ProcedureFilterOperators.Equals, "false");
+            }
             if (!string.IsNullOrEmpty(dataTableModel.SearchBy))
             {
                 filters.Add("ProductName", ProcedureFilterOperators.Like, dataTableModel.SearchBy);
                 filters.Add("IsActive", ProcedureFilterOperators.Like, dataTableModel.SearchBy);
             }
 
-            NameValueCollection sortlist = SortingData(dataTableModel.SortByColumn, dataTableModel.SortBy);
+            NameValueCollection sortlist = SortingData(string.IsNullOrEmpty(dataTableModel.SortByColumn) ? "ModifiedDate" : dataTableModel.SortByColumn, string.IsNullOrEmpty(dataTableModel.SortBy) ? "desc" : dataTableModel.SortBy);
             ProductMasterListModel ProductMasterList = _productMasterDAL.GetProductList(filters, sortlist, dataTableModel.PageIndex, int.MaxValue);
             ProductMasterListViewModel listViewModel = new ProductMasterListViewModel { ProductMasterList = ProductMasterList?.ProductMasterList?.ToViewModel<ProductMasterViewModel>().ToList() };
 

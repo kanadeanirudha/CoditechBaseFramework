@@ -203,7 +203,16 @@ namespace Coditech.Controllers
 
         protected ActiveApplicationLicenseModel IsApplicationLicenseActive()
         {
+            if (Request.Url.Host == "localhost")
+            {
+                return new ActiveApplicationLicenseModel()
+                {
+                    IsActive = true
+                };
+            }
+
             ActiveApplicationLicenseModel activeApplicationLicenseModel = null;
+
             string baseurl = CoditechSetting.ApplicationLicenseUrl;
             using (var client = new HttpClient())
             {

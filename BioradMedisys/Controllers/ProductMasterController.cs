@@ -1,4 +1,6 @@
-﻿using Coditech.BusinessLogicLayer;
+﻿using ClosedXML.Excel;
+
+using Coditech.BusinessLogicLayer;
 using Coditech.Model.Model;
 using Coditech.Resources;
 using Coditech.Utilities.Constant;
@@ -8,9 +10,12 @@ using Coditech.ViewModel;
 using QRCoder;
 
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
@@ -27,13 +32,13 @@ namespace Coditech.Controllers
             _productMasterBA = new ProductMasterBA();
         }
 
-        public ActionResult List(DataTableModel dataTableModel)
+        public ActionResult List(string filterBy)
         {
             if (IsLoginSessionExpired())
                 return RedirectToAction<UserController>(x => x.Login());
 
-            dataTableModel = dataTableModel ?? new DataTableModel();
-            ProductMasterListViewModel list = _productMasterBA.GetProductList(dataTableModel);
+            ProductMasterListViewModel list = _productMasterBA.GetProductList(filterBy, new DataTableModel());
+            list.FilterBy = filterBy;
             return View($"~/Views/ProductMaster/List.cshtml", list);
         }
 
@@ -74,7 +79,7 @@ namespace Coditech.Controllers
                         CreateQRCode(url, productMasterViewModel.ProductUniqueCode);
                         //-------------Save QR-----------
                         SetNotificationMessage(GetSuccessNotificationMessage(GeneralResources.RecordCreationSuccessMessage));
-                        return RedirectToAction<ProductMasterController>(x => x.List(null));
+                        return RedirectToAction<ProductMasterController>(x => x.List(productMasterViewModel.IsActive.ToString().ToLower()));
                     }
                     errorMessage = productMasterViewModel.ErrorMessage;
                 }
@@ -111,7 +116,7 @@ namespace Coditech.Controllers
         }
 
         [HttpGet]
-        public FileResult DownloadQRImage(string productuniquecode)
+        public FileResult DownloadQRImage(string productuniquecode, string productName)
         {
             string fileVirtualPath = $"~/{uploadFolderName}/QRImages/{productuniquecode}.png";
             return File(fileVirtualPath, "application/force-download", Path.GetFileName(fileVirtualPath));
@@ -154,7 +159,7 @@ namespace Coditech.Controllers
                 : GetSuccessNotificationMessage(GeneralResources.UpdateMessage));
 
                 if (!status)
-                    return RedirectToAction<ProductMasterController>(x => x.List(new DataTableModel() { SortByColumn = SortKeys.ModifiedDate, SortBy = CoditechConstant.DESCKey }));
+                    return RedirectToAction<ProductMasterController>(x => x.List(productMasterViewModel.IsActive.ToString().ToLower()));
             }
             return View(createEdit, productMasterViewModel);
         }
@@ -173,11 +178,41 @@ namespace Coditech.Controllers
                 SetNotificationMessage(!status
                 ? GetErrorNotificationMessage(GeneralResources.DeleteErrorMessage)
                 : GetSuccessNotificationMessage(GeneralResources.DeleteMessage));
-                return RedirectToAction<ProductMasterController>(x => x.List(null));
+                return RedirectToAction<ProductMasterController>(x => x.List("true"));
             }
 
             SetNotificationMessage(GetErrorNotificationMessage(GeneralResources.DeleteErrorMessage));
-            return RedirectToAction<ProductMasterController>(x => x.List(null));
+            return RedirectToAction<ProductMasterController>(x => x.List("true"));
+        }
+
+        //[HttpPost]
+        public FileResult ExportToExcel()
+        {
+            ProductMasterListViewModel list = _productMasterBA.GetProductList("", new DataTableModel());
+
+            DataTable dataTable = new DataTable("ProductList");
+            dataTable.Clear();
+            dataTable.Columns.Add("ProductName", typeof(string));
+            dataTable.Columns.Add("FileName", typeof(string));
+            dataTable.Columns.Add("Version", typeof(string));
+            dataTable.Columns.Add("DownloadCount", typeof(string));
+            dataTable.Columns.Add("UploadedBy", typeof(string));
+            dataTable.Columns.Add("UpdatedDate", typeof(DateTime));
+            dataTable.Columns.Add("Status", typeof(bool));
+            foreach(ProductMasterViewModel item in list?.ProductMasterList)
+            {
+                dataTable.Rows.Add(item.ProductName, item.FileName, item.Version, item.DownloadCount, item.UploadedBy, item.ModifiedDate,item.IsActive);
+            }
+
+            using (XLWorkbook wb = new XLWorkbook())  
+            {
+                wb.Worksheets.Add(dataTable);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ProductList.xlsx");
+                }
+            }
         }
 
         private string CreateQRCode(string uniqueCode, string qrFileName)

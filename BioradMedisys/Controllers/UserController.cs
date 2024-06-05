@@ -62,7 +62,7 @@ namespace Coditech.Controllers
                     if (!userLoginViewModel.HasError)
                     {
                         FormsAuthentication.SetAuthCookie(userLoginViewModel.UserName, false);
-                        return RedirectToAction<ProductMasterController>(x => x.List(null));
+                        return RedirectToAction<ProductMasterController>(x => x.List("true"));
                     }
                     ModelState.AddModelError("ErrorMessage", userLoginViewModel.ErrorMessage);
                 }
