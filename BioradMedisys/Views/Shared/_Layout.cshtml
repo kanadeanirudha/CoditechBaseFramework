@@ -23,10 +23,36 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/Content/style.css">
+    <style>
+        #loader {
+            border: 12px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 12px solid #444444;
+            width: 70px;
+            height: 70px;
+            animation: spin 1s linear infinite;
+        }
+
+        .center {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        @@keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <!-- END: Head-->
 <!-- BEGIN: Body-->
 <body style="background: url('../../Content/Images/main-bg-v3.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; ">
+    <div id="loader" class="center" style="display: none"></div>
     <header class="main-header-wrapper d-flex justify-content-between align-items-center">
         <div class="logo-container">
             <img src="~/Content/Images/biorad-logo.svg" alt="Logo" />
@@ -56,5 +82,23 @@
     <script src="~/Scripts/GeneralScript/DataTable.js"></script>
     <script src="~/Scripts/GeneralScript/Notification.js"></script>
     <script src="~/Scripts/GeneralScript/CommanFunction.js"></script>
+    <script>
+        //if (performance.navigation.type == 2) {
+        //    location.reload();
+        //}
+
+        window.onbeforeunload = function () {
+            var inputs = document.getElementsByTagName("button");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type == "button" || inputs[i].type == "submit") {
+                    inputs[i].disabled = true;
+                }
+            }
+        };
+
+        $('#frmProductMaster').on('submit', function (e) {
+            $("#loader").show();
+        })
+    </script>
 </body><!-- END: Body-->
 </html>

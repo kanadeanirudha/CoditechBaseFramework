@@ -111,7 +111,8 @@
     });
     $(function () {
         $("#stausId").change(function () {
-            window.location = location.href.replace("true", "").replace("True", "").replace("false", "").replace("False", "") + this.value
+            $("#loader").show();
+            window.location = location.protocol + "//" + location.host + "" + location.pathname + "?filterBy=" + this.value
         });
     });
 </script>

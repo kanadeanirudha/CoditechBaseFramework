@@ -3,19 +3,16 @@
 using Coditech.BusinessLogicLayer;
 using Coditech.Model.Model;
 using Coditech.Resources;
-using Coditech.Utilities.Constant;
 using Coditech.Utilities.Helper;
 using Coditech.ViewModel;
 
 using QRCoder;
 
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
