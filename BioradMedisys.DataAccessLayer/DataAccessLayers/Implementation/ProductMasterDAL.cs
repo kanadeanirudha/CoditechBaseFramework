@@ -32,7 +32,7 @@ namespace Coditech.DataAccessLayer
             PageListModel pageListModel = new PageListModel(filters, sorts, pagingStart, pagingLength);
             CoditechViewRepository<ProductMasterModel> objStoredProc = new CoditechViewRepository<ProductMasterModel>();
             //SP parameters
-            objStoredProc.SetParameter("@WhereClause", pageListModel.SPWhereClause?.Replace("true","1")?.Replace("false","0"), ParameterDirection.Input, DbType.String);
+            objStoredProc.SetParameter("@WhereClause", pageListModel.SPWhereClause?.Replace("true", "1")?.Replace("false", "0"), ParameterDirection.Input, DbType.String);
             objStoredProc.SetParameter("@Rows", pageListModel.PagingLength, ParameterDirection.Input, DbType.Int32);
             objStoredProc.SetParameter("@PageNo", pageListModel.PagingStart, ParameterDirection.Input, DbType.Int32);
             objStoredProc.SetParameter("@Order_By", pageListModel.OrderBy, ParameterDirection.Input, DbType.String);
@@ -93,16 +93,13 @@ namespace Coditech.DataAccessLayer
                 throw new CoditechException(ErrorCodes.IdLessThanOne, string.Format(GeneralResources.ErrorIdLessThanOne, "ProductMasterID"));
 
             if (IsProductNameAlreadyExist(productMasterModel.ProductName, productMasterModel.ProductMasterId))
-                throw new CoditechException(ErrorCodes.AlreadyExist, string.Format(GeneralResources.ErrorCodeExists, "Country Code"));
+                throw new CoditechException(ErrorCodes.AlreadyExist, string.Format(GeneralResources.ErrorCodeExists, "Product Name"));
 
-            productMasterModel.Date = DateTime.Now;
+
             ProductMaster productMasterData = _productMasterRepository.Table.Where(x => x.ProductMasterId == productMasterModel.ProductMasterId)?.FirstOrDefault();
-
-            productMasterData.ProductName = productMasterModel.ProductName;
-            productMasterData.Version = productMasterModel.Version;
-            productMasterData.Date = productMasterModel.Date ?? productMasterModel.Date;
-            productMasterData.IsActive = productMasterModel.IsActive;
-            productMasterData.FileName = string.IsNullOrEmpty(productMasterModel.FileName) ? productMasterData.FileName : productMasterModel.FileName;
+            productMasterData.IsDeleted = true;
+            productMasterData.DeletedDate = DateTime.Now;
+            productMasterData.CreatedBy = productMasterData.ModifiedBy = productMasterModel.ModifiedBy;
 
             //Update ProductMaster
             bool isProductMasterUpdated = _productMasterRepository.Update(productMasterData);
@@ -111,6 +108,15 @@ namespace Coditech.DataAccessLayer
                 productMasterModel.HasError = true;
                 productMasterModel.ErrorMessage = GeneralResources.UpdateErrorMessage;
             }
+            productMasterData.DeletedDate = null;
+            productMasterModel.Date = DateTime.Now;
+            productMasterData.IsDeleted = false;
+            productMasterData.ProductName = productMasterModel.ProductName;
+            productMasterData.Version = productMasterModel.Version;
+            productMasterData.Date = productMasterModel.Date ?? productMasterModel.Date;
+            productMasterData.IsActive = productMasterModel.IsActive;
+            productMasterData.FileName = string.IsNullOrEmpty(productMasterModel.FileName) ? productMasterData.FileName : productMasterModel.FileName;
+            _productMasterRepository.Insert(productMasterData);
             return productMasterModel;
         }
 

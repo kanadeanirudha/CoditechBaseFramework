@@ -54,7 +54,7 @@ namespace Coditech.BusinessLogicLayer
         {
             try
             {
-                productMasterViewModel.CreatedBy = LoginUserId();
+                productMasterViewModel.CreatedBy = productMasterViewModel.ModifiedBy = LoginUserId();
                 ProductMasterModel productMasterModel = _productMasterDAL.CreateProductMaster(productMasterViewModel.ToModel<ProductMasterModel>());
                 return IsNotNull(productMasterModel) ? productMasterModel.ToViewModel<ProductMasterViewModel>() : new ProductMasterViewModel();
             }
