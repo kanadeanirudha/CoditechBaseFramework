@@ -1,7 +1,7 @@
 ﻿@using Coditech.ViewModel
 @model ProductMasterViewModel
 @{
-    ViewBag.Title = "Add Product";
+    ViewBag.Title = Model.ProductMasterId > 0 ? "Update Product" : "Add Product";
     string actionName = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
     string controllerName = ViewContext.RouteData.Values["controller"].ToString();
     string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
@@ -26,11 +26,11 @@
                     </a>
                 </div>
                 <div class="form-wrapper">
-                    @using (Html.BeginForm(actionName, controllerName, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form form-horizontal", id = "frmProductMaster" }))
-                    {
-                        @Html.HiddenFor(x => x.ProductMasterId)
-                        <div class="row mb-lg-4">
-                            <div class="col-lg-8 mb-4 mb-lg-0">
+                    <div class="row mb-lg-4">
+                        <div class="col-lg-8 mb-4 mb-lg-0">
+                            @using (Html.BeginForm(actionName, controllerName, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form form-horizontal", id = "frmProductMaster" }))
+                            {
+                                @Html.HiddenFor(x => x.ProductMasterId)
                                 <div class="form-3-wrapper">
                                     <div class="form-item-wrapper mb-5">
                                         <label for="product-name" class="form-label">Product Name<span class="required">*</span> :</label>
@@ -76,35 +76,40 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            @if (Model.ProductMasterId > 0)
-                            {
-                                <div class="col-lg-4 mb-4 mb-lg-0">
-                                    <div class="align-items-center d-flex justify-content-center flex-column gap-4">
-                                        <div class="imageWrapper mb-3">
-                                            <img src="@qrDownload" />
-                                        </div>
-                                        <div class="download-qr">
-                                            <a href="../@controllerName/DownloadQRImage?productuniquecode=@Model.ProductUniqueCode&productName=@Model.ProductName">
-                                                <i class="fa fa-download theme-color" aria-hidden="true"></i>
-                                            </a>
-                                        </div>
-                                        <div class="unique-code mb-3">
-                                            <p class="code-value base-font-size">@Model.ProductName</p>
-                                            <p class="code-value base-font-size">@Model.Version</p>
-                                            <p class="code-value base-font-size">@Model.ModifiedDate</p>
-                                        </div>
-                                    </div>
+                                <div class="align-items-center d-flex form-action justify-content-center">
+                                    <button type="submit" class="btn login-btn btn-set-default">Save</button>
                                 </div>
                             }
                         </div>
-                        <div class="align-items-center d-flex form-action justify-content-center">
-                            <button type="submit" class="btn login-btn btn-set-default">Save</button>
-                        </div>
-                    }
+                        @if (Model.ProductMasterId > 0)
+                        {
+                            <div class="col-lg-4 mb-4 mb-lg-0">
+                                <div class="align-items-center d-flex justify-content-center flex-column gap-4">
+                                    <div class="imageWrapper mb-3">
+                                        <img src="@qrDownload" />
+                                    </div>
+                                    <div class="download-qr">
+                                        <a href="#" onclick="GetClientReport()">
+                                            <i class="fa fa-download theme-color" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div class="unique-code mb-3">
+                                        <p class="code-value base-font-size">@Model.ProductName</p>
+                                        <p class="code-value base-font-size">@Model.Version</p>
+                                        <p class="code-value base-font-size">@Model.ModifiedDate</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-1"></div>
     </div>
 </div>
+<script>
+    function GetClientReport() {
+        window.open('/@controllerName/DownloadQRImage?productuniquecode=@Model.ProductUniqueCode&productName=@Model.ProductName', "_blank");
+};
+</script>

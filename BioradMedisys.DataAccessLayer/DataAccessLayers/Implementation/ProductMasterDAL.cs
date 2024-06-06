@@ -135,6 +135,18 @@ namespace Coditech.DataAccessLayer
             return status == 1 ? true : false;
         }
 
+        //Get Product Details ByProductUniqueCode
+        public ProductMasterModel GetProductDetailsByProductUniqueCode(string productUniqueCode)
+        {
+            if (string.IsNullOrEmpty(productUniqueCode))
+                throw new CoditechException(ErrorCodes.NotFound, string.Format(GeneralResources.ErrorIdLessThanOne, "productUniqueCode"));
+
+            //Get the ProductMaster Details based on id.
+            ProductMaster productMaster = _productMasterRepository.Table.Where(x => x.ProductUniqueCode == productUniqueCode && x.IsActive && !x.IsDeleted)?.FirstOrDefault();
+            ProductMasterModel productMasterModel = productMaster?.FromEntityToModel<ProductMasterModel>();
+            return productMasterModel;
+        }
+
         //Get FileName By ProductUniqueCode
         public string GetFileNameByProductUniqueCode(string productUniqueCode)
         {

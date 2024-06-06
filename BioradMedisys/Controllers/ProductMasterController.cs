@@ -1,10 +1,15 @@
 ﻿using ClosedXML.Excel;
 
 using Coditech.BusinessLogicLayer;
+using Coditech.Model;
 using Coditech.Model.Model;
 using Coditech.Resources;
 using Coditech.Utilities.Helper;
 using Coditech.ViewModel;
+
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 
 using QRCoder;
 
@@ -113,12 +118,44 @@ namespace Coditech.Controllers
         }
 
         [HttpGet]
-        public FileResult DownloadQRImage(string productuniquecode, string productName)
+        public FileResult DownloadQRImage(string productuniquecode)
         {
-            string fileVirtualPath = $"~/{uploadFolderName}/QRImages/{productuniquecode}.png";
-            return File(fileVirtualPath, "application/force-download", Path.GetFileName(fileVirtualPath));
+            ProductMasterModel productMasterModel = _productMasterBA.GetProductDetailsByProductUniqueCode(productuniquecode);
+
+            string fileVirtualPath = $"{Request.Url.Scheme}://{Request.Url.Authority}/{uploadFolderName}/QRImages/{productuniquecode}.png";
+            string html = $"<div><img src='{fileVirtualPath}'/></div>" +
+                          $"<div style='padding-left:50px;' >" +
+                          $"<div>Product Name: {productMasterModel.ProductName}</div>"+
+                          $"<div >Version: {productMasterModel.Version}</div>"+
+                          $"<div>Updated Date: {productMasterModel.ModifiedDate}</div>" +
+                          $"</div>";
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader sr = new StringReader(html);
+                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+                return File(stream.ToArray(), "application/pdf", $"{productMasterModel.ProductName}.pdf");
+            }
         }
 
+        [HttpPost]
+        [ValidateInput(false)]
+        public FileResult Export(string GridHtml)
+        {
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader sr = new StringReader(GridHtml);
+                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+                return File(stream.ToArray(), "application/pdf", "Grid.pdf");
+            }
+        }
         //Post:Edit Product Master.
         [HttpPost]
         public virtual ActionResult Edit(ProductMasterViewModel productMasterViewModel)
