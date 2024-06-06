@@ -342,9 +342,6 @@
     <Content Include="Content\Images\active.svg" />
     <Content Include="Content\Images\biorad-logo.svg" />
     <Content Include="Content\Images\inactive.png" />
-    <Content Include="Content\Images\main-bg-v3.jpg" />
-    <Content Include="Content\Images\main-bg.png" />
-    <Content Include="Content\Images\med-main-bg.jpg" />
     <Content Include="Content\Images\no-image.jpg" />
     <Content Include="Content\Images\qr-code-dummy.png" />
     <Content Include="Content\style.css" />
