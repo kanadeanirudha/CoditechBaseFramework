@@ -179,7 +179,7 @@ namespace Coditech.Controllers
                 }
 
                 bool status = _productMasterBA.UpdateProductMaster(productMasterViewModel).HasError;
-                if (postedFile?.ContentLength > 0 && status)
+                if (postedFile?.ContentLength > 0 && !status)
                 {
                     string path = Server.MapPath($"~/{uploadFolderName}/UserManual/");
                     if (!Directory.Exists(path))
