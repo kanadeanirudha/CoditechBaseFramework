@@ -21,15 +21,17 @@
                     {
                         <h1 class="text-center font-poppins">Add New Product</h1>
                     }
-                    @if (Model.IsDisabled)
-                    {
-                        <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/Edit?productMasterId=@Model.ProductMasterId&isDisabled=false">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update Version
+                    <div class="align-items-center d-flex justify-content-between gap-10">
+                        @if (Model.IsDisabled)
+                        {
+                            <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/Edit?productMasterId=@Model.ProductMasterId&isDisabled=false">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update Version
+                            </a>
+                        }
+                        <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/List">
+                            <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
                         </a>
-                    }
-                    <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/List">
-                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
-                    </a>
+                    </div>
                 </div>
                 <div class="form-wrapper">
                     <div class="row mb-lg-4">
