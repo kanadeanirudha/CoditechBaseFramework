@@ -25,7 +25,7 @@
                         @if (Model.IsDisabled)
                         {
                             <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/Edit?productMasterId=@Model.ProductMasterId&isDisabled=false">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update Version
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> New Version
                             </a>
                         }
                         <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/List">
@@ -64,7 +64,14 @@
                                         <div class="form-item-wrapper">
                                             @if (Model.ProductMasterId > 0)
                                             {
-                                                <label for="upload-manual" class="form-label">Upload Manual :</label>
+                                                if (Model.IsDisabled)
+                                                {
+                                                    <label for="upload-manual" class="form-label">View Details :</label>
+                                                }
+                                                else
+                                                {
+                                                    <label for="upload-manual" class="form-label">Upload Manual :</label>
+                                                }
                                             }
                                             else
                                             {
