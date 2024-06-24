@@ -95,67 +95,16 @@ namespace Coditech.Controllers
         }
 
         [HttpGet]
-        public virtual ActionResult Edit(int productMasterId)
+        public virtual ActionResult Edit(int productMasterId, bool isDisabled = true)
         {
             if (IsLoginSessionExpired())
                 return RedirectToAction<UserController>(x => x.Login());
 
             ProductMasterViewModel productMasterViewModel = _productMasterBA.GetProductMaster(productMasterId);
+            productMasterViewModel.IsDisabled = isDisabled;
             return ActionView(createEdit, productMasterViewModel);
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult DownloadUserManual(string productuniquecode)
-        {
-            string fileName = _productMasterBA.GetFileNameByProductUniqueCode(productuniquecode);
-            if (!string.IsNullOrEmpty(fileName))
-            {
-                string fileVirtualPath = $"~/{uploadFolderName}/UserManual/{fileName}";
-                return File(fileVirtualPath, "application/force-download", Path.GetFileName(fileVirtualPath));
-            }
-            return Content("Invalid QR code.");
-        }
-
-        [HttpGet]
-        public FileResult DownloadQRImage(string productuniquecode)
-        {
-            ProductMasterModel productMasterModel = _productMasterBA.GetProductDetailsByProductUniqueCode(productuniquecode);
-
-            string fileVirtualPath = $"{Request.Url.Scheme}://{Request.Url.Authority}/{uploadFolderName}/QRImages/{productuniquecode}.png";
-            string html = $"<div><img src='{fileVirtualPath}'/></div>" +
-                          $"<div style='padding-left:50px;' >" +
-                          $"<div>Product Name: {productMasterModel.ProductName}</div>"+
-                          $"<div >Version: {productMasterModel.Version}</div>"+
-                          $"<div>Updated Date: {productMasterModel.ModifiedDate}</div>" +
-                          $"</div>";
-            using (MemoryStream stream = new System.IO.MemoryStream())
-            {
-                StringReader sr = new StringReader(html);
-                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
-                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                pdfDoc.Open();
-                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-                pdfDoc.Close();
-                return File(stream.ToArray(), "application/pdf", $"{productMasterModel.ProductName}.pdf");
-            }
-        }
-
-        [HttpPost]
-        [ValidateInput(false)]
-        public FileResult Export(string GridHtml)
-        {
-            using (MemoryStream stream = new System.IO.MemoryStream())
-            {
-                StringReader sr = new StringReader(GridHtml);
-                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
-                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                pdfDoc.Open();
-                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-                pdfDoc.Close();
-                return File(stream.ToArray(), "application/pdf", "Grid.pdf");
-            }
-        }
         //Post:Edit Product Master.
         [HttpPost]
         public virtual ActionResult Edit(ProductMasterViewModel productMasterViewModel)
@@ -193,7 +142,7 @@ namespace Coditech.Controllers
                 : GetSuccessNotificationMessage(GeneralResources.UpdateMessage));
 
                 if (!status)
-                    return RedirectToAction<ProductMasterController>(x => x.List(productMasterViewModel.IsActive.ToString().ToLower()));
+                    return RedirectToAction<ProductMasterController>(x => x.Edit(productMasterViewModel.ProductMasterId, true));
             }
             return View(createEdit, productMasterViewModel);
         }
@@ -219,6 +168,59 @@ namespace Coditech.Controllers
             return RedirectToAction<ProductMasterController>(x => x.List("true"));
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult DownloadUserManual(string productuniquecode)
+        {
+            string fileName = _productMasterBA.GetFileNameByProductUniqueCode(productuniquecode);
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                string fileVirtualPath = $"~/{uploadFolderName}/UserManual/{fileName}";
+                return File(fileVirtualPath, "application/force-download", Path.GetFileName(fileVirtualPath));
+            }
+            return Content("Invalid QR code.");
+        }
+
+        [HttpGet]
+        public FileResult DownloadQRImage(string productuniquecode)
+        {
+            ProductMasterModel productMasterModel = _productMasterBA.GetProductDetailsByProductUniqueCode(productuniquecode);
+
+            string fileVirtualPath = $"{Request.Url.Scheme}://{Request.Url.Authority}/{uploadFolderName}/QRImages/{productuniquecode}.png";
+            string html = $"<div><img src='{fileVirtualPath}'/></div>" +
+                          $"<div style='padding-left:50px;' >" +
+                          $"<div>Product Name: {productMasterModel.ProductName}</div>" +
+                          $"<div >Version: {productMasterModel.Version}</div>" +
+                          $"<div>Updated Date: {productMasterModel.ModifiedDate}</div>" +
+                          $"</div>";
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader sr = new StringReader(html);
+                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+                return File(stream.ToArray(), "application/pdf", $"{productMasterModel.ProductName}.pdf");
+            }
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public FileResult Export(string GridHtml)
+        {
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader sr = new StringReader(GridHtml);
+                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+                return File(stream.ToArray(), "application/pdf", "Grid.pdf");
+            }
+        }
+
         //[HttpPost]
         public FileResult ExportToExcel()
         {
@@ -233,12 +235,12 @@ namespace Coditech.Controllers
             dataTable.Columns.Add("UploadedBy", typeof(string));
             dataTable.Columns.Add("UpdatedDate", typeof(DateTime));
             dataTable.Columns.Add("Status", typeof(bool));
-            foreach(ProductMasterViewModel item in list?.ProductMasterList)
+            foreach (ProductMasterViewModel item in list?.ProductMasterList)
             {
-                dataTable.Rows.Add(item.ProductName, item.FileName, item.Version, item.DownloadCount, item.UploadedBy, item.ModifiedDate,item.IsActive);
+                dataTable.Rows.Add(item.ProductName, item.FileName, item.Version, item.DownloadCount, item.UploadedBy, item.ModifiedDate, item.IsActive);
             }
 
-            using (XLWorkbook wb = new XLWorkbook())  
+            using (XLWorkbook wb = new XLWorkbook())
             {
                 wb.Worksheets.Add(dataTable);
                 using (MemoryStream stream = new MemoryStream())

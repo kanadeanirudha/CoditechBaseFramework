@@ -17,5 +17,6 @@ namespace Coditech.ViewModel
         public DateTime? Date { get; set; }
         public int DownloadCount { get; set; }
         public string UploadedBy { get; set; }
+        public bool IsDisabled { get; set; } = true;
     }
 }

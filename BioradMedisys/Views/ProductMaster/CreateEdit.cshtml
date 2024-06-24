@@ -21,6 +21,12 @@
                     {
                         <h1 class="text-center font-poppins">Add New Product</h1>
                     }
+                    @if (Model.IsDisabled)
+                    {
+                        <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/Edit?productMasterId=@Model.ProductMasterId&isDisabled=false">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update Version
+                        </a>
+                    }
                     <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/List">
                         <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
                     </a>
@@ -30,8 +36,7 @@
                         <div class="col-lg-8 mb-4 mb-lg-0">
                             @using (Html.BeginForm(actionName, controllerName, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form form-horizontal", id = "frmProductMaster" }))
                             {
-                                @Html.HiddenFor(x => x.ProductMasterId)
-                                <div class="form-3-wrapper">
+                                @Html.HiddenFor(x => x.ProductMasterId)<div class="form-3-wrapper">
                                     <div class="form-item-wrapper mb-5">
                                         <label for="product-name" class="form-label">Product Name<span class="required">*</span> :</label>
                                         <div class="form-box mb-4">
@@ -63,9 +68,12 @@
                                             {
                                                 <label for="upload-manual" class="form-label">Upload Manual<span class="required">*</span> :</label>
                                             }
-                                            <button class="file-upload btn-set-default btn">
-                                                <input type="file" class="file-input" name="UploadManual" id="UploadManual" /><i class="fa fa-upload" aria-hidden="true"></i> Upload File
-                                            </button>
+                                            @if (!Model.IsDisabled)
+                                            {
+                                                <button class="file-upload btn-set-default btn">
+                                                    <input type="file" class="file-input" name="UploadManual" id="UploadManual" /><i class="fa fa-upload" aria-hidden="true"></i> Upload File
+                                                </button>
+                                            }
                                             <label for="upload-manual" class="form-label">@Model.FileName</label>
                                         </div>
                                     </div>
@@ -76,9 +84,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="align-items-center d-flex form-action justify-content-center">
-                                    <button type="submit" class="btn login-btn btn-set-default">Save</button>
-                                </div>
+                                if (!Model.IsDisabled)
+                                {
+                                    <div class="align-items-center d-flex form-action justify-content-center">
+                                        <button type="submit" class="btn login-btn btn-set-default">Save</button>
+                                    </div>
+                                }
                             }
                         </div>
                         @if (Model.ProductMasterId > 0)
