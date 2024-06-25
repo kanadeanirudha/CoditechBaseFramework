@@ -50,7 +50,7 @@ namespace Coditech.Controllers
             if (IsLoginSessionExpired())
                 return RedirectToAction<UserController>(x => x.Login());
 
-            return View(createEdit, new ProductMasterViewModel());
+            return View(createEdit, new ProductMasterViewModel() { IsDisabled = false });
         }
 
         [HttpPost]
