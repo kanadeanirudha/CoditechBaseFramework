@@ -116,7 +116,11 @@ namespace Coditech.DataAccessLayer
             productMasterData.Date = productMasterModel.Date ?? productMasterModel.Date;
             productMasterData.IsActive = productMasterModel.IsActive;
             productMasterData.FileName = string.IsNullOrEmpty(productMasterModel.FileName) ? productMasterData.FileName : productMasterModel.FileName;
-            _productMasterRepository.Insert(productMasterData);
+            ProductMaster productMasterInsertData = _productMasterRepository.Insert(productMasterData);
+            if(productMasterInsertData.ProductMasterId > 0)
+            {
+                productMasterModel.ProductMasterId = productMasterInsertData.ProductMasterId;
+            }
             return productMasterModel;
         }
 
