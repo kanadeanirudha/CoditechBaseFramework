@@ -148,6 +148,11 @@ namespace Coditech.DataAccessLayer
             //Get the ProductMaster Details based on id.
             ProductMaster productMaster = _productMasterRepository.Table.Where(x => x.ProductUniqueCode == productUniqueCode && x.IsActive && !x.IsDeleted)?.FirstOrDefault();
             ProductMasterModel productMasterModel = productMaster?.FromEntityToModel<ProductMasterModel>();
+            if (productMaster != null)
+            {
+                productMaster.DownloadCount = productMaster.DownloadCount + 1;
+                _productMasterRepository.Update(productMaster);
+            }
             return productMasterModel;
         }
 
@@ -159,11 +164,6 @@ namespace Coditech.DataAccessLayer
 
             //Get the ProductMaster Details based on id.
             ProductMaster productMaster = _productMasterRepository.Table.Where(x => x.ProductUniqueCode == productUniqueCode && x.IsActive && !x.IsDeleted)?.FirstOrDefault();
-            if (productMaster != null)
-            {
-                productMaster.DownloadCount = productMaster.DownloadCount + 1;
-                _productMasterRepository.Update(productMaster);
-            }
             return productMaster?.FileName;
         }
 
