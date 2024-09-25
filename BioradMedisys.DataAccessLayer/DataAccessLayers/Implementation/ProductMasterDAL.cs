@@ -97,9 +97,10 @@ namespace Coditech.DataAccessLayer
 
 
             ProductMaster productMasterData = _productMasterRepository.Table.Where(x => x.ProductMasterId == productMasterModel.ProductMasterId)?.FirstOrDefault();
+            productMasterData.IsActive = false;
             productMasterData.IsDeleted = true;
             productMasterData.DeletedDate = DateTime.Now;
-            productMasterData.CreatedBy = productMasterData.ModifiedBy = productMasterModel.ModifiedBy;
+            productMasterData.ModifiedBy = productMasterModel.ModifiedBy;
 
             //Update ProductMaster
             bool isProductMasterUpdated = _productMasterRepository.Update(productMasterData);
