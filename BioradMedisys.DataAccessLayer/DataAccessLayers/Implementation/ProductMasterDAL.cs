@@ -10,19 +10,18 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices.Expando;
-
 using static Coditech.Utilities.Helper.CoditechHelperUtility;
 namespace Coditech.DataAccessLayer
 {
     public class ProductMasterDAL
     {
         private readonly ICoditechRepository<ProductMaster> _productMasterRepository;
+        private readonly ICoditechRepository<UserMaster> _userMasterRepository;
         public ProductMasterDAL()
         {
             _productMasterRepository = new CoditechRepository<ProductMaster>();
+            _userMasterRepository = new CoditechRepository<UserMaster>();
         }
 
         public ProductMasterListModel GetProductList(FilterCollection filters, NameValueCollection sorts, int pagingStart, int pagingLength)
@@ -118,7 +117,7 @@ namespace Coditech.DataAccessLayer
             productMasterData.IsActive = productMasterModel.IsActive;
             productMasterData.FileName = string.IsNullOrEmpty(productMasterModel.FileName) ? productMasterData.FileName : productMasterModel.FileName;
             ProductMaster productMasterInsertData = _productMasterRepository.Insert(productMasterData);
-            if(productMasterInsertData.ProductMasterId > 0)
+            if (productMasterInsertData.ProductMasterId > 0)
             {
                 productMasterModel.ProductMasterId = productMasterInsertData.ProductMasterId;
             }
@@ -168,6 +167,29 @@ namespace Coditech.DataAccessLayer
             return productMaster?.FileName;
         }
 
+        public ProductMasterListModel ProductHistory(string productUniqueCode)
+        {
+            if (string.IsNullOrEmpty(productUniqueCode))
+                throw new CoditechException(ErrorCodes.NotFound, string.Format(GeneralResources.ErrorIdLessThanOne, "productUniqueCode"));
+
+            ProductMasterListModel listModel = new ProductMasterListModel();
+            listModel.ProductMasterList = (from x in _productMasterRepository.Table
+                                           join y in _userMasterRepository.Table on x.ModifiedBy equals y.UserMasterId
+                                           where x.ProductUniqueCode == productUniqueCode
+                                           select new ProductMasterModel
+                                           {
+                                               ProductName = x.ProductName,
+                                               Version = x.Version,
+                                               Date = x.Date,
+                                               DownloadCount = x.DownloadCount,
+                                               FileName = x.FileName,
+                                               IsActive = x.IsActive,
+                                               FirstName = y.FirstName,
+                                               LastName = y.LastName,
+                                               ModifiedDate = x.ModifiedDate
+                                           })?.ToList();
+            return listModel;
+        }
         #region Private Method
 
         //Check if Product Master code is already present or not.

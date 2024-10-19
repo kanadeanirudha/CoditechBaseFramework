@@ -125,5 +125,12 @@ namespace Coditech.BusinessLogicLayer
                 return false;
             }
         }
+
+        public ProductMasterListViewModel ProductHistory(string productUniqueCode)
+        {
+            ProductMasterListModel ProductMasterList = _productMasterDAL.ProductHistory(productUniqueCode);
+            ProductMasterListViewModel listViewModel = new ProductMasterListViewModel { ProductMasterList = ProductMasterList?.ProductMasterList?.ToViewModel<ProductMasterViewModel>().ToList() };
+            return listViewModel;
+        }
     }
 }

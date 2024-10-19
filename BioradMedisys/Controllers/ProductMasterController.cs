@@ -222,6 +222,15 @@ namespace Coditech.Controllers
             }
         }
 
+        public ActionResult ProductHistory(string productUniqueCode)
+        {
+            if (IsLoginSessionExpired())
+                return RedirectToAction<UserController>(x => x.Login());
+
+            ProductMasterListViewModel list = _productMasterBA.ProductHistory(productUniqueCode);
+            return View($"~/Views/ProductMaster/ProductHistory.cshtml", list);
+        }
+
         //[HttpPost]
         public FileResult ExportToExcel()
         {

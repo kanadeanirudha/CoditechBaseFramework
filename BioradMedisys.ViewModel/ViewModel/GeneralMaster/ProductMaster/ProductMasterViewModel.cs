@@ -18,5 +18,7 @@ namespace Coditech.ViewModel
         public int DownloadCount { get; set; }
         public string UploadedBy { get; set; }
         public bool IsDisabled { get; set; } = true;
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }
