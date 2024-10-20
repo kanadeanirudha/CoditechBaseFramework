@@ -24,7 +24,9 @@ namespace Coditech.DataAccessLayer.DataEntity
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<UserMaster> UserMasters { get; set; }
+        public virtual DbSet<AdminAssociateFormsToRole> AdminAssociateFormsToRoles { get; set; }
+        public virtual DbSet<AdminRoleMaster> AdminRoleMasters { get; set; }
         public virtual DbSet<ProductMaster> ProductMasters { get; set; }
+        public virtual DbSet<UserMaster> UserMasters { get; set; }
     }
 }

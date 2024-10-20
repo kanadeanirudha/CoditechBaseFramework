@@ -59,6 +59,12 @@
     <Compile Include="DataAccessLayers\Implementation\ProductMasterDAL.cs" />
     <Compile Include="Constants\StoredProcedureKeys.cs" />
     <Compile Include="DataAccessLayers\Implementation\UserMasterDAL.cs" />
+    <Compile Include="DataEntity\AdminAssociateFormsToRole.cs">
+      <DependentUpon>CoditechEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\AdminRoleMaster.cs">
+      <DependentUpon>CoditechEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataEntity\CoditechEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

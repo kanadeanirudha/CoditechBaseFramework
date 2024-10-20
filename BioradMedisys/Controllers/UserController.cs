@@ -3,10 +3,10 @@ using Coditech.Model;
 using Coditech.Utilities.Constant;
 using Coditech.Utilities.Helper;
 using Coditech.ViewModel;
-
+using System;
+using System.DirectoryServices.AccountManagement;
 using System.Web.Mvc;
 using System.Web.Security;
-
 namespace Coditech.Controllers
 {
     [AllowAnonymous]
@@ -58,6 +58,15 @@ namespace Coditech.Controllers
             {
                 if (!string.IsNullOrEmpty(userLoginViewModel.UserName) && !string.IsNullOrEmpty(userLoginViewModel.Password))
                 {
+                    if (Convert.ToBoolean(CoditechSetting.IsLoginWithAD))
+                    {
+                        var domainContext = new PrincipalContext(ContextType.Domain);
+                        using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, ""))
+                        {
+                            userLoginViewModel.HasError = !pc.ValidateCredentials(userLoginViewModel.UserName, userLoginViewModel.Password);
+                        }
+                        userLoginViewModel.Password = "user@123";
+                    }
                     userLoginViewModel = _userMasterBA.Login(userLoginViewModel);
                     if (!userLoginViewModel.HasError)
                     {

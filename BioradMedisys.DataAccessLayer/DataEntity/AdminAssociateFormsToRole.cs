@@ -11,19 +11,11 @@ namespace Coditech.DataAccessLayer.DataEntity
 {
     using System;
 
-    public partial class UserMaster : CoditechEntityBaseModel
+    public partial class AdminAssociateFormsToRole : CoditechEntityBaseModel
     {
-        public int UserMasterId { get; set; }
-        public string UserType { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string EmailId { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public bool IsActive { get; set; }
-        public Nullable<byte> AdminRoleMasterId { get; set; }
-        public Nullable<bool> IsDocumentApprovalAuthority { get; set; }
+        public int AdminAssociateFormsToRoleId { get; set; }
+        public string AdminFormCode { get; set; }
+        public byte AdminRoleMasterId { get; set; }
         public Nullable<long> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<long> ModifiedBy { get; set; }

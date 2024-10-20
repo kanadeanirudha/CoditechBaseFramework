@@ -91,5 +91,12 @@ namespace Coditech.Utilities.Helper
                 return Convert.ToString(settings["ApplicationLicenseApiKey"]);
             }
         }
+        public static string IsLoginWithAD
+        {
+            get
+            {
+                return Convert.ToString(settings["IsLoginWithAD"]);
+            }
+        }
     }
 }

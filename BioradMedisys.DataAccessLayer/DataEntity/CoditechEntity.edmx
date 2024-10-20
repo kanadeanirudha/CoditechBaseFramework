@@ -5,6 +5,31 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Coditech.EntityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminAssociateFormsToRole">
+          <Key>
+            <PropertyRef Name="AdminAssociateFormsToRoleId" />
+          </Key>
+          <Property Name="AdminAssociateFormsToRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminFormCode" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="AdminRoleMasterId" Type="tinyint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AdminRoleMaster">
+          <Key>
+            <PropertyRef Name="AdminRoleMasterId" />
+          </Key>
+          <Property Name="AdminRoleMasterId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="ProductMaster">
           <Key>
             <PropertyRef Name="ProductMasterId" />
@@ -37,12 +62,16 @@
           <Property Name="MiddleName" Type="nvarchar" MaxLength="100" />
           <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="AdminRoleMasterId" Type="tinyint" />
+          <Property Name="IsDocumentApprovalAuthority" Type="bit" />
           <Property Name="CreatedBy" Type="bigint" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityContainer Name="CoditechEntityModelStoreContainer">
+          <EntitySet Name="AdminAssociateFormsToRole" EntityType="Self.AdminAssociateFormsToRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdminRoleMaster" EntityType="Self.AdminRoleMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductMaster" EntityType="Self.ProductMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -51,21 +80,30 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Coditech.EntityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RARIndiaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="UserMasters" EntityType="Coditech.EntityModel.UserMaster" />
+          <EntitySet Name="AdminAssociateFormsToRoles" EntityType="Coditech.EntityModel.AdminAssociateFormsToRole" />
+          <EntitySet Name="AdminRoleMasters" EntityType="Coditech.EntityModel.AdminRoleMaster" />
           <EntitySet Name="ProductMasters" EntityType="Coditech.EntityModel.ProductMaster" />
+          <EntitySet Name="UserMasters" EntityType="Coditech.EntityModel.UserMaster" />
         </EntityContainer>
-        <EntityType Name="UserMaster">
+        <EntityType Name="AdminAssociateFormsToRole">
           <Key>
-            <PropertyRef Name="UserMasterId" />
+            <PropertyRef Name="AdminAssociateFormsToRoleId" />
           </Key>
-          <Property Name="UserMasterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserType" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AdminAssociateFormsToRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminFormCode" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AdminRoleMasterId" Type="Byte" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AdminRoleMaster">
+          <Key>
+            <PropertyRef Name="AdminRoleMasterId" />
+          </Key>
+          <Property Name="AdminRoleMasterId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="CreatedBy" Type="Int64" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
@@ -91,28 +129,56 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="DeletedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="UserMasterId" />
+          </Key>
+          <Property Name="UserMasterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserType" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="AdminRoleMasterId" Type="Byte" />
+          <Property Name="IsDocumentApprovalAuthority" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CoditechEntityModelStoreContainer" CdmEntityContainer="RARIndiaEntities">
-          <EntitySetMapping Name="UserMasters">
-            <EntityTypeMapping TypeName="Coditech.EntityModel.UserMaster">
-              <MappingFragment StoreEntitySet="UserMaster">
+          <EntitySetMapping Name="AdminAssociateFormsToRoles">
+            <EntityTypeMapping TypeName="Coditech.EntityModel.AdminAssociateFormsToRole">
+              <MappingFragment StoreEntitySet="AdminAssociateFormsToRole">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AdminRoleMasterId" ColumnName="AdminRoleMasterId" />
+                <ScalarProperty Name="AdminFormCode" ColumnName="AdminFormCode" />
+                <ScalarProperty Name="AdminAssociateFormsToRoleId" ColumnName="AdminAssociateFormsToRoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminRoleMasters">
+            <EntityTypeMapping TypeName="Coditech.EntityModel.AdminRoleMaster">
+              <MappingFragment StoreEntitySet="AdminRoleMaster">
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserType" ColumnName="UserType" />
-                <ScalarProperty Name="UserMasterId" ColumnName="UserMasterId" />
+                <ScalarProperty Name="RoleCode" ColumnName="RoleCode" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="AdminRoleMasterId" ColumnName="AdminRoleMasterId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -133,6 +199,27 @@
                 <ScalarProperty Name="Version" ColumnName="Version" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductMasterId" ColumnName="ProductMasterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMasters">
+            <EntityTypeMapping TypeName="Coditech.EntityModel.UserMaster">
+              <MappingFragment StoreEntitySet="UserMaster">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsDocumentApprovalAuthority" ColumnName="IsDocumentApprovalAuthority" />
+                <ScalarProperty Name="AdminRoleMasterId" ColumnName="AdminRoleMasterId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserMasterId" ColumnName="UserMasterId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
