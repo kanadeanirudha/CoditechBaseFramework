@@ -234,7 +234,7 @@ namespace Coditech.Controllers
         }
         protected bool IsLoginSessionExpired()
         {
-            UserModel userData = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
+            UserMasterModel userData = CoditechSessionHelper.GetDataFromSession<UserMasterModel>(CoditechConstant.UserDataSession);
             return userData == null ? true : false;
         }
     }

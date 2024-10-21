@@ -46,7 +46,8 @@
     <Compile Include="DataModel\View_ReturnBoolean.cs" />
     <Compile Include="Model\ProductMaster\ProductMasterListModel.cs" />
     <Compile Include="Model\ProductMaster\ProductMasterModel.cs" />
-    <Compile Include="Model\User\UserModel.cs" />
+    <Compile Include="Model\User\UserMasterListModel.cs" />
+    <Compile Include="Model\User\UserMasterModel.cs" />
     <Compile Include="Model\BaseListModel.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\DataTableModel.cs" />

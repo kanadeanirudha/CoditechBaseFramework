@@ -12,8 +12,11 @@ namespace Coditech
         public static void Execute()
         {
             Mapper.CreateMap<FilterTuple, FilterDataTuple>();
-            Mapper.CreateMap<UserModel, UserLoginViewModel>().ReverseMap();
-            Mapper.CreateMap<UserModel, UserMaster>().ReverseMap();
+            Mapper.CreateMap<UserMasterModel, UserLoginViewModel>().ReverseMap();
+            Mapper.CreateMap<UserMasterModel, UserMaster>().ReverseMap();
+            Mapper.CreateMap<UserMasterModel, UserMasterViewModel>().ReverseMap();
+            Mapper.CreateMap<UserMasterViewModel, UserMasterModel>().ReverseMap();
+
 
             Mapper.CreateMap<ProductMasterModel, ProductMasterViewModel>().ReverseMap();
             Mapper.CreateMap<ProductMasterModel, ProductMaster>().ReverseMap();

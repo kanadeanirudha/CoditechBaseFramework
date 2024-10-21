@@ -1,0 +1,103 @@
+﻿@using Coditech.ViewModel
+@model UserMasterListViewModel
+@{
+    ViewBag.Title = "User List";
+    string actionName = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+    string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css">
+<div class="container-fluid listing-wrapper mt-4 main-content-wrapper">
+    <div class="row">
+        <div class="col-lg-12 d-flex align-items-center justify-content-center right-side">
+            <div class="list-wrapper">
+                <div class="align-items-center d-flex justify-content-between wrapper-header mb-3">
+                    <h1 class="text-center font-poppins">User List</h1>
+                    <div class="align-items-center d-flex justify-content-between gap-10">
+                        <select name="stausId" id="stausId" class="form-control" style="width:200px;">
+                            @if (Model.FilterBy == "true")
+                            {
+                                <option value="true" selected>Active</option>
+                                <option value="false">In-Active</option>
+                                <option value="">All</option>
+                            }
+                            else if (Model.FilterBy == "false")
+                            {
+                                <option value="true">Active</option>
+                                <option value="false" selected>In-Active</option>
+                                <option value="">All</option>
+                            }
+                            else
+                            {
+                                <option value="true">Active</option>
+                                <option value="false">In-Active</option>
+                                <option value="" selected>All</option>
+                            }
+                        </select>
+                        <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/ExportToExcel">
+                            <i class="fa fa-download"></i> Export To Excel
+                        </a>
+                        <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/Create">
+                            <i class="fa fa-plus-circle"></i> Add New Product
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive table-wrapper">
+                    <table class="table table-striped table-bordered" id="ProductTableId">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Role Name</th>
+                                <th>Is Document Approval Authority</th>
+                                <th>Is Active</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model?.UserMasterList?.Count > 0)
+                            {
+                                foreach (UserMasterViewModel item in Model.UserMasterList)
+                                {
+                                    <tr>
+                                        <td>@item.FirstName</td>
+                                        <td>@item.LastName</td>
+                                        <td style="text-align:center">@item.RoleName</td>
+                                        <td style="text-align:center">
+                                            @Html.CheckBoxFor(x => item.IsDocumentApprovalAuthority , new { @class = "", @id = "IsDocumentApprovalAuthority", @disabled = "disabled" })
+                                        </td>
+                                        <td>@Html.CheckBoxFor(x => item.IsActive, new { @class = "", @id = "isActive", @disabled = "disabled" })</td>
+                                        <td>
+                                            <div class="align-items-center d-flex justify-content-around action-container">
+                                                <a href="../@controllerName/EditUserMaster?userMasterId=@item.UserMasterId" class="action-icon edit-user" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src='https://code.jquery.com/jquery-3.7.1.js'></script>
+<script src='https://cdn.datatables.net/2.0.5/js/dataTables.js'></script>
+<script>
+    new DataTable('#ProductTableId', {
+        layout: {
+            bottomEnd: {
+                paging: {
+                    boundaryNumbers: false
+                }
+            }
+        }
+    });
+    $(function () {
+        $("#stausId").change(function () {
+            $("#loader").show();
+            window.location = location.protocol + "//" + location.host + "" + location.pathname + "?filterBy=" + this.value
+        });
+    });
+</script>

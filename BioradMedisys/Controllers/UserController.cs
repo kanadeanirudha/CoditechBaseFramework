@@ -1,5 +1,7 @@
 ﻿using Coditech.BusinessLogicLayer;
 using Coditech.Model;
+using Coditech.Model.Model;
+using Coditech.Resources;
 using Coditech.Utilities.Constant;
 using Coditech.Utilities.Helper;
 using Coditech.ViewModel;
@@ -13,7 +15,6 @@ namespace Coditech.Controllers
     public class UserController : BaseController
     {
         UserMasterBA _userMasterBA = null;
-
         public UserController()
         {
             _userMasterBA = new UserMasterBA();
@@ -95,6 +96,46 @@ namespace Coditech.Controllers
         public ActionResult Unauthorized()
         {
             return View("~/Views/Shared/Unauthorized.cshtml");
+        }
+
+        public ActionResult List()
+        {
+            if (IsLoginSessionExpired())
+                return RedirectToAction<UserController>(x => x.Login());
+
+            UserMasterListViewModel list = _userMasterBA.GetUserList();
+            return View($"~/Views/UserMaster/List.cshtml", list);
+        }
+
+        [HttpGet]
+        public virtual ActionResult EditUserMaster(int userMasterId)
+        {
+            if (IsLoginSessionExpired())
+                return RedirectToAction<UserController>(x => x.Login());
+
+            UserMasterViewModel userMasterViewModel = _userMasterBA.GetUserMaster(userMasterId);
+            return ActionView($"~/Views/UserMaster/Edit.cshtml", userMasterViewModel);
+        }
+
+        [HttpPost]
+        public virtual ActionResult EditUserMaster(UserMasterViewModel userMasterViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool status = _userMasterBA.UpdateUserMaster(userMasterViewModel).HasError;
+                SetNotificationMessage(status
+                    ? GetErrorNotificationMessage(GeneralResources.UpdateErrorMessage)
+                    : GetSuccessNotificationMessage(GeneralResources.UpdateMessage));
+
+                if (!status)
+                {
+                    return RedirectToAction($"~/Views/UserMaster/Edit.cshtml", new { UserMasterId = userMasterViewModel.UserMasterId });
+                }
+            }
+
+            //BindDropdown(adminRoleViewModel);
+            SetNotificationMessage(GetErrorNotificationMessage(userMasterViewModel.ErrorMessage));
+            return View($"~/Views/UserMaster/Edit.cshtml", userMasterViewModel);
         }
     }
 }

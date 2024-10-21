@@ -4,7 +4,7 @@
 @{
     string title = System.Convert.ToString(CoditechSetting.ProjectTitle);
     string messageData = Convert.ToString(TempData["Notifications"]);
-    UserModel userData = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
+    UserMasterModel userData = CoditechSessionHelper.GetDataFromSession<UserMasterModel>(CoditechConstant.UserDataSession);
     TempData.Remove("Notifications");
 }
 <!DOCTYPE html>
@@ -65,7 +65,7 @@
                     </a>
                 </div>
                 <div class="sign-in-log-off">
-                    <a href="#" class="base-font-size">
+                    <a href="../User/List" class="base-font-size">
                         <i class="fa fa-solid fa-user"></i> User List
                     </a>
                 </div>
