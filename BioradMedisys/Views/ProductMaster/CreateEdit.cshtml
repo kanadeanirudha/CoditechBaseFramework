@@ -7,7 +7,7 @@
     string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
     string qrDownload = $"{domainName}/Uploads/QRimages/{Model.ProductUniqueCode}.png";
     string copyText = $"{domainName}/ProductMaster/DownloadUserManual?productuniquecode={Model.ProductUniqueCode}";
-}
+  }
 <div class="container-fluid add-product-wrapper main-content-wrapper mt-4">
     <div class="row">
         <div class="col-lg-1"></div>
@@ -29,27 +29,27 @@
                     {
                         <h1 class="text-center font-poppins">Add New Product</h1>
                     }
-                <div class="align-items-center d-flex justify-content-between gap-10">
-                    @if (Model.IsDisabled)
-                    {
-                        <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/Edit?productMasterId=@Model.ProductMasterId&isDisabled=false">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> New Version
+                    <div class="align-items-center d-flex justify-content-between gap-10">
+                        @if (Model.IsDisabled)
+                        {
+                            <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/Edit?productMasterId=@Model.ProductMasterId&isDisabled=false">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> New Version
+                            </a>
+                        }
+                        @if (Model.ProductMasterId > 0)
+                        {
+                            <a class="btn btn-set-default add-new-product base-font-size" href="#" onclick="CopyLink()">
+                                <i class="fa fa-regular fa-copy" aria-hidden="true"></i> Copy Link
+                            </a>
+                            <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/ProductHistory?productUniqueCode=@Model.ProductUniqueCode">
+                                <i class="fa fa-regular fa-history" aria-hidden="true"></i> History
+                            </a>
+                        }
+                        <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/List">
+                            <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
                         </a>
-                    }
-                    @if (Model.ProductMasterId > 0)
-                    {
-                        <a class="btn btn-set-default add-new-product base-font-size" href="#" onclick="CopyLink()">
-                            <i class="fa fa-regular fa-copy" aria-hidden="true"></i> Copy Link
-                        </a>
-                        <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/ProductHistory?productUniqueCode=@Model.ProductUniqueCode">
-                            <i class="fa fa-regular fa-history" aria-hidden="true"></i> History
-                        </a>
-                    }
-                    <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/List">
-                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
-                    </a>
-                    <input type="hidden" id="copyLinkId" value="@copyText" />
-                </div>
+                        <input type="hidden" id="copyLinkId" value="@copyText" />
+                    </div>
                 </div>
                 <div class="form-wrapper">
                     <div class="row mb-lg-4">
@@ -103,30 +103,34 @@
                                             {
                                                 <label for="upload-manual" class="form-label">Upload Manual<span class="required">*</span> :</label>
                                             }
-                                            @if (!Model.IsDisabled)
+                                            @if (!Model.IsDisabled && !Model.IsDocumentApprovalAuthority)
                                             {
                                                 <button class="file-upload btn-set-default btn">
                                                     <input type="file" class="file-input" name="UploadManual" id="UploadManual" /><i class="fa fa-upload" aria-hidden="true"></i> Upload File
                                                 </button>
+                                            }
+                                            @if (Model.IsDocumentApprovalAuthority)
+                                            {
+                                                <a href="../@controllerName/DownloadUserManual?productuniquecode=@Model.ProductUniqueCode" class="action-icon upload-product" title="Download User Manual"><i class="fa fa-download theme-color" aria-hidden="true"></i></a>
                                             }
                                             <label for="upload-manual" class="form-label">@Model.FileName</label>
                                         </div>
                                     </div>
                                     <div class="form-item-wrapper mb-5">
                                         <div class="custom-control custom-checkbox">
-                                            @if (Model.IsDisabled)
+                                            @if (Model.IsDocumentApprovalAuthority)
                                             {
-                                                @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive", @disabled = "disabled" })
+                                                @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive" })
                                             }
                                             else
                                             {
-                                                @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive" })
+                                                @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive", @disabled = "disabled" })
                                             }
                                             <label class="custom-control-label base-font-size" for="isActive">Is Active</label>
                                         </div>
                                     </div>
                                 </div>
-                                if (!Model.IsDisabled)
+                                if (!Model.IsDisabled || !Model.IsDocumentApprovalAuthority)
                                 {
                                     <div class="align-items-center d-flex form-action justify-content-center">
                                         <button type="submit" class="btn login-btn btn-set-default">Save</button>
@@ -134,7 +138,7 @@
                                 }
                             }
                         </div>
-                        @if (Model.ProductMasterId > 0)
+                        @if (Model.ProductMasterId > 0 && (Model.IsActive || Model.IsDocumentApprovalAuthority))
                         {
                             <div class="col-lg-4 mb-4 mb-lg-0">
                                 <div class="align-items-center d-flex justify-content-center flex-column gap-4">

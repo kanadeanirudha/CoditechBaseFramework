@@ -4,6 +4,7 @@ using Coditech.BusinessLogicLayer;
 using Coditech.Model;
 using Coditech.Model.Model;
 using Coditech.Resources;
+using Coditech.Utilities.Constant;
 using Coditech.Utilities.Helper;
 using Coditech.ViewModel;
 
@@ -91,6 +92,9 @@ namespace Coditech.Controllers
                 }
             }
             SetNotificationMessage(GetErrorNotificationMessage(errorMessage));
+            UserModel userData = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
+            productMasterViewModel.IsDocumentApprovalAuthority = userData.IsDocumentApprovalAuthority;
+            productMasterViewModel.IsDisabled = false;
             return View(createEdit, productMasterViewModel);
         }
 
@@ -102,6 +106,8 @@ namespace Coditech.Controllers
 
             ProductMasterViewModel productMasterViewModel = _productMasterBA.GetProductMaster(productMasterId);
             productMasterViewModel.IsDisabled = isDisabled;
+            UserModel userData = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
+            productMasterViewModel.IsDocumentApprovalAuthority = userData.IsDocumentApprovalAuthority;
             return ActionView(createEdit, productMasterViewModel);
         }
 
@@ -145,6 +151,8 @@ namespace Coditech.Controllers
                 if (!status)
                     return RedirectToAction<ProductMasterController>(x => x.Edit(productMasterViewModel.ProductMasterId, true));
             }
+            UserModel userData = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
+            productMasterViewModel.IsDocumentApprovalAuthority = userData.IsDocumentApprovalAuthority;
             return View(createEdit, productMasterViewModel);
         }
 

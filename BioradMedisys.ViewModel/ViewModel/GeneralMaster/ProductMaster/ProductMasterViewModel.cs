@@ -20,5 +20,6 @@ namespace Coditech.ViewModel
         public bool IsDisabled { get; set; } = true;
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public bool IsDocumentApprovalAuthority { get; set; }
     }
 }

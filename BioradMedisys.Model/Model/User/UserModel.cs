@@ -15,7 +15,7 @@
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public bool IsActive { get; set; }
-        public short AdminRoleMasterId { get; set; }
+        public short? AdminRoleMasterId { get; set; }
         public bool IsDocumentApprovalAuthority { get; set; }
         public string RoleName { get; set; }
 
