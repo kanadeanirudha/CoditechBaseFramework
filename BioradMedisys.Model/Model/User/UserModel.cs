@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Coditech.Model
+﻿namespace Coditech.Model
 {
-    public class UserMasterModel : BaseModel
+    public class UserModel : BaseModel
     {
-        public UserMasterModel()
+        public UserModel()
         {
            
         }

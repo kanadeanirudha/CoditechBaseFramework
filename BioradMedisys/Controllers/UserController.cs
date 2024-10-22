@@ -1,6 +1,5 @@
 ﻿using Coditech.BusinessLogicLayer;
 using Coditech.Model;
-using Coditech.Model.Model;
 using Coditech.Resources;
 using Coditech.Utilities.Constant;
 using Coditech.Utilities.Helper;
@@ -11,7 +10,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 namespace Coditech.Controllers
 {
-    [AllowAnonymous]
+
     public class UserController : BaseController
     {
         UserMasterBA _userMasterBA = null;
@@ -21,6 +20,7 @@ namespace Coditech.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login()
         {
             ActiveApplicationLicenseModel activeApplicationLicenseModel = IsApplicationLicenseActive();
@@ -40,6 +40,7 @@ namespace Coditech.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult Login(UserLoginViewModel userLoginViewModel)
         {
             ActiveApplicationLicenseModel activeApplicationLicenseModel = IsApplicationLicenseActive();
@@ -120,6 +121,9 @@ namespace Coditech.Controllers
         [HttpPost]
         public virtual ActionResult EditUserMaster(UserMasterViewModel userMasterViewModel)
         {
+            if (IsLoginSessionExpired())
+                return RedirectToAction<UserController>(x => x.Login());
+
             if (ModelState.IsValid)
             {
                 bool status = _userMasterBA.UpdateUserMaster(userMasterViewModel).HasError;

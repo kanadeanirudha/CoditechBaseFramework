@@ -4,10 +4,10 @@ namespace Coditech.Model
 {
     public class UserMasterListModel : BaseListModel
     {
-        public List<UserMasterModel> UserMasterList { get; set; }
+        public List<UserModel> UserMasterList { get; set; }
         public UserMasterListModel()
         {
-            UserMasterList = new List<UserMasterModel>();
+            UserMasterList = new List<UserModel>();
         }
     }
 }

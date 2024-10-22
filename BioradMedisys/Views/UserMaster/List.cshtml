@@ -13,32 +13,9 @@
                 <div class="align-items-center d-flex justify-content-between wrapper-header mb-3">
                     <h1 class="text-center font-poppins">User List</h1>
                     <div class="align-items-center d-flex justify-content-between gap-10">
-                        <select name="stausId" id="stausId" class="form-control" style="width:200px;">
-                            @if (Model.FilterBy == "true")
-                            {
-                                <option value="true" selected>Active</option>
-                                <option value="false">In-Active</option>
-                                <option value="">All</option>
-                            }
-                            else if (Model.FilterBy == "false")
-                            {
-                                <option value="true">Active</option>
-                                <option value="false" selected>In-Active</option>
-                                <option value="">All</option>
-                            }
-                            else
-                            {
-                                <option value="true">Active</option>
-                                <option value="false">In-Active</option>
-                                <option value="" selected>All</option>
-                            }
-                        </select>
-                        <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/ExportToExcel">
-                            <i class="fa fa-download"></i> Export To Excel
-                        </a>
-                        <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/Create">
-                            <i class="fa fa-plus-circle"></i> Add New Product
-                        </a>
+                        @*<a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/Create">
+                            <i class="fa fa-plus-circle"></i> Add New User
+                        </a>*@
                     </div>
                 </div>
                 <div class="table-responsive table-wrapper">
@@ -63,9 +40,29 @@
                                         <td>@item.LastName</td>
                                         <td style="text-align:center">@item.RoleName</td>
                                         <td style="text-align:center">
-                                            @Html.CheckBoxFor(x => item.IsDocumentApprovalAuthority , new { @class = "", @id = "IsDocumentApprovalAuthority", @disabled = "disabled" })
+                                            @if (@item.IsDocumentApprovalAuthority)
+                                            {
+                                                <img src="~/Content/Images/active.svg" style="width:20px; height:20px;" />
+                                                <span style="display:none">1</span>
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/Images/inactive.png" style="width:20px; height:20px;" />
+                                                <span style="display:none">0</span>
+                                            }
                                         </td>
-                                        <td>@Html.CheckBoxFor(x => item.IsActive, new { @class = "", @id = "isActive", @disabled = "disabled" })</td>
+                                        <td style="text-align:center">
+                                            @if (@item.IsActive)
+                                            {
+                                                <img src="~/Content/Images/active.svg" style="width:20px; height:20px;" />
+                                                <span style="display:none">1</span>
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/Images/inactive.png" style="width:20px; height:20px;" />
+                                                <span style="display:none">0</span>
+                                            }
+                                        </td>
                                         <td>
                                             <div class="align-items-center d-flex justify-content-around action-container">
                                                 <a href="../@controllerName/EditUserMaster?userMasterId=@item.UserMasterId" class="action-icon edit-user" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>

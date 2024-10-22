@@ -1,16 +1,13 @@
 ﻿using Coditech.DataAccessLayer;
 using Coditech.ExceptionManager;
 using Coditech.Model;
-using Coditech.Model.Model;
 using Coditech.Resources;
 using Coditech.Utilities.Constant;
 using Coditech.Utilities.Helper;
 using Coditech.ViewModel;
-using System.Collections.Specialized;
 using System;
-
-using static Coditech.Utilities.Helper.CoditechHelperUtility;
 using System.Linq;
+using static Coditech.Utilities.Helper.CoditechHelperUtility;
 namespace Coditech.BusinessLogicLayer
 {
     public class UserMasterBA : BaseBusinessLogic
@@ -26,10 +23,10 @@ namespace Coditech.BusinessLogicLayer
             try
             {
                 userLoginViewModel.Password = MD5Hash(userLoginViewModel.Password);
-                UserMasterModel userModel = _userMasterDAL.Login(userLoginViewModel.ToModel<UserMasterModel>());
+                UserModel userModel = _userMasterDAL.Login(userLoginViewModel.ToModel<UserModel>());
                 if (IsNotNull(userModel))
                 {
-                    SaveInSession<UserMasterModel>(CoditechConstant.UserDataSession, userModel);
+                    SaveInSession<UserModel>(CoditechConstant.UserDataSession, userModel);
                 }
                 return userLoginViewModel;
             }
@@ -67,7 +64,7 @@ namespace Coditech.BusinessLogicLayer
             try
             {
                 userMasterViewModel.ModifiedBy = LoginUserId();
-                UserMasterModel userMasterModel = _userMasterDAL.UpdateUserMaster(userMasterViewModel.ToModel<UserMasterModel>());
+                UserModel userMasterModel = _userMasterDAL.UpdateUserMaster(userMasterViewModel.ToModel<UserModel>());
                 return IsNotNull(userMasterModel) ? userMasterModel.ToViewModel<UserMasterViewModel>() : (UserMasterViewModel)GetViewModelWithErrorMessage(new UserMasterListViewModel(), GeneralResources.UpdateErrorMessage);
             }
             catch (Exception ex)

@@ -4,7 +4,7 @@
 @{
     string title = System.Convert.ToString(CoditechSetting.ProjectTitle);
     string messageData = Convert.ToString(TempData["Notifications"]);
-    UserMasterModel userData = CoditechSessionHelper.GetDataFromSession<UserMasterModel>(CoditechConstant.UserDataSession);
+    UserModel userData = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
     TempData.Remove("Notifications");
 }
 <!DOCTYPE html>

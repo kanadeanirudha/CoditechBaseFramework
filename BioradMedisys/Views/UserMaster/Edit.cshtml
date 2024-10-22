@@ -4,9 +4,6 @@
     ViewBag.Title = Model.UserMasterId > 0 ? "View Details" : "";
     string actionName = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
     string controllerName = ViewContext.RouteData.Values["controller"].ToString();
-    string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
-    //string qrDownload = $"{domainName}/Uploads/QRimages/{Model.ProductUniqueCode}.png";
-    //string copyText = $"{domainName}/ProductMaster/DownloadUserManual?productuniquecode={Model.ProductUniqueCode}";
 }
 <div class="container-fluid add-product-wrapper main-content-wrapper mt-4">
     <div class="row">
@@ -14,132 +11,84 @@
         <div class="col-lg-12 d-flex align-items-center justify-content-center right-side">
             <div class="list-wrapper">
                 <div class="align-items-center d-flex justify-content-between wrapper-header mb-3">
-                    <h1 class="text-center font-poppins">View Details</h1>
-                    @*else
-                        {
-                            <h1 class="text-center font-poppins">Add New Product</h1>
-                        }*@
-                    @*<div class="align-items-center d-flex justify-content-between gap-10">*@
-                    @*@if (Model.IsDisabled)
-                        {
-                            <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/Edit?productMasterId=@Model.ProductMasterId&isDisabled=false">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> New Version
-                            </a>
-                        }*@
-                    @*@if (Model.ProductMasterId > 0)
-                        {
-                            <a class="btn btn-set-default add-new-product base-font-size" href="#" onclick="CopyLink()">
-                                <i class="fa fa-regular fa-copy" aria-hidden="true"></i> Copy Link
-                            </a>
-                            <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/ProductHistory?productUniqueCode=@Model.ProductUniqueCode">
-                                <i class="fa fa-regular fa-history" aria-hidden="true"></i> History
-                            </a>
-                        }*@
-                    <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/List">
-                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
-                    </a>
-                    @*<input type="hidden" id="copyLinkId" value="@copyText" />*@
+                    @if (Model.UserMasterId > 0)
+                    {
+                        <h1 class="text-center font-poppins">Update User</h1>
+                    }
+                    else
+                    {
+                        <h1 class="text-center font-poppins">Add New User</h1>
+                    }
+                    <div class="align-items-center d-flex justify-content-between gap-10">
+                        <a class="btn btn-set-default add-new-product base-font-size" href="../@controllerName/List">
+                            <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="form-wrapper">
-                <div class="row mb-lg-4">
-                    <div class="col-lg-8 mb-4 mb-lg-0">
-                        @using (Html.BeginForm(actionName, controllerName, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form form-horizontal", id = "frmProductMaster" }))
-                        {
-                            @Html.HiddenFor(x => x.UserMasterId)
-                            <div class="form-3-wrapper">
-                                <div class="form-item-wrapper mb-5">
-                                    <label for="product-name" class="form-label">First Name<span class="required">*</span> :</label>
-                                    <div class="form-box mb-4">
-                                        @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", @disabled = "disabled" })
-                                        @Html.ValidationMessageFor(x => x.FirstName, null, new { @class = "red" })
-                                    </div>
-                                </div>
-                                <div class="form-item-wrapper mb-2">
-                                    <label for="product-name" class="form-label">Last Name<span class="required">*</span> :</label>
-                                    <div class="form-box mb-4">
-                                        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @disabled = "disabled" })
-                                        @Html.ValidationMessageFor(x => x.LastName, null, new { @class = "" })
-                                    </div>
-                                </div>
-                                @*<div class="form-item-wrapper mb-2">
-                                        <label for="product-name" class="form-label">Date :</label>
+                <div class="form-wrapper">
+                    <div class="row mb-lg-4">
+                        <div class="col-lg-12 mb-4 mb-lg-0">
+                            @using (Html.BeginForm(actionName, controllerName, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form form-horizontal", id = "frmProductMaster" }))
+                            {
+                                @Html.HiddenFor(x => x.UserMasterId)
+                                <div class="form-3-wrapper">
+                                    <div class="form-item-wrapper mb-5">
+                                        <label for="product-name" class="form-label">First Name<span class="required">*</span> :</label>
                                         <div class="form-box mb-4">
-                                            @Html.TextBoxFor(x => x.Date, new { @class = "form-control", @type = "date" })
-                                            @Html.ValidationMessageFor(x => x.Date, null, new { @class = "" })
-                                        </div>
-                                    </div>*@
-                                @*<div class="d-flex align-items-center justify-content-between mb-4">
-                                        <div class="form-item-wrapper">
                                             @if (Model.UserMasterId > 0)
                                             {
-                                                <label for="upload-manual" class="form-label">Upload Manual :</label>
+                                                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", @disabled = "disabled" })
                                             }
                                             else
                                             {
-                                                <label for="upload-manual" class="form-label">Upload Manual<span class="required">*</span> :</label>
+                                                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control" })
                                             }
-                                            @if (!Model.IsDisabled)
-                                            {
-                                                <button class="file-upload btn-set-default btn">
-                                                    <input type="file" class="file-input" name="UploadManual" id="UploadManual" /><i class="fa fa-upload" aria-hidden="true"></i> Upload File
-                                                </button>
-                                            }
-                                            <label for="upload-manual" class="form-label">@Model.FileName</label>
+                                            @Html.ValidationMessageFor(x => x.FirstName, null, new { @class = "red" })
                                         </div>
-                                    </div>*@
-                                <div class="form-item-wrapper mb-5">
-                                    <div class="custom-control custom-checkbox">
-                                        @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive" })
-                                        <label class="custom-control-label base-font-size" for="isActive">Is Active</label>
                                     </div>
-                                    <div class="custom-control custom-checkbox">
-                                        @Html.CheckBoxFor(x => x.IsDocumentApprovalAuthority, new { @class = "custom-control-input", @id = "IsDocumentApprovalAuthority" })
-                                        <label class="custom-control-label base-font-size" for="IsDocumentApprovalAuthority">Is Document Approval Authority</label>
+                                    <div class="form-item-wrapper mb-5">
+                                        <label for="product-name" class="form-label">Last Name<span class="required">*</span> :</label>
+                                        <div class="form-box mb-4">
+                                            @if (Model.UserMasterId > 0)
+                                            {
+                                                @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @disabled = "disabled" })
+                                            }
+                                            else
+                                            {
+                                                @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+                                            }
+                                            @Html.ValidationMessageFor(x => x.LastName, null, new { @class = "red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-item-wrapper mb-5">
+                                        <div class="custom-control custom-checkbox">
+                                            @if (Model.UserMasterId > 0)
+                                            {
+                                                @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive", @disabled = "disabled" })
+                                            }
+                                            else
+                                            {
+                                                @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive" })
+                                            }
+                                            <label class="custom-control-label base-font-size" for="isActive">Is Active</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-item-wrapper mb-5">
+                                        <div class="custom-control custom-checkbox">
+                                            @Html.CheckBoxFor(x => x.IsDocumentApprovalAuthority, new { @class = "custom-control-input", @id = "IsDocumentApprovalAuthority" })
+                                            <label class="custom-control-label base-font-size" for="IsDocumentApprovalAuthority">Is Document Approval Authority</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="align-items-center d-flex form-action justify-content-center">
-                                <button type="submit" class="btn login-btn btn-set-default">Save</button>
-                            </div>
-                        }
-                        }
-                        @*</div>
-                                @if (Model.ProductMasterId > 0)
-                                {
-                                    <div class="col-lg-4 mb-4 mb-lg-0">
-                                        <div class="align-items-center d-flex justify-content-center flex-column gap-4">
-                                            <div class="imageWrapper mb-3">
-                                                <img src="@qrDownload" />
-                                            </div>
-                                            <div class="download-qr">
-                                                <a href="#" onclick="GetClientReport()">
-                                                    <i class="fa fa-download theme-color" aria-hidden="true"></i>
-                                                </a>
-                                            </div>
-                                            <div class="unique-code mb-3">
-                                                <p class="code-value base-font-size">@Model.ProductName</p>
-                                                <p class="code-value base-font-size">@Model.Version</p>
-                                                <p class="code-value base-font-size">@Model.ModifiedDate</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>*@
+                                <div class="align-items-center d-flex form-action justify-content-center">
+                                    <button type="submit" class="btn login-btn btn-set-default">Save</button>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-1"></div>
         </div>
+        <div class="col-lg-1"></div>
     </div>
-    @*<script>
-            function GetClientReport() {
-                window.open('/@controllerName/DownloadQRImage?productuniquecode=@Model.ProductUniqueCode&productName=@Model.ProductName', "_blank");
-            };
-
-            function CopyLink() {
-                var copyLink = $("#copyLinkId").val();
-                // Copy the text inside the text field
-                navigator.clipboard.writeText(copyLink);
-            };
-        </script>*@
+</div>

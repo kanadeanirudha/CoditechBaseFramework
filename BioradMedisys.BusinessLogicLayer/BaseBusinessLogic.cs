@@ -113,7 +113,7 @@ namespace Coditech.BusinessLogicLayer
             return viewModel;
         }
 
-        protected int LoginUserId() => CoditechSessionHelper.GetDataFromSession<UserMasterModel>(CoditechConstant.UserDataSession).UserMasterId;
+        protected int LoginUserId() => CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession).UserMasterId;
     }
 }
 
