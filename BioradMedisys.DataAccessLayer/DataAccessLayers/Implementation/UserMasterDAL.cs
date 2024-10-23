@@ -48,7 +48,7 @@ namespace Coditech.DataAccessLayer
                                             FirstName = user.FirstName,
                                             LastName = user.LastName,
                                             IsActive = user.IsActive,
-                                            AdminRoleMasterId = (short)user.AdminRoleMasterId,
+                                            AdminRoleMasterId = user.AdminRoleMasterId,
                                             IsDocumentApprovalAuthority = (bool)user.IsDocumentApprovalAuthority,
                                             RoleName = y.RoleName,
                                             UserMasterId = user.UserMasterId,
@@ -80,6 +80,8 @@ namespace Coditech.DataAccessLayer
 
             UserMaster userMasterData = _userMasterRepository.Table.Where(x => x.UserMasterId == userModel.UserMasterId)?.FirstOrDefault();
             userMasterData.IsDocumentApprovalAuthority = userModel.IsDocumentApprovalAuthority;
+            userMasterData.AdminRoleMasterId = userModel.AdminRoleMasterId;
+            userMasterData.ModifiedBy = userModel.ModifiedBy;
             //Update UserMaster
             bool isUserMasterUpdated = _userMasterRepository.Update(userMasterData);
             if (!isUserMasterUpdated)

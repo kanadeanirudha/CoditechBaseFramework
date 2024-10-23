@@ -405,6 +405,7 @@
     <Content Include="Views\ProductMaster\ProductHistory.cshtml" />
     <Content Include="Views\UserMaster\List.cshtml" />
     <Content Include="Views\UserMaster\Edit.cshtml" />
+    <Content Include="Views\AdminRoleMaster\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BioradMedisys.Resources\BioradMedisys.Resources.csproj">
