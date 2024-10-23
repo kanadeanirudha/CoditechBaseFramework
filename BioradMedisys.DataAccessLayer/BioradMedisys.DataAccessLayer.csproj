@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDataAccessLogic.cs" />
+    <Compile Include="DataAccessLayers\Implementation\AdminRoleMasterDAL.cs" />
     <Compile Include="DataAccessLayers\Implementation\ProductMasterDAL.cs" />
     <Compile Include="Constants\StoredProcedureKeys.cs" />
     <Compile Include="DataAccessLayers\Implementation\UserMasterDAL.cs" />

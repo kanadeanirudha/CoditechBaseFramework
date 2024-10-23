@@ -328,6 +328,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\GeneralCommanDataController.cs" />
+    <Compile Include="Controllers\AdminRoleMasterController.cs" />
     <Compile Include="Controllers\ProductMasterController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\SessionTimeoutAttribute.cs" />
