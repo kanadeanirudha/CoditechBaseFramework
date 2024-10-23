@@ -133,13 +133,14 @@ namespace Coditech.Controllers
 
                 if (!status)
                 {
-                    return RedirectToAction($"~/Views/UserMaster/Edit.cshtml", new { UserMasterId = userMasterViewModel.UserMasterId });
+                    UserMasterListViewModel list = _userMasterBA.GetUserList();
+                    return View($"~/Views/UserMaster/List.cshtml", list);
                 }
             }
 
             //BindDropdown(adminRoleViewModel);
             SetNotificationMessage(GetErrorNotificationMessage(userMasterViewModel.ErrorMessage));
-            return View($"~/Views/UserMaster/Edit.cshtml", userMasterViewModel);
+            return RedirectToAction<UserController>(x => x.EditUserMaster(userMasterViewModel.UserMasterId));
         }
     }
 }

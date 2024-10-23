@@ -4,6 +4,7 @@ using Coditech.ExceptionManager;
 using Coditech.Model;
 using Coditech.Resources;
 using Coditech.Utilities.Helper;
+using System;
 using System.Linq;
 
 using static Coditech.Utilities.Helper.CoditechHelperUtility;
@@ -69,24 +70,24 @@ namespace Coditech.DataAccessLayer
         }
 
         //Update UserMaster.
-        public UserModel UpdateUserMaster(UserModel userMasterModel)
+        public UserModel UpdateUserMaster(UserModel userModel)
         {
-            if (IsNull(userMasterModel))
+            if (IsNull(userModel))
                 throw new CoditechException(ErrorCodes.InvalidData, GeneralResources.ModelNotNull);
 
-            if (userMasterModel.UserMasterId < 1)
+            if (userModel.UserMasterId < 1)
                 throw new CoditechException(ErrorCodes.IdLessThanOne, string.Format(GeneralResources.ErrorIdLessThanOne, "ProductMasterID"));
 
-          UserMaster userMasterData = _userMasterRepository.Table.Where(x => x.UserMasterId == userMasterModel.UserMasterId)?.FirstOrDefault();
-            
+            UserMaster userMasterData = _userMasterRepository.Table.Where(x => x.UserMasterId == userModel.UserMasterId)?.FirstOrDefault();
+            userMasterData.IsDocumentApprovalAuthority = userModel.IsDocumentApprovalAuthority;
             //Update UserMaster
             bool isUserMasterUpdated = _userMasterRepository.Update(userMasterData);
             if (!isUserMasterUpdated)
             {
-                userMasterModel.HasError = true;
-                userMasterModel.ErrorMessage = GeneralResources.UpdateErrorMessage;
+                userModel.HasError = true;
+                userModel.ErrorMessage = GeneralResources.UpdateErrorMessage;
             }
-            return userMasterModel;
+            return userModel;
         }
 
         #endregion
