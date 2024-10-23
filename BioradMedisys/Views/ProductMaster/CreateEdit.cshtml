@@ -16,13 +16,13 @@
                 <div class="align-items-center d-flex justify-content-between wrapper-header mb-3">
                     @if (Model.ProductMasterId > 0)
                     {
-                        if (Model.IsDisabled)
+                        if (!Model.IsDisabled || Model.IsDocumentApprovalAuthority)
                         {
-                            <h1 class="text-center font-poppins">View Details</h1>
+                            <h1 class="text-center font-poppins">Update Product</h1>
                         }
                         else
                         {
-                            <h1 class="text-center font-poppins">Update Product</h1>
+                            <h1 class="text-center font-poppins">View Details</h1>
                         }
                     }
                     else
@@ -63,7 +63,7 @@
                                         <div class="form-box mb-4">
                                             @if (Model.IsDisabled)
                                             {
-                                                @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control", @readonly = "readonly" })
                                             }
                                             else
                                             {
@@ -77,7 +77,7 @@
                                         <div class="form-box mb-4">
                                             @if (Model.IsDisabled)
                                             {
-                                                @Html.TextBoxFor(x => x.Version, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.TextBoxFor(x => x.Version, new { @class = "form-control", @readonly = "readonly" })
                                             }
                                             else
                                             {
@@ -130,7 +130,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                if (!Model.IsDisabled || !Model.IsDocumentApprovalAuthority)
+                                if (!Model.IsDisabled || Model.IsDocumentApprovalAuthority)
                                 {
                                     <div class="align-items-center d-flex form-action justify-content-center">
                                         <button type="submit" class="btn login-btn btn-set-default">Save</button>
