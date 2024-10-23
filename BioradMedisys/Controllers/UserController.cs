@@ -133,12 +133,9 @@ namespace Coditech.Controllers
 
                 if (!status)
                 {
-                    UserMasterListViewModel list = _userMasterBA.GetUserList();
-                    return View($"~/Views/UserMaster/List.cshtml", list);
+                    return RedirectToAction<UserController>(x => x.List());
                 }
             }
-
-            //BindDropdown(adminRoleViewModel);
             SetNotificationMessage(GetErrorNotificationMessage(userMasterViewModel.ErrorMessage));
             return RedirectToAction<UserController>(x => x.EditUserMaster(userMasterViewModel.UserMasterId));
         }

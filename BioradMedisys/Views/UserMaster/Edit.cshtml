@@ -62,14 +62,7 @@
                                     </div>
                                     <div class="form-item-wrapper mb-5">
                                         <div class="custom-control custom-checkbox">
-                                            @if (Model.UserMasterId > 0)
-                                            {
-                                                @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive", @disabled = "disabled" })
-                                            }
-                                            else
-                                            {
-                                                @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive" })
-                                            }
+                                            @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive" })
                                             <label class="custom-control-label base-font-size" for="isActive">Is Active</label>
                                         </div>
                                     </div>

@@ -79,6 +79,7 @@ namespace Coditech.DataAccessLayer
                 throw new CoditechException(ErrorCodes.IdLessThanOne, string.Format(GeneralResources.ErrorIdLessThanOne, "ProductMasterID"));
 
             UserMaster userMasterData = _userMasterRepository.Table.Where(x => x.UserMasterId == userModel.UserMasterId)?.FirstOrDefault();
+            userMasterData.IsActive = userModel.IsActive;
             userMasterData.IsDocumentApprovalAuthority = userModel.IsDocumentApprovalAuthority;
             userMasterData.AdminRoleMasterId = userModel.AdminRoleMasterId;
             userMasterData.ModifiedBy = userModel.ModifiedBy;
