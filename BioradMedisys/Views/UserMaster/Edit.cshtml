@@ -61,16 +61,6 @@
                                         </div>
                                     </div>
                                     <div class="form-item-wrapper mb-5">
-                                        <label for="product-name" class="form-label">Role Name<span class="required">*</span> :</label>
-                                        <div class="form-box mb-4">
-                                            @Html.Partial("~/Views/Shared/Control/_DropdownList.cshtml", new DropdownViewModel()
-                                       {
-                                           DropdownType = "User",
-                                           DropdownName = "RoleNameList"
-                                       })
-                                        </div>
-                                    </div>
-                                    <div class="form-item-wrapper mb-5">
                                         <div class="custom-control custom-checkbox">
                                             @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive" })
                                             <label class="custom-control-label base-font-size" for="isActive">Is Active</label>
