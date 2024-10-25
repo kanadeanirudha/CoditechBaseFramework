@@ -14,9 +14,11 @@ namespace Coditech.Controllers
     public class UserController : BaseController
     {
         UserMasterBA _userMasterBA = null;
+        AdminRoleMasterBA _adminRoleMasterBA = null;
         public UserController()
         {
             _userMasterBA = new UserMasterBA();
+            _adminRoleMasterBA = new AdminRoleMasterBA();
         }
 
         [HttpGet]
@@ -115,6 +117,16 @@ namespace Coditech.Controllers
                 return RedirectToAction<UserController>(x => x.Login());
 
             UserMasterViewModel userMasterViewModel = _userMasterBA.GetUserMaster(userMasterId);
+            foreach (var item in _adminRoleMasterBA.GetAdminRoleList()?.AdminRoleMasterList)
+            {
+                userMasterViewModel.AdminRoleMasterList.Add(new SelectListItem
+                {
+                    Text = item.RoleName,
+                    Value = item.AdminRoleMasterId.ToString(),
+                    Selected = item.AdminRoleMasterId == userMasterViewModel.AdminRoleMasterId
+                });
+            }
+
             return ActionView($"~/Views/UserMaster/Edit.cshtml", userMasterViewModel);
         }
 

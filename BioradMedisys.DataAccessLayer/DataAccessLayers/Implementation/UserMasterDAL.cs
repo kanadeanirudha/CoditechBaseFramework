@@ -41,8 +41,10 @@ namespace Coditech.DataAccessLayer
         {
             UserMasterListModel listModel = new UserMasterListModel();
             listModel.UserMasterList = (from user in _userMasterRepository.Table
-                                        join y in _roleMasterRepository.Table
-                                        on user.AdminRoleMasterId equals y.AdminRoleMasterId
+                                        join role in _roleMasterRepository.Table
+                                        on user.AdminRoleMasterId equals role.AdminRoleMasterId
+                                        into UserRoleGroup //Performing LINQ Group Join
+                                        from userrole in UserRoleGroup.DefaultIfEmpty()
                                         select new UserModel
                                         {
                                             FirstName = user.FirstName,
@@ -50,7 +52,7 @@ namespace Coditech.DataAccessLayer
                                             IsActive = user.IsActive,
                                             AdminRoleMasterId = user.AdminRoleMasterId,
                                             IsDocumentApprovalAuthority = (bool)user.IsDocumentApprovalAuthority,
-                                            RoleName = y.RoleName,
+                                            RoleName = userrole.RoleName,
                                             UserMasterId = user.UserMasterId,
                                         }).ToList();
             return listModel;

@@ -1,9 +1,15 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Coditech.ViewModel
 {
     public class UserMasterViewModel : BaseViewModel
     {
+        public UserMasterViewModel()
+        {
+            AdminRoleMasterList = new List<SelectListItem>();
+        }
+        public List<SelectListItem> AdminRoleMasterList { get; set; }
         public int UserMasterId { get; set; }
         public string UserType { get; set; }
         public string UserName { get; set; }
@@ -16,6 +22,5 @@ namespace Coditech.ViewModel
         public short AdminRoleMasterId { get; set; }
         public bool IsDocumentApprovalAuthority { get; set; }
         public string RoleName { get; set; }
-
     }
 }

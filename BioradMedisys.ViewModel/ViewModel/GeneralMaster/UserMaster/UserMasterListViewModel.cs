@@ -10,6 +10,5 @@ public  class UserMasterListViewModel : BaseViewModel
         {
             UserMasterList = new List<UserMasterViewModel>();
         }
-        public string FilterBy { get; set; }
     }
 }

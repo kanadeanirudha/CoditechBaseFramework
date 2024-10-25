@@ -31,48 +31,56 @@
                             @using (Html.BeginForm(actionName, controllerName, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form form-horizontal", id = "frmProductMaster" }))
                             {
                                 @Html.HiddenFor(x => x.UserMasterId)
-                                <div class="form-3-wrapper">
-                                    <div class="form-item-wrapper mb-5">
-                                        <label for="product-name" class="form-label">First Name<span class="required">*</span> :</label>
-                                        <div class="form-box mb-4">
-                                            @if (Model.UserMasterId > 0)
-                                            {
-                                                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", @disabled = "disabled" })
-                                            }
-                                            else
-                                            {
-                                                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control" })
-                                            }
-                                            @Html.ValidationMessageFor(x => x.FirstName, null, new { @class = "red" })
-                                        </div>
-                                    </div>
-                                    <div class="form-item-wrapper mb-5">
-                                        <label for="product-name" class="form-label">Last Name<span class="required">*</span> :</label>
-                                        <div class="form-box mb-4">
-                                            @if (Model.UserMasterId > 0)
-                                            {
-                                                @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @disabled = "disabled" })
-                                            }
-                                            else
-                                            {
-                                                @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
-                                            }
-                                            @Html.ValidationMessageFor(x => x.LastName, null, new { @class = "red" })
-                                        </div>
-                                    </div>
-                                    <div class="form-item-wrapper mb-5">
-                                        <div class="custom-control custom-checkbox">
-                                            @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive" })
-                                            <label class="custom-control-label base-font-size" for="isActive">Is Active</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-item-wrapper mb-5">
-                                        <div class="custom-control custom-checkbox">
-                                            @Html.CheckBoxFor(x => x.IsDocumentApprovalAuthority, new { @class = "custom-control-input", @id = "IsDocumentApprovalAuthority" })
-                                            <label class="custom-control-label base-font-size" for="IsDocumentApprovalAuthority">Is Document Approval Authority</label>
-                                        </div>
+                            <div class="form-3-wrapper">
+                                <div class="form-item-wrapper mb-5">
+                                    <label for="product-name" class="form-label">First Name<span class="required">*</span> :</label>
+                                    <div class="form-box mb-4">
+                                        @if (Model.UserMasterId > 0)
+                                        {
+                                            @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", @disabled = "disabled" })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control" })
+                                        }
+                                        @Html.ValidationMessageFor(x => x.FirstName, null, new { @class = "red" })
                                     </div>
                                 </div>
+                                <div class="form-item-wrapper mb-5">
+                                    <label for="product-name" class="form-label">Last Name<span class="required">*</span> :</label>
+                                    <div class="form-box mb-4">
+                                        @if (Model.UserMasterId > 0)
+                                        {
+                                            @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @disabled = "disabled" })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+                                        }
+                                        @Html.ValidationMessageFor(x => x.LastName, null, new { @class = "red" })
+                                    </div>
+                                </div>
+                                <div class="form-item-wrapper mb-5">
+                                    <label for="product-name" class="form-label">Roles<span class="required">*</span> :</label>
+                                    <div class="form-box mb-4">
+                                        @Html.DropDownListFor(model => model.AdminRoleMasterId, Model.AdminRoleMasterList, "--Select--", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x.AdminRoleMasterId, null, new { @class = "red" })
+                                    </div>
+                                </div>
+                              
+                                <div class="form-item-wrapper mb-5">
+                                    <div class="custom-control custom-checkbox">
+                                        @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive" })
+                                        <label class="custom-control-label base-font-size" for="isActive">Is Active</label>
+                                    </div>
+                                </div>
+                                <div class="form-item-wrapper mb-5">
+                                    <div class="custom-control custom-checkbox">
+                                        @Html.CheckBoxFor(x => x.IsDocumentApprovalAuthority, new { @class = "custom-control-input", @id = "IsDocumentApprovalAuthority" })
+                                        <label class="custom-control-label base-font-size" for="IsDocumentApprovalAuthority">Is Document Approval Authority</label>
+                                    </div>
+                                </div>
+                            </div>
                                 <div class="align-items-center d-flex form-action justify-content-center">
                                     <button type="submit" class="btn login-btn btn-set-default">Save</button>
                                 </div>
