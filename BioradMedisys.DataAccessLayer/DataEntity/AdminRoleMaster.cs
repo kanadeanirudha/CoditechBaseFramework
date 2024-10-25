@@ -15,11 +15,10 @@ namespace Coditech.DataAccessLayer.DataEntity
     {
         public byte AdminRoleMasterId { get; set; }
         public string RoleName { get; set; }
-        public string RoleCode { get; set; }
         public bool IsActive { get; set; }
-        public Nullable<long> CreatedBy { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<long> ModifiedBy { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     }
 }

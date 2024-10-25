@@ -6,6 +6,7 @@
         {
             User = 1,
             ProductMaster = 2,
+            AdminRoleMaster = 3,
         }
     }
 }

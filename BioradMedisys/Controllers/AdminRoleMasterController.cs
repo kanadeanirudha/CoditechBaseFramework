@@ -1,6 +1,7 @@
 ﻿using Coditech.BusinessLogicLayer;
 using Coditech.Resources;
 using Coditech.ViewModel;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Coditech.Controllers
@@ -29,12 +30,13 @@ namespace Coditech.Controllers
         {
             if (IsLoginSessionExpired())
                 return RedirectToAction<UserController>(x => x.Login());
-
-            return View(createEdit, new AdminRoleMasterViewModel());
+            AdminRoleMasterViewModel adminRoleMasterViewModel = new AdminRoleMasterViewModel();
+            BindFormList(adminRoleMasterViewModel);
+            return View(createEdit, adminRoleMasterViewModel);
         }
 
         [HttpPost]
-        public virtual ActionResult Create(AdminRoleMasterViewModel productMasterViewModel)
+        public virtual ActionResult Create(AdminRoleMasterViewModel adminRoleMasterViewModel)
         {
             if (IsLoginSessionExpired())
                 return RedirectToAction<UserController>(x => x.Login());
@@ -42,24 +44,33 @@ namespace Coditech.Controllers
             string errorMessage = string.Empty;
             if (ModelState.IsValid)
             {
+                adminRoleMasterViewModel = _adminRoleMasterBA.CreateAdminRoleMaster(adminRoleMasterViewModel);
+                if (!adminRoleMasterViewModel.HasError)
+                {
+                    SetNotificationMessage(GetSuccessNotificationMessage(GeneralResources.RecordCreationSuccessMessage));
+                    return RedirectToAction<AdminRoleMasterController>(x => x.List());
+                }
+                errorMessage = adminRoleMasterViewModel.ErrorMessage;
             }
             SetNotificationMessage(GetErrorNotificationMessage(errorMessage));
-            return View(createEdit, productMasterViewModel);
+            BindFormList(adminRoleMasterViewModel);
+            return View(createEdit, adminRoleMasterViewModel);
         }
 
         [HttpGet]
-        public virtual ActionResult Edit(int productMasterId, bool isDisabled = true)
+        public virtual ActionResult Edit(int adminRoleMasterId)
         {
             if (IsLoginSessionExpired())
                 return RedirectToAction<UserController>(x => x.Login());
 
-            AdminRoleMasterViewModel productMasterViewModel = null;// _adminRoleMasterBA.GetAdminRoleMaster(productMasterId);
-            return ActionView(createEdit, productMasterViewModel);
+            AdminRoleMasterViewModel adminRoleMasterViewModel = _adminRoleMasterBA.GetAdminRoleMaster(adminRoleMasterId);
+            BindFormList(adminRoleMasterViewModel);
+            return ActionView(createEdit, adminRoleMasterViewModel);
         }
 
-        //Post:Edit Product Master.
+        //Post:Edit AdminRole Master.
         [HttpPost]
-        public virtual ActionResult Edit(AdminRoleMasterViewModel productMasterViewModel)
+        public virtual ActionResult Edit(AdminRoleMasterViewModel adminRoleMasterViewModel)
         {
             if (IsLoginSessionExpired())
                 return RedirectToAction<UserController>(x => x.Login());
@@ -67,29 +78,30 @@ namespace Coditech.Controllers
             string errorMessage = string.Empty;
             if (ModelState.IsValid)
             {
-                productMasterViewModel = null;// _adminRoleMasterBA.UpdateAdminRoleMaster(productMasterViewModel);
-                bool status = productMasterViewModel.HasError;
+                adminRoleMasterViewModel = _adminRoleMasterBA.UpdateAdminRoleMaster(adminRoleMasterViewModel);
+                bool status = adminRoleMasterViewModel.HasError;
                 SetNotificationMessage(status
                 ? GetErrorNotificationMessage(GeneralResources.UpdateErrorMessage)
                 : GetSuccessNotificationMessage(GeneralResources.UpdateMessage));
 
                 if (!status)
-                    return RedirectToAction<AdminRoleMasterController>(x => x.Edit(productMasterViewModel.AdminRoleMasterId, true));
+                    return RedirectToAction<AdminRoleMasterController>(x => x.Edit(adminRoleMasterViewModel.AdminRoleMasterId));
             }
-            return View(createEdit, productMasterViewModel);
+            BindFormList(adminRoleMasterViewModel);
+            return View(createEdit, adminRoleMasterViewModel);
         }
 
-        //Delete Product Master.
-        public virtual ActionResult Delete(string productMasterIds)
+        //Delete AdminRole Master.
+        public virtual ActionResult Delete(string adminRoleMasterIds)
         {
             if (IsLoginSessionExpired())
                 return RedirectToAction<UserController>(x => x.Login());
 
             string message = string.Empty;
             bool status = false;
-            if (!string.IsNullOrEmpty(productMasterIds))
+            if (!string.IsNullOrEmpty(adminRoleMasterIds))
             {
-                //status = _adminRoleMasterBA.DeleteAdminRoleMaster(productMasterIds, out message);
+                status = _adminRoleMasterBA.DeleteAdminRoleMaster(adminRoleMasterIds, out message);
                 SetNotificationMessage(!status
                 ? GetErrorNotificationMessage(GeneralResources.DeleteErrorMessage)
                 : GetSuccessNotificationMessage(GeneralResources.DeleteMessage));
@@ -98,6 +110,14 @@ namespace Coditech.Controllers
 
             SetNotificationMessage(GetErrorNotificationMessage(GeneralResources.DeleteErrorMessage));
             return RedirectToAction<AdminRoleMasterController>(x => x.List());
+        }
+
+        private void BindFormList(AdminRoleMasterViewModel adminRoleMasterViewModel)
+        {
+            adminRoleMasterViewModel.FormList = new List<SelectListItem>();
+            adminRoleMasterViewModel.FormList.Add(new SelectListItem() { Text = "AdminRole List", Value = "AdminRoleList" });
+            adminRoleMasterViewModel.FormList.Add(new SelectListItem() { Text = "User List", Value = "UserList" });
+            adminRoleMasterViewModel.FormList.Add(new SelectListItem() { Text = "Admin Role List", Value = "AdminRoleList" });
         }
     }
 }

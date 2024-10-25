@@ -12,9 +12,9 @@
           <Property Name="AdminAssociateFormsToRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AdminFormCode" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="AdminRoleMasterId" Type="tinyint" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedBy" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="AdminRoleMaster">
@@ -23,11 +23,10 @@
           </Key>
           <Property Name="AdminRoleMasterId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RoleCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedBy" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ProductMaster">
@@ -92,9 +91,9 @@
           <Property Name="AdminAssociateFormsToRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AdminFormCode" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="AdminRoleMasterId" Type="Byte" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="AdminRoleMaster">
@@ -103,11 +102,10 @@
           </Key>
           <Property Name="AdminRoleMasterId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RoleCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ProductMaster">
@@ -176,7 +174,6 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="RoleCode" ColumnName="RoleCode" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="AdminRoleMasterId" ColumnName="AdminRoleMasterId" />
               </MappingFragment>

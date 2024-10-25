@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Coditech.ViewModel
 {
@@ -10,5 +12,10 @@ namespace Coditech.ViewModel
         [MaxLength(50)]
         public string RoleName { get; set; }
         public bool IsActive { get; set; }
+
+        [Required]
+        [Display(Name = "Form Access")]
+        public List<string> SelectedFormAccess { get; set; }
+        public List<SelectListItem> FormList { get; set; }
     }
 }

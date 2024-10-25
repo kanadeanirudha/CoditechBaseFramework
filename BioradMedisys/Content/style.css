@@ -298,3 +298,6 @@ footer.footer-wrapper p {
     font-weight: 600;
     text-transform: capitalize;
 }
+.red {
+    color: #f70202;
+}

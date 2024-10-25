@@ -16,9 +16,9 @@ namespace Coditech.DataAccessLayer.DataEntity
         public int AdminAssociateFormsToRoleId { get; set; }
         public string AdminFormCode { get; set; }
         public byte AdminRoleMasterId { get; set; }
-        public Nullable<long> CreatedBy { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<long> ModifiedBy { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     }
 }

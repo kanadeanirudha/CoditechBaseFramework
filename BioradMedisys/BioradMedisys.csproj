@@ -327,7 +327,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
-    <Compile Include="Controllers\GeneralCommanDataController.cs" />
     <Compile Include="Controllers\AdminRoleMasterController.cs" />
     <Compile Include="Controllers\ProductMasterController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -340,6 +339,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\Images\active.svg" />
     <Content Include="Content\Images\biorad-logo.svg" />
     <Content Include="Content\Images\inactive.png" />
@@ -363,6 +363,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\GeneralScript\script.js" />
+    <Content Include="Scripts\Layout\bootstrap-select.min.js" />
+    <Content Include="Scripts\Layout\bootstrap.bundle.min.js" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -406,6 +408,7 @@
     <Content Include="Views\UserMaster\List.cshtml" />
     <Content Include="Views\UserMaster\Edit.cshtml" />
     <Content Include="Views\AdminRoleMaster\List.cshtml" />
+    <Content Include="Views\AdminRoleMaster\CreateEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BioradMedisys.Resources\BioradMedisys.Resources.csproj">
