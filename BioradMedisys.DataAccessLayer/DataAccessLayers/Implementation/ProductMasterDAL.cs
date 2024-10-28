@@ -157,13 +157,13 @@ namespace Coditech.DataAccessLayer
         }
 
         //Get FileName By ProductUniqueCode
-        public string GetFileNameByProductUniqueCode(string productUniqueCode)
+        public string GetFileNameByProductUniqueCode(string productUniqueCode, bool isActive)
         {
             if (string.IsNullOrEmpty(productUniqueCode))
                 throw new CoditechException(ErrorCodes.NotFound, string.Format(GeneralResources.ErrorIdLessThanOne, "productUniqueCode"));
 
             //Get the ProductMaster Details based on id.
-            ProductMaster productMaster = _productMasterRepository.Table.Where(x => x.ProductUniqueCode == productUniqueCode && x.IsActive && !x.IsDeleted)?.FirstOrDefault();
+            ProductMaster productMaster = _productMasterRepository.Table.Where(x => x.ProductUniqueCode == productUniqueCode && x.IsActive == isActive && !x.IsDeleted)?.FirstOrDefault();
             return productMaster?.FileName;
         }
 

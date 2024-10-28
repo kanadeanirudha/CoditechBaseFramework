@@ -79,8 +79,8 @@ namespace Coditech.BusinessLogicLayer
         public ProductMasterViewModel GetProductMaster(int ProductMasterId)
             => _productMasterDAL.GetProductMaster(ProductMasterId).ToViewModel<ProductMasterViewModel>();
 
-        public string GetFileNameByProductUniqueCode(string productUniqueCode)
-             => _productMasterDAL.GetFileNameByProductUniqueCode(productUniqueCode);
+        public string GetFileNameByProductUniqueCode(string productUniqueCode, bool isActive)
+             => _productMasterDAL.GetFileNameByProductUniqueCode(productUniqueCode, isActive);
 
         public ProductMasterModel GetProductDetailsByProductUniqueCode(string productUniqueCode)
             => _productMasterDAL.GetProductDetailsByProductUniqueCode(productUniqueCode);

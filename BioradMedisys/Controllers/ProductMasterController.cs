@@ -163,9 +163,9 @@ namespace Coditech.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult DownloadUserManual(string productuniquecode)
+        public ActionResult DownloadUserManual(string productuniquecode, bool isActive = true)
         {
-            string fileName = _productMasterBA.GetFileNameByProductUniqueCode(productuniquecode);
+            string fileName = _productMasterBA.GetFileNameByProductUniqueCode(productuniquecode, isActive);
             if (!string.IsNullOrEmpty(fileName))
             {
                 string fileVirtualPath = $"~/{uploadFolderName}/UserManual/{fileName}";
