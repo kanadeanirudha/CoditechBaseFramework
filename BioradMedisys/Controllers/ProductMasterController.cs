@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 
 using Coditech.BusinessLogicLayer;
+using Coditech.Filters;
 using Coditech.Model;
 using Coditech.Model.Model;
 using Coditech.Resources;
@@ -25,6 +26,7 @@ using System.Web.Mvc;
 namespace Coditech.Controllers
 {
     [Authorize]
+    [SessionTimeoutAttribute]
     public class ProductMasterController : BaseController
     {
         readonly ProductMasterBA _productMasterBA = null;
@@ -37,9 +39,6 @@ namespace Coditech.Controllers
 
         public ActionResult List(string filterBy)
         {
-            if (IsLoginSessionExpired())
-                return RedirectToAction<UserController>(x => x.Login());
-
             ProductMasterListViewModel list = _productMasterBA.GetProductList(filterBy, new DataTableModel());
             list.FilterBy = filterBy;
             return View($"~/Views/ProductMaster/List.cshtml", list);
@@ -48,18 +47,12 @@ namespace Coditech.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            if (IsLoginSessionExpired())
-                return RedirectToAction<UserController>(x => x.Login());
-
             return View(createEdit, new ProductMasterViewModel() { IsDisabled = false });
         }
 
         [HttpPost]
         public virtual ActionResult Create(ProductMasterViewModel productMasterViewModel)
         {
-            if (IsLoginSessionExpired())
-                return RedirectToAction<UserController>(x => x.Login());
-
             string errorMessage = string.Empty;
             if (ModelState.IsValid)
             {
@@ -101,9 +94,6 @@ namespace Coditech.Controllers
         [HttpGet]
         public virtual ActionResult Edit(int productMasterId, bool isDisabled = true)
         {
-            if (IsLoginSessionExpired())
-                return RedirectToAction<UserController>(x => x.Login());
-
             ProductMasterViewModel productMasterViewModel = _productMasterBA.GetProductMaster(productMasterId);
             productMasterViewModel.IsDisabled = isDisabled;
             UserModel userData = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
@@ -115,9 +105,6 @@ namespace Coditech.Controllers
         [HttpPost]
         public virtual ActionResult Edit(ProductMasterViewModel productMasterViewModel)
         {
-            if (IsLoginSessionExpired())
-                return RedirectToAction<UserController>(x => x.Login());
-
             string errorMessage = string.Empty;
             if (ModelState.IsValid)
             {
@@ -159,9 +146,6 @@ namespace Coditech.Controllers
         //Delete Product Master.
         public virtual ActionResult Delete(string productMasterIds)
         {
-            if (IsLoginSessionExpired())
-                return RedirectToAction<UserController>(x => x.Login());
-
             string message = string.Empty;
             bool status = false;
             if (!string.IsNullOrEmpty(productMasterIds))
@@ -232,9 +216,6 @@ namespace Coditech.Controllers
 
         public ActionResult ProductHistory(string productUniqueCode)
         {
-            if (IsLoginSessionExpired())
-                return RedirectToAction<UserController>(x => x.Login());
-
             ProductMasterListViewModel list = _productMasterBA.ProductHistory(productUniqueCode);
             return View($"~/Views/ProductMaster/ProductHistory.cshtml", list);
         }

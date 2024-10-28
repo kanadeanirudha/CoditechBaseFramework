@@ -1,10 +1,12 @@
-﻿namespace Coditech.Model
+﻿using System.Collections.Generic;
+
+namespace Coditech.Model
 {
     public class UserModel : BaseModel
     {
         public UserModel()
         {
-           
+
         }
         public int UserMasterId { get; set; }
         public string UserType { get; set; }
@@ -18,6 +20,6 @@
         public byte? AdminRoleMasterId { get; set; }
         public bool IsDocumentApprovalAuthority { get; set; }
         public string RoleName { get; set; }
-
+        public List<string> FormAccessList { get; set; }
     }
 }

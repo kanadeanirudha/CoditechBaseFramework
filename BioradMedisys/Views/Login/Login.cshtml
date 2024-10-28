@@ -11,7 +11,7 @@
     <div class="col-lg-6 col-xs-12 col-sm-12 d-lg-flex align-items-center justify-content-center right-side">
         <div class="form-2-wrapper">
             <h1 class="text-center mb-4 font-poppins">Sign In</h1>
-            @using (Html.BeginForm("Login", "User", FormMethod.Post))
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, Model.ErrorMessage, new { @class = "required" })

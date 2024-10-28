@@ -4,7 +4,7 @@ using Coditech.ExceptionManager;
 using Coditech.Model;
 using Coditech.Resources;
 using Coditech.Utilities.Helper;
-using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using static Coditech.Utilities.Helper.CoditechHelperUtility;
@@ -14,10 +14,12 @@ namespace Coditech.DataAccessLayer
     {
         private readonly ICoditechRepository<UserMaster> _userMasterRepository;
         private readonly ICoditechRepository<AdminRoleMaster> _roleMasterRepository;
+        private readonly ICoditechRepository<AdminAssociateFormsToRole> _adminAssociateFormsToRoleRepository;
         public UserMasterDAL()
         {
             _userMasterRepository = new CoditechRepository<UserMaster>();
             _roleMasterRepository = new CoditechRepository<AdminRoleMaster>();
+            _adminAssociateFormsToRoleRepository = new CoditechRepository<AdminAssociateFormsToRole>();
         }
 
         #region Public Method
@@ -34,6 +36,24 @@ namespace Coditech.DataAccessLayer
                 throw new CoditechException(ErrorCodes.ContactAdministrator, null);
 
             userModel = userMasterData?.FromEntityToModel<UserModel>();
+            if (IsNotNull(userModel))
+            {
+                userModel.FormAccessList = new List<string>();
+                if (userModel.UserType == "SuperAdmin")
+                {
+                    userModel.FormAccessList.Add("User");
+                    userModel.FormAccessList.Add("AdminRoleMaster");
+                    userModel.FormAccessList.Add("ProductMaster");
+                }
+                else
+                {
+                    List<AdminAssociateFormsToRole> list = _adminAssociateFormsToRoleRepository.Table.Where(x => x.AdminRoleMasterId == userModel.AdminRoleMasterId)?.ToList();
+                    foreach (AdminAssociateFormsToRole role in list)
+                    {
+                        userModel.FormAccessList.Add(role.AdminFormCode);
+                    }
+                }
+            }
             return userModel;
         }
 
@@ -45,6 +65,7 @@ namespace Coditech.DataAccessLayer
                                         on user.AdminRoleMasterId equals role.AdminRoleMasterId
                                         into UserRoleGroup //Performing LINQ Group Join
                                         from userrole in UserRoleGroup.DefaultIfEmpty()
+                                        where user.UserType != "SuperAdmin"
                                         select new UserModel
                                         {
                                             FirstName = user.FirstName,
