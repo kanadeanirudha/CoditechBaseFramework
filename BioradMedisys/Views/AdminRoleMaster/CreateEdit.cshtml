@@ -40,20 +40,12 @@
                                         </div>
                                     </div>
                                     <div class="form-item-wrapper mb-5">
-                                        <label for="product-name" class="form-label">Last Name<span class="required">*</span> :</label>
-                                        <div class="form-box mb-4">
-                                            @Html.TextBoxFor(x => x.RoleName, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(x => x.RoleName, null, new { @class = "red" })
-                                        </div>
-                                    </div>
-                                    <div class="form-item-wrapper mb-5">
                                         <label for="product-name" class="form-label">Form Access<span class="required">*</span> :</label>
                                         <div class="form-box mb-4">
                                             @Html.ListBoxFor(x => x.SelectedFormAccess, new SelectList(Model.FormList, "Text", "Value"), new { @class = "selectpicker form-control", multiple = "multiple" })
                                             @Html.ValidationMessageFor(x => x.SelectedFormAccess, null, new { @class = "red" })
                                         </div>
                                     </div>
-
                                     <div class="form-item-wrapper mb-5">
                                         <div class="custom-control custom-checkbox">
                                             @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "isActive" })
