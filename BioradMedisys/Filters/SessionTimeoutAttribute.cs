@@ -13,14 +13,20 @@ namespace Coditech.Filters
             string[] excludeFromName = new string[] { "Account" };
 
             HttpContext ctx = HttpContext.Current;
+            string action = filterContext.ActionDescriptor.ActionName?.ToLower();
+            string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName?.ToLower();
+            if (action.ToLower() == "downloadusermanual" && controllerName.ToLower() == "productmaster")
+            {
+                base.OnActionExecuting(filterContext);
+                return;
+            }
+
             UserModel userModel = CoditechSessionHelper.GetDataFromSession<UserModel>(CoditechConstant.UserDataSession);
             if (userModel == null)
             {
                 filterContext.Result = new RedirectResult("~/Account/Login");
                 return;
             }
-            string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName?.ToLower();
-            string action = filterContext.ActionDescriptor.ActionName?.ToLower();
             if (!excludeFromName.Any(x => x == $"{controllerName}") && !userModel.FormAccessList.Any(x => x.ToLower() == controllerName))
             {
                 filterContext.Result = new RedirectResult("~/Account/UnauthorizedAccess");

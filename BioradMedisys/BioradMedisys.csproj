@@ -342,6 +342,7 @@
     <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\Images\active.svg" />
     <Content Include="Content\Images\biorad-logo.svg" />
+    <Content Include="Content\Images\BioradMedisysBackground.jpg" />
     <Content Include="Content\Images\inactive.png" />
     <Content Include="Content\Images\no-image.jpg" />
     <Content Include="Content\Images\qr-code-dummy.png" />

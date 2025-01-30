@@ -1,6 +1,5 @@
 ﻿using Coditech.BusinessLogicLayer;
 using Coditech.Model;
-using Coditech.Resources;
 using Coditech.Utilities.Constant;
 using Coditech.Utilities.Helper;
 using Coditech.ViewModel;
